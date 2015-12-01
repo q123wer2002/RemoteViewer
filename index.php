@@ -1,7 +1,7 @@
 <?php
 include_once "include/createObj.php";
 
-$_SESSION['user']="null";
+$_SESSION['user']='null';
 $isUser = 0;
 
 

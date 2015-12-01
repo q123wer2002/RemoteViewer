@@ -2,7 +2,7 @@
 $dbHost = "localhost";
 $dbUser = "root";
 $dbPass = "";
-$dbData = "test";
+$dbData = "syntecclient";
 
 
 @$conn=mysql_connect($dbHost,$dbUser,$dbPass);

@@ -1,10 +1,7 @@
 
 var SyntecRemoteWeb = angular.module('SyntecRemoteWeb',[]);
 
-SyntecRemoteWeb.controller('SyntecExample',['$scope','$http', '$interval',function Syntec($scope,$http,$interval){
-    $scope.cncInfo = [
-    	'name','M7FG52','11MA'
-    ];
+SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',function SyntecRemote($scope,$http,$interval){
 
     //show the menu
     $scope.isShowMenu = false;
@@ -50,48 +47,6 @@ SyntecRemoteWeb.controller('SyntecExample',['$scope','$http', '$interval',functi
         {'fid':5,'number':18},
         {'fid':5,'number':3},
     ];
-
-
-    $scope.filterCncStatus = "";
-
-    $scope.cncStatus = [
-        {'status' : 'Ready', 'code' : 1},
-        {'status' : 'Idle', 'code' : 2},
-        {'status' : 'Process', 'code' : 3},
-        {'status' : 'Alarm', 'code' : 4},
-    ];
-
-    $scope.cncs = [
-        {'seriesNo':'M7F5852','status':1},
-        {'seriesNo':'M7F5652','status':1},
-        {'seriesNo':'M7F5752','status':2},
-        {'seriesNo':'M7F5812','status':2},
-        {'seriesNo':'M7F5452','status':3},
-        {'seriesNo':'M7F5549','status':4},
-        {'seriesNo':'M7G41852','status':4},
-        {'seriesNo':'M7G5852','status':1},
-        {'seriesNo':'M7F5752','status':2},
-        {'seriesNo':'M7F5812','status':2},
-        {'seriesNo':'M7F5452','status':3},
-        {'seriesNo':'M7F5549','status':4},
-        {'seriesNo':'M7G41852','status':4},
-        {'seriesNo':'M7G5852','status':1},
-    ];
-
-
-
-    $scope.isShowAlarm = true;
-    $scope.changeToAlarm = function(){
-        $scope.isShowAlarm = true;
-        $scope.alramTabBG = {'background': '#ffffff'};
-        $scope.recordTabBG = {'background': '#eeeeee'};
-    }
-    
-    $scope.changeToRecord = function(){
-        $scope.isShowAlarm = false;
-        $scope.alramTabBG = {'background': '#eeeeee'};
-        $scope.recordTabBG = {'background': '#ffffff'};
-    }
 
 }]);
 

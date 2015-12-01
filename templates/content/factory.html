@@ -1,12 +1,15 @@
 <!-- load specific js and css -->
+<script type="text/javascript" src="<?php echo WEB_URL."js/syntec_factoryData.js"; ?>"></script>
 
-<div class="factoryDiv" ng-repeat="f in factories">
-	<div class="factoryTitle">
-		<span class="factoryName"><span class="factoryIcon"></span>{{f.name}}</span>
-	</div>
-	<div class="cncGroupDiv">
-		<ul class="cncGroupUl">
-			<a href="cncGroup.php" ng-repeat="cncG in cncGroup"><li ng-if="cncG.fid === f.fid">N{{cncG.number}}</li></a>
-		</ul>
+<div ng-controller="SyntecFactory">
+	<div class="factoryDiv" ng-repeat="f in factories">
+		<div class="factoryTitle">
+			<span class="factoryName"><span class="factoryIcon"></span>{{f.name}}</span>
+		</div>
+		<div class="cncGroupDiv">
+			<ul class="cncGroupUl">
+				<a href="cncGroup.php" ng-repeat="cncG in cncGroup"><li ng-if="cncG.fid === f.fid">N{{cncG.number}}</li></a>
+			</ul>
+		</div>
 	</div>
 </div>

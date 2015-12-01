@@ -1,12 +1,18 @@
 <!-- load specific js and css -->
+<script type="text/javascript" src="<?php echo WEB_URL."js/syntec_account.js"; ?>"></script>
 
-
-<div class="LogInPage">
+<div class="LogInPage" ng-controller="SyntecAccount">
 	<div class="mainLogo"><img src="images/Syntec.png"></div>
-	<div class="inputDiv"><input class="inputType" placeholder="帳號"></div>
-	<div class="inputDiv"><input class="inputType" placeholder="密碼"></div>
+
+	<div class="inputDiv">
+		<input class="inputType" placeholder="帳號" ng-model="account">
+	</div>
+	<div class="inputDiv">
+		<input class="inputType" placeholder="密碼" ng-model="password">
+	</div>
+	
 	<div class="SubmitDiv">
-		<span class="szError">錯誤訊息</span>
-		<a href="javascript:;" class="buttonType">登入</a>
+		<span class="szError">{{errorMsg}}</span>
+		<a href="javascript:;" class="buttonType" ng-click="login()">登入</a>
 	</div>
 </div>

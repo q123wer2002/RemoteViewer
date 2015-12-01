@@ -20,7 +20,7 @@ a{text-decoration: none;}
 .LogInPage{padding:70px 0px;width: 100%;text-align: center;margin: auto;}
 	.mainLogo{width: 100%;margin-bottom: 100px;}
 	.inputDiv{padding: 7px 5px;background-color: #ffffff;width:85%;border-radius: 3px;margin: auto;margin-top: 30px;}
-	.inputType{width:95%;height: 15px;border: none;}
+	.inputType{width:95%;height: 30px;border: none;font-size: 18px;}
 	.SubmitDiv{margin-top: 100px;position: relative;}
 	.szError{position: absolute;top: -65px;color: red;}
 	.buttonType{background-color: #111d6d;padding: 15px 25px;color: #ffffff;border-radius: 3px;}
