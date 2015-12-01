@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="SyntecRemoteWeb">
+<head>
+	<!-- meta -->
+	<?php if($this->meta){include_once $this->meta;} ?>
+
+	<title>SyntecRemote</title>
+
+	<!-- import javascript libs -->
+	<script type="text/javascript" src="js/lib/angular.js"></script><!-- angularJS -->
+	<script type="text/javascript" src="js/lib/jquery-1.9.1.js"></script><!-- jQuery -->
+	<script type="text/javascript" src="js/layout.js"></script><!--  -->
+
+	<!-- import css -->
+	<link rel="stylesheet" type="text/css" href="css/layout.css">
+
+</head>
+<body ng-controller="SyntecExample">
+
+	<!-- top page -->
+	<?php if($this->topHtml){include_once $this->topHtml;} ?>
+
+	<div class="content">
+	<!-- content page -->
+	<?php if($this->contentHtml){include_once $this->contentHtml;} ?>
+	
+	</div>
+
+	<!-- footer page -->
+	<?php if($this->footerHtml){include_once $this->footerHtml;} ?>
+
+</body>
+</html>

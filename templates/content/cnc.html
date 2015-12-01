@@ -1,0 +1,29 @@
+<!-- load specific js and css -->
+
+<div class="factoryDiv">
+	<div class="factoryTitle">
+		<span class="factoryName"><span class="factoryIcon"></span><a href="index.php">工廠1</a> > <a href="cncGroup.php">Gruop1</a> > <a href="cnc.php">Cnc 1</a></span>
+	</div>
+
+	<div class="cncStatus">
+		<h3 class="currentStatus">Alarm</h3>
+		<div class="cncDetail">
+			<img src="" width="250px" height="250px">
+			<div class="cncInfo">
+				<ul class="cncInfoList">
+					<li ng-repeat="cnc in cncInfo">{{cnc}}</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="cncTabInfo">
+		<ul class="tabTitle">
+			<a href="" id="alarm"><li>Alarm</li></a>
+			<a href="" id="record"><li>Record</li></a>
+		</ul>
+		<div class="cncAlarmDiv"></div>
+		<div class="cncRecordDiv"></div>
+	</div>
+	
+</div>
