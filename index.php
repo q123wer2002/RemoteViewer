@@ -1,12 +1,12 @@
 <?php
 include_once "include/createObj.php";
 
-$_SESSION['user'] = 'syntec';
-@$isUser = fasle;
+$_SESSION['user']="null";
+$isUser = 0;
 
 
 if($_SESSION['user']){
-	$isUser = true;
+	$isUser = 1;
 }
 /*$sql = "SELECT * FROM testtable";
 //$RemoteObj->resultArray['test'] = array();

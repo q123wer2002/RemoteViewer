@@ -12,23 +12,28 @@
 	<script type="text/javascript" src="js/layout.js"></script><!--  -->
 
 	<!-- import css -->
-	<link rel="stylesheet" type="text/css" media="screen and (max-width : 1024px)" href="css/layout_under1024.css"><!-- for screen < 1024px -->
-	<link rel="stylesheet" type="text/css" media="screen and (min-width : 1024px)" href="css/layout_over1024.css"><!-- for screen > 1024px -->
+	<link rel="stylesheet" type="text/css" media="screen and (max-width : 800px)" href="css/layout_under1024.css"><!-- for screen < 800px -->
+	<link rel="stylesheet" type="text/css" media="screen and (min-width : 800px)" href="css/layout_over1024.css"><!-- for screen > 800px -->
 
 </head>
 <body ng-controller="SyntecExample">
+	<?php if($_SESSION['user']){ ?>
+	
+		<!-- top page -->
+		<?php if($this->topHtml){include_once $this->topHtml;} ?>
 
-	<!-- top page -->
-	<?php if($this->topHtml){include_once $this->topHtml;} ?>
-
+	<?php } ?>
+	
 	<div class="content">
 	<!-- content page -->
 	<?php if($this->contentHtml){include_once $this->contentHtml;} ?>
 	
 	</div>
 
-	<!-- footer page -->
-	<?php if($this->footerHtml){include_once $this->footerHtml;} ?>
+	<?php if($_SESSION['user']){ ?>
+		<!-- footer page -->
+		<?php if($this->footerHtml){include_once $this->footerHtml;} ?>
+	<?php } ?>
 
 </body>
 </html>

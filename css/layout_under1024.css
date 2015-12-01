@@ -1,88 +1,91 @@
 /* CSS Setting */
 body{margin: 0;padding: 0;width: 100%;height:auto;margin: auto;/*color: #6b7485;*/
 font-family: '文泉驛微米黑 Regular', '文泉驛微米黑','Arial Negreta cursiva', 'Arial','微軟正黑體';
-background-color:#EEEEEE;-webkit-font-smoothing:antialiased;font-size: 15px;}
-span{font-size: 15px;}
+background-color:#EEEEEE;-webkit-font-smoothing:antialiased;font-size: 9px;}
+span{font-size: 9px;}
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video{margin: 0;padding: 0;border: 0;transition:opacity .2s ease,color .2s ease,background .2s ease,box-shadow .2s ease,border .2s ease;font-family: '微軟正黑體';font-weight: 400;}
  *:focus { outline: none; }
 a{text-decoration: none;}
 
 
 /* Gobal CSS */
-.content{position: relative;margin-top: 70px;width: 100%;margin: auto;min-height:100%;transition: height .2s;-webkit-transition: height .2s;}
-.inputDiv{padding: 7px 5px;background-color: #ffffff;width:85%;border-radius: 3px;margin: auto;margin-top: 30px;}
-.inputType{width:95%;height: 15px;border: none;}
-.SubmitDiv{margin-top: 100px;position: relative;}
-.szError{position: absolute;top: -65px;color: red;}
-.buttonType{background-color: #111d6d;padding: 15px 25px;color: #ffffff;border-radius: 3px;}	
-.footer{width: 100%;height: 40px;background: #888888;}
+.content{position: relative;margin-top: 70px;width: 100%;margin: auto;min-height:100%;transition: height .2s;-webkit-transition: height .2s;}	
+.footer{width: 100%;height: 20px;background: #888888;}
 	#fContent{text-align: center;color: #ffffff;}
-	.footer ul{line-height: 40px;}
+	.footer ul{line-height: 20px;}
 	.footer ul li{list-style: none;}
 
 
 /* only for login page */
-.LogInPage{padding:70px 0px;width: 100%;text-align: center;margin: auto;}
-	.mainLogo{width: 100%;margin-bottom: 100px;}
+.LogInPage{padding:0px;width: 100%;text-align: center;margin: auto;}
+	.mainLogo{width: 80%;margin:10px 10% 60px 10%;}
+	.mainLogo img{width:100%;}
+	.inputDiv{padding: 7px 5px;background-color: #ffffff;width:85%;border-radius: 3px;margin: auto;margin-top: 7px;}
+	.inputType{width:95%;height: 8px;border: none;font-size: 9px;}
+	.SubmitDiv{margin-top: 100px;position: relative;margin-bottom: 25px;}
+	.szError{position: absolute;top: -75px;color: red;}
+	.buttonType{background-color: #111d6d;padding: 7px 12px;color: #ffffff;border-radius: 3px;}
 
 /* only for index page */
-.topDiv{position: fixed;background-color: #111d6d;width: 100%;height: 50px;top:0;overflow: hidden;z-index: 3;}
+.topDiv{position: fixed;background-color: #111d6d;width: 100%;height: 25px;top:0;overflow: hidden;z-index: 3;}
 	.logo{width: 100px;margin: auto;}
-	.logBtn{color: #ffffff;padding: 13px 5px;height:100%;font-size: 15px;float: right;margin-right: 10px;border-radius: 3px;}
+	.logBtn{color: #ffffff;padding: 6px 2px;height:100%;font-size: 9px;float: right;margin-right: 5px;border-radius: 3px;}
 	.logBtn:hover{background: #6771b2;box-shadow: 0px 0px 2px #000000;}
-.menuIcon{float: left;margin-top: 10px;margin-left: 20px;width: 30px;height: 30px;}
+.menuIcon{float: left;margin-top: 5px;margin-left: 10px;width: 15px;height: 15px;}
 .menuIcon:hover{cursor: pointer;}
-	.row{width: 25px;height: 2px;background: #ffffff;margin: 5px 0px;}
-	.cross{position:absolute;width: 25px;height: 3px;background: #ffffff;top: 22px;}
+	.row{width: 12px;height: 2px;background: #ffffff;margin: 2px 0px;}
+	.cross{position:absolute;width: 12px;height: 3px;background: #ffffff;top: 11px;}
 		#crossOne{-webkit-transform: rotate(45deg);transform: rotate(45deg);}
 		#crossTwo{-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}
 
 
 /* menu */
-.menuDiv{width: 100%;position:fixed;height: 100%;background-color: #ffffff;z-index: 5;top: 50px;}
+.menuDiv{width: 100%;position:fixed;height: 100%;background-color: #111d6d;z-index: 5;top: 25px;}
 	.topTriangle{display: none;}
 	.menuList{}
 		.menuFactory{width: 100%;margin-left: 7%;margin-top: 3%;}
 		.menuFactory li{list-style: none;}
-		.fName{font-size: 20px;position:relative;font-weight: 700;}
+		.fName{font-size: 12px;position:relative;font-weight: 400;color: #d4d9fc;}
 			.menuCncGroup{margin: auto;padding-left: 7%;margin-left:3%;}
-			.menuCncGName li{width: 35%;height: 30px;border: 1px solid #000000;margin-top: 7px;line-height: 30px;text-align: center;display: inline-block;}
+			.menuCncGName li{color: #d4d9fc;font-size:9px;width: 15%;height: 15px;border: 1px solid #d4d9fc;margin-top: 7px;line-height: 15px;text-align: center;display: inline-block;}
 			.menuCncGName li:hover{background: #eeeeee;}
 
-.factoryDiv{width: 100%;position: relative;margin-top: 70px;margin-bottom: 50px;}
-	.factoryTitle{text-align: left;margin-left: 15%;}
-		.factoryIcon{position:absolute;background: url('http://fs.4geo.ru/get/editors/landingpage/1436177263-802767.png');width: 40px;height: 40px;left:-50px;top:-7px;background-size: 40px 40px;}
-		.factoryName{font-size: 12px;font-weight: 700;position: relative;color: #000000;}
-.cncGroupDiv{width: 89%;text-align: left;padding-left: 10%;margin-top: 15px;}
-	.cncGroupUl{list-style: none;}
-	.cncGroupUl li{display: inline-block;width: 35%;border: 1px solid #000000;height: 150px;margin: 7px;border-radius: 3px;text-align: center;}
-	.cncGroupUl li:hover{background: #ffffff;}
+.factoryDiv{width: 100%;position: relative;margin-top: 30px;}
+	.factoryTitle{text-align: left;margin-left: 20%;font-size: 12px;}
+	.factoryTitle span{font-size: 12px;}
+	.factoryTitle a{font-size: 9px; color: black;}
+		.factoryName{font-size: 10px;font-weight: 700;position: relative;color: #000000;}
+	.cncGroupDiv{width: 95%;text-align: left;padding-left: 3%;margin-top: 2px;}
+		.cncGroupUl{list-style: none;}
+		.cncGroupUl a{color:#000000;}
+		.cncGroupUl li{font-size:9px;display: inline-block;width: 45%;border: 1px solid #000000;height: 75px;margin: 3px;border-radius: 3px;text-align: center;}
+		.cncGroupUl li:hover{background: #ffffff;}
 
 /* only for cncGroup */
 
 .factoryName{font-size: 20px;}
 .factoryIcon{width: 25px;height: 25px;background-size: 25px 25px;top:	 0;left: -30px;}
-.selectCNCStatus{width: 80%;text-align: center;margin: 20px 9%;border: none;height: 25px;border-radius: 3px;}
+.selectCNCStatus{width: 90%;text-align: center;margin: 10px 5%;border: none;height: 10px;border-radius: 3px;}
 .selectCNCStatus option{border: none;}
-.cncDiv{width: 95%;margin-left: 2%;}
+.cncDiv{width: 95%;margin:auto;text-align: center;margin-bottom: 15px;}
 	.cncUl{list-style: none;}
-	.cncUl li{width: 43%;height: 50px;margin: 7px;border: 1px solid #000000;display: inline-block;text-align: center;}
+	.cncUl li{width: 43%;height: 25px;margin: 3px;border: 1px solid #000000;display: inline-block;text-align: center;}
 	.cncUl li:hover{background: #ffffff;}
 
 /* only for cnc */
 .cncStatus{padding: 0px;margin:0;text-align: center;}
-	.currentStatus{text-align: center;padding: 30px 0px;}
+	.currentStatus{text-align: center;padding: 15px 0px;}
 	.cncDetail{height: auto;position: relative;margin: 0;padding:0;}
-		.cncImage{display: inline-block;width: 49%;height: 150px;}
+		.cncImage{display: inline-block;width: 49%;height: 75px;}
 		.cncInfo{display: inline-block;width: 49%;position: relative;}
-			.cncInfoList{text-align: left;position: absolute;top: -150px;left: 36px;}
+			.cncInfoList{text-align: left;position: absolute;top: -75px;left: 16px;}
 			.cncInfoList li{list-style: none;}
 
-.cncTabInfo{margin-top: 25px;}
+.cncTabInfo{margin-top: 10px;}
 	.tabTitle{margin:0;padding: 0;}
-	.tabTitle a{list-style: none;width: 49%;text-align: center;display:inline;margin: 0;padding: 0;height: 35px;line-height: 35px;}
+	.tabTitle a{list-style: none;width: 49%;text-align: center;display:inline;margin: 0;padding: 0;height: 20px;line-height: 20px;}
 		#alarm{background: #ffffff;float: left;}
 		#record{background: #eeeeee;float: right;}
 	.tabTitle a:hover li{background: #ffffff;}
-	.cncAlarmDiv, .cncRecordDiv{width: 90%	;height: 450px;background: #ffffff;border-radius: 3px;padding: 16px 5%;}
+	.cncAlarmDiv, .cncRecordDiv{width: 90%;height: 150px;background: #ffffff;border-radius: 3px;padding: 16px 5%;}
 

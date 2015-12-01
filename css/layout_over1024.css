@@ -10,12 +10,7 @@ a{text-decoration: none;}
 
 /* Gobal CSS */
 .content{position: relative;margin-top: 70px;width: 1024px;margin: auto;min-height:100%;transition: height .2s;-webkit-transition: height .2s;}
-.inputDiv{padding: 7px 5px;background-color: #ffffff;width:85%;border-radius: 3px;margin: auto;margin-top: 30px;}
-.inputType{width:95%;height: 15px;border: none;}
-.SubmitDiv{margin-top: 100px;position: relative;}
-.szError{position: absolute;top: -65px;color: red;}
-.buttonType{background-color: #111d6d;padding: 15px 25px;color: #ffffff;border-radius: 3px;}	
-.footer{width: 100%;height: 50px;background: #888888;margin-top: 100px;}
+.footer{width: 100%;height: 50px;background: #888888;margin-top: 100px;position: relative;}
 	#fContent{text-align: center;color: #ffffff;}
 	.footer ul{padding-top: 10px;}
 	.footer ul li{list-style: none;}
@@ -24,6 +19,11 @@ a{text-decoration: none;}
 /* only for login page */
 .LogInPage{padding:70px 0px;width: 100%;text-align: center;margin: auto;}
 	.mainLogo{width: 100%;margin-bottom: 100px;}
+	.inputDiv{padding: 7px 5px;background-color: #ffffff;width:85%;border-radius: 3px;margin: auto;margin-top: 30px;}
+	.inputType{width:95%;height: 15px;border: none;}
+	.SubmitDiv{margin-top: 100px;position: relative;}
+	.szError{position: absolute;top: -65px;color: red;}
+	.buttonType{background-color: #111d6d;padding: 15px 25px;color: #ffffff;border-radius: 3px;}
 
 /* only for index page */
 .topDiv{position: fixed;background-color: #111d6d;width: 100%;height: 50px;top:0;overflow: hidden;z-index: 3;}
