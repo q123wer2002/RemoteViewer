@@ -1,10 +1,25 @@
 
-<div class="menuDiv"></div>
+<div class="menuDiv" ng-show="isShowMenu">
+	<div class="topTriangle"></div>
+	<div class="menuList">
+		<ul class="menuFactory" ng-repeat="f in factories">
+			<li class="fName">{{f.name}}</li>
+			<ul class="menuCncGroup">
+				<a href="cncGroup.php" class="menuCncGName" ng-repeat="cncG in cncGroup">
+					<li ng-if="cncG.fid === f.fid">N{{cncG.number}}</li>
+				</a>
+			</ul>
+		</ul>
+	</div>
+</div>
+
 <div class="topDiv">
-	<div class="menuIcon">
-		<div class="row rowTop"></div>
-		<div class="row rowMid"></div>
-		<div class="row rowBot"></div>
+	<div class="menuIcon" ng-click="showMenum()">
+		<div class="row rowTop" ng-hide="isShowMenu"></div>
+		<div class="row rowMid" ng-hide="isShowMenu"></div>
+		<div class="row rowBot" ng-hide="isShowMenu"></div>
+		<div class="cross" id="crossOne" ng-show="isShowMenu"></div>
+		<div class="cross" id="crossTwo" ng-show="isShowMenu"></div>
 	</div>
 	<div class="logo"></div>
 	<a href="javascript:;" class="logBtn">登入/登出</a>

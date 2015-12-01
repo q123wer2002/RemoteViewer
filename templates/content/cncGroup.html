@@ -1,17 +1,24 @@
 <!-- load specific js and css -->
 
 <div class="factoryDiv">
+	
 	<div class="factoryTitle">
 		<span class="factoryName"><span class="factoryIcon"></span><a href="index.php">工廠1</a> > <a href="cncGroup.php">Gruop1</a></span>
 	</div>
+
 	<div class="cncDiv">
-		<select name="singleSelect" id="singleSelect" ng-model="selected" class="selectCNCStatus">
-	      <option value="">---Please select---</option> <!-- not selected / blank option -->
+		<select name="singleSelect" id="singleSelect" ng-model="filterCncStatus" class="selectCNCStatus">
+	      <option value="">--- All status ---</option> <!-- not selected / blank option -->
 	      <option ng-repeat="option in cncStatus" value="{{option.code}}">{{option.status}}</option>
 	    </select>
+
 	    <div class="cncDiv">
 	    	<ul class="cncUl">
-	    		<a href="cnc.php"><li ng-repeat="i in [1,2,3,4,5,6,7]">cnc{{i}}</li></a>
+	    		<a href="cnc.php">
+	    			<li ng-repeat="i in cncs | filter: { status : filterCncStatus}">
+	    				{{i.seriesNo}}<br>{{i.status}}
+	    			</li>
+	    		</a>
 	    	</ul>
 	    </div>
 	</div>

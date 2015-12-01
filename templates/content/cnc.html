@@ -19,11 +19,11 @@
 
 	<div class="cncTabInfo">
 		<ul class="tabTitle">
-			<a href="" id="alarm"><li>Alarm</li></a>
-			<a href="" id="record"><li>Record</li></a>
+			<a href="javascript:;" id="alarm" ng-click="changeToAlarm()" ng-style="alramTabBG"><li>Alarm</li></a>
+			<a href="javascript:;" id="record" ng-click="changeToRecord()" ng-style="recordTabBG"><li>Record</li></a>
 		</ul>
-		<div class="cncAlarmDiv"></div>
-		<div class="cncRecordDiv"></div>
+		<div class="cncAlarmDiv" ng-show="isShowAlarm">Alarm</div>
+		<div class="cncRecordDiv" ng-show="!isShowAlarm">Record</div>
 	</div>
 	
 </div>
