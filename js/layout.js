@@ -70,6 +70,12 @@ SyntecRemoteWeb.controller('SyntecExample',['$scope','$http', '$interval',functi
         {'seriesNo':'M7F5549','status':4},
         {'seriesNo':'M7G41852','status':4},
         {'seriesNo':'M7G5852','status':1},
+        {'seriesNo':'M7F5752','status':2},
+        {'seriesNo':'M7F5812','status':2},
+        {'seriesNo':'M7F5452','status':3},
+        {'seriesNo':'M7F5549','status':4},
+        {'seriesNo':'M7G41852','status':4},
+        {'seriesNo':'M7G5852','status':1},
     ];
 
 

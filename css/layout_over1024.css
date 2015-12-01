@@ -78,7 +78,7 @@ a{text-decoration: none;}
 		.cncInfoList li{list-style: none;}
 	.cncTabInfo{margin-top: 25px;}
 		.tabTitle{margin:0;padding: 0;}
-		.tabTitle a{list-style: none;width: 150px;text-align: center;display:inline-table;margin: 0;padding: 0;height: 35px;line-height: 35px;border: 1px solid #EEEEEE;}
+		.tabTitle a{list-style: none;width: 150px;text-align: center;display:inline-table;margin: 0;padding: 0;height: 35px;line-height: 35px;}
 			#alarm{background: #ffffff;}
 			#record{background: #eeeeee;}
 		.tabTitle a:hover li{background: #ffffff;}
