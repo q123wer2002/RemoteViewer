@@ -1,14 +1,14 @@
 <!-- load specific js and css -->
-<script type="text/javascript" src="<?php echo WEB_URL."js/syntec_account.js"; ?>"></script>
+<script type="text/javascript" src="<?php echo WEB_URL."js/syntec_login.js"; ?>"></script>
 
-<div class="LogInPage" ng-controller="SyntecAccount">
+<div class="LogInPage" ng-controller="SyntecLogin">
 	<div class="mainLogo"><img src="images/Syntec.png"></div>
 
 	<div class="inputDiv">
-		<input class="inputType" placeholder="帳號" ng-model="account">
+		<input class="inputType" type="text" placeholder="帳號" ng-model="user" ng-Enter="login()">
 	</div>
 	<div class="inputDiv">
-		<input class="inputType" placeholder="密碼" ng-model="password">
+		<input class="inputType" type="password" placeholder="密碼" ng-model="password" ng-Enter="login()">
 	</div>
 	
 	<div class="SubmitDiv">

@@ -5,13 +5,13 @@ header("Content-Type:text/html; charset=utf-8");
 
 
 //new php object
-$ViewObj = new  SyntecViewObj();
+$SyntecObj = new  SyntecObj();
 
 //default set
-$ViewObj->meta = APP_PATH."/templates/meta.html";
-$ViewObj->topHtml = APP_PATH."/templates/top.html";
-$ViewObj->contentHtml = "";
-$ViewObj->footerHtml = APP_PATH."/templates/footer.html";
+$SyntecObj->meta = APP_PATH."/templates/meta.html";
+$SyntecObj->topHtml = APP_PATH."/templates/top.html";
+$SyntecObj->contentHtml = "";
+$SyntecObj->footerHtml = APP_PATH."/templates/footer.html";
 
 
 ?>

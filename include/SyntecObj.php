@@ -1,6 +1,6 @@
 <?php
 
-class SyntecViewObj
+class SyntecObj
 {
   public $topHtml = "";
   public $footerHtml = "";
@@ -23,6 +23,20 @@ class SyntecViewObj
       }
       @mysql_free_result( $result );
       $this -> { $resultArray }[ $resultKey ] = json_encode($this -> { $resultArray }[ $resultKey ]);
+    }
+  }
+  //endregion
+
+   //region get data from database
+  function SQLQuery( $resultArray, $resultKey, $sql )
+  {
+    $result = mysql_query( $sql );
+
+    if( $result ){
+      while( $row = mysql_fetch_assoc( $result )){
+        $this->{$resultArray}[$resultKey][] = $row;
+      }
+      @mysql_free_result( $result );
     }
   }
   //endregion

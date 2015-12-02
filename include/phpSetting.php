@@ -18,7 +18,7 @@ include_once APP_PATH.'/include/module/phpFunction/pubilcFun.php';
 //end include
 
 //include php object
-include_once APP_PATH.'/include/view/SyntecViewObj.php';
+include_once APP_PATH.'/include/SyntecObj.php';
 //end include
 
 ?>

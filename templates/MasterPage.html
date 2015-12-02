@@ -17,7 +17,7 @@
 
 </head>
 <body ng-controller="SyntecRemote">
-	<?php if($_SESSION['user']){ ?>
+	<?php if($_SESSION['userInfo']){ ?>
 	
 		<!-- top page -->
 		<?php if($this->topHtml){include_once $this->topHtml;} ?>
@@ -30,7 +30,7 @@
 	
 	</div>
 
-	<?php if($_SESSION['user']){ ?>
+	<?php if($_SESSION['userInfo']){ ?>
 		<!-- footer page -->
 		<?php if($this->footerHtml){include_once $this->footerHtml;} ?>
 	<?php } ?>

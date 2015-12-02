@@ -2,6 +2,30 @@
 var SyntecRemoteWeb = angular.module('SyntecRemoteWeb',[]);
 
 SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',function SyntecRemote($scope,$http,$interval){
+    //logout
+    $scope.logout = function(){
+        var accountObject={"method":"logout"};
+        $http({
+            method:'POST',
+            url:'server/accountAjax.php',
+            data: $.param(accountObject),
+            headers: {'Content-type': 'application/x-www-form-urlencoded'},
+        }).
+        success(function(json){
+            switch( json.result ){
+                case "success":
+                    window.open( json.index, "_self");
+                break;
+                default:
+                break;
+            }
+            //console.log(json);
+        }).
+        error(function(json){
+            //console.log(json);
+        });
+    }
+
 
     //show the menu
     $scope.isShowMenu = false;
