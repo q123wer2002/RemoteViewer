@@ -1,4 +1,7 @@
 /* CSS Setting */
+html, body{
+	height: 100%;
+}
 body{margin: 0;padding: 0;width: 100%;height:auto;margin: auto;/*color: #6b7485;*/
 font-family: '文泉驛微米黑 Regular', '文泉驛微米黑','Arial Negreta cursiva', 'Arial','微軟正黑體';
 background-color:#EEEEEE;-webkit-font-smoothing:antialiased;font-size:15px;}
@@ -10,7 +13,7 @@ a{text-decoration: none;}
 
 /* Gobal CSS */
 .content{position: relative;margin-top: 70px;width: 100%;margin: auto;min-height:100%;transition: height .2s;-webkit-transition: height .2s;}	
-.footer{width: 100%;height: 30px;background: #888888;}
+.footer{width: 100%;height: 30px;background: #888888;position: absolute;bottom: 0;}
 	#fContent{text-align: center;color: #ffffff;}
 	.footer ul{line-height: 30px;}
 	.footer ul li{list-style: none;}
@@ -58,7 +61,7 @@ a{text-decoration: none;}
 	.cncGroupDiv{width: 95%;text-align: left;padding-left: 3%;margin-top: 2px;}
 		.cncGroupUl{list-style: none;}
 		.cncGroupUl a{color:#000000;}
-		.cncGroupUl li{font-size:12px;display: inline-block;width: 45%;border: 1px solid #000000;height: 75px;margin: 3px;border-radius: 3px;text-align: center;line-height: 12px;}
+		.cncGroupUl li{padding:10px 4px;background:#ffffff;font-size:12px;display: inline-block;width: 45%;height: 55px;margin: 3px;border-radius: 3px;text-align: center;line-height: 12px;box-shadow: 0px 2px 2px 1px #888888;}
 		.cncGroupUl li:hover{background: #ffffff;}
 
 /* only for cncGroup */
@@ -69,7 +72,7 @@ a{text-decoration: none;}
 .selectCNCStatus option{border: none;}
 .cncDiv{width: 95%;margin:auto;text-align: center;margin-bottom: 15px;}
 	.cncUl{list-style: none;}
-	.cncUl li{width: 43%;height: 50px;margin: 3px;border: 1px solid #000000;display: inline-block;text-align: center;}
+	.cncUl li{padding:10px 3px;width: 43%;height: auto;margin: 3px;display: inline-block;text-align: center;border-radius: 3px;box-shadow: 0px 1px 1px 1px #888888;background: #ffffff;}
 	.cncUl li:hover{background: #ffffff;}
 
 /* only for cnc */

@@ -1,4 +1,7 @@
 /* CSS Setting */
+html, body{
+	height: 100%;
+}
 body{margin: 0;padding: 0;width: 100%;height:auto;margin: auto;/*color: #6b7485;*/
 font-family: '文泉驛微米黑 Regular', '文泉驛微米黑','Arial Negreta cursiva', 'Arial','微軟正黑體';
 background-color:#EEEEEE;-webkit-font-smoothing:antialiased;font-size: 15px;}
@@ -10,7 +13,7 @@ a{text-decoration: none;}
 
 /* Gobal CSS */
 .content{position: relative;margin-top: 70px;width: 1024px;margin: auto;min-height:100%;transition: height .2s;-webkit-transition: height .2s;}
-.footer{width: 100%;height: 50px;background: #888888;margin-top: 100px;position: relative;}
+.footer{width: 100%;height: 50px;background: #888888;position: absolute;bottom: 0;}
 	#fContent{text-align: center;color: #ffffff;}
 	.footer ul{padding-top: 10px;}
 	.footer ul li{list-style: none;}
