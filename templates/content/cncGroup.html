@@ -2,6 +2,9 @@
 <script type="text/javascript" src="<?php echo WEB_URL."js/syntec_cncGroupData.js"; ?>"></script>
 
 <div class="factoryDiv" ng-controller="SyntecCncGroup">
+	<!-- get cnc data from DB -->
+	<input type="hidden" ng-init="initGid='<?php echo $this->gid; ?>'">
+	<input type="hidden" ng-init="initCncOverview()">
 	
 	<div class="factoryTitle">
 		<span class="factoryName"><span class="factoryIcon"></span><a href="index.php">工廠1</a> > <a href="cncGroup.php">Gruop1</a></span>
@@ -10,14 +13,24 @@
 	<div class="cncDiv">
 		<select ng-model="filterCncStatus" class="selectCNCStatus">
 	      <option value="">--- All status ---</option> <!-- not selected / blank option -->
-	      <option ng-repeat="option in cncStatus" value="{{option.code}}">{{option.status}}</option>
+	      <option ng-repeat="option in allCncStatus" value="{{option.code}}">{{option.status}}</option>
 	    </select>
-
+{{timeToUpdate}}
 	    <div class="cncDiv">
 	    	<ul class="cncUl">
-	    		<a href="cnc.php">
-	    			<li ng-repeat="i in cncs | filter: { status : filterCncStatus}">
-	    				{{i.seriesNo}}<br>{{i.status}}
+	    		<a href="cnc.php" ng-repeat="cnc in cncs | filter: { status : filterCncStatus}">
+	    			<li>
+						{{cnc.serialNo}}<br>
+						{{cnc.machineType}}<br>
+						{{cnc.version}}<br>
+						{{cnc.dueDate}}
+						<hr>
+						{{cnc.status}}<br>
+						{{cnc.mode}}<br>
+						{{cnc.alarm}}<br>
+						{{cnc.EMG}}<br>
+						{{cnc.MainProg}}<br>
+						{{cnc.CurProg}}<br>
 	    			</li>
 	    		</a>
 	    	</ul>

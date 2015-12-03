@@ -2,14 +2,18 @@
 <script type="text/javascript" src="<?php echo WEB_URL."js/syntec_factoryData.js"; ?>"></script>
 
 <div ng-controller="SyntecFactory">
+
 	<div class="factoryDiv" ng-repeat="f in factories">
 		<div class="factoryTitle">
 			<span class="factoryName"><span class="factoryIcon"></span>{{f.name}}</span>
 		</div>
 		<div class="cncGroupDiv">
 			<ul class="cncGroupUl">
-				<a href="cncGroup.php" ng-repeat="cncG in cncGroup"><li ng-if="cncG.fid === f.fid">N{{cncG.number}}</li></a>
+				<a ng-href="cncGroup.php?group={{group.gid}}" ng-repeat="group in cncGroups" ng-if="group.fid === f.fid">
+					<li>{{group.name}}<br>{{group.cncNumber}}台</li>
+				</a>
 			</ul>
 		</div>
 	</div>
+
 </div>

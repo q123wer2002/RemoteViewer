@@ -1,3 +1,5 @@
+<!-- get data from DB -->
+<input type="hidden" ng-init="initFactoryNGroup();">
 
 <div class="menuDiv" ng-show="isShowMenu">
 	<div class="topTriangle"></div>
@@ -5,8 +7,8 @@
 		<ul class="menuFactory" ng-repeat="f in factories">
 			<li class="fName">{{f.name}}</li>
 			<ul class="menuCncGroup">
-				<a href="cncGroup.php" class="menuCncGName" ng-repeat="cncG in cncGroup">
-					<li ng-if="cncG.fid === f.fid">N{{cncG.number}}</li>
+				<a ng-href="cncGroup.php?group={{group.gid}}" class="menuCncGName" ng-repeat="group in cncGroups" ng-if="group.fid === f.fid">
+					<li>{{group.name}}</li>
 				</a>
 			</ul>
 		</ul>

@@ -1,18 +1,20 @@
 <?php
 include_once "include/createObj.php";
 
-$isUser = 0;
+$isCompanyLogin = 0;
 
-if( isset($_SESSION['userInfo']) && isset($_SESSION['userInfo']['user']) ){
+//does company have been login
+if( isset($_SESSION['companyInfo']) && isset($_SESSION['companyInfo']['user']) ){
 	//print_r($_SESSION['userInfo']);
-	$isUser = 1;
+	$isCompanyLogin = 1;
 }
 
 
 
 //choose the correct page
-if($isUser){
-	//yes, user login
+if( $isCompanyLogin ){
+						   
+	//yes, company login
 	$SyntecObj->contentHtml = APP_PATH."/templates/content/factory.html";
 }
 else{

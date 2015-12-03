@@ -26,6 +26,50 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
         });
     }
 
+    $scope.initData = "";
+    $scope.initFactoryNGroup = function(){
+        var initObject={"method":"getIndexData"};
+        $http({
+            method:'POST',
+            url:'server/factoryNgroupAjax.php',
+            data: $.param(initObject),
+            headers: {'Content-type': 'application/x-www-form-urlencoded'},
+        }).
+        success(function(json){
+            if( json.result == "success" ){
+                $scope.initData = json.data;
+                //console.log( $scope.initData );
+                $scope.initFayNGupProcess();
+            }
+        }).
+        error(function(json){
+            console.warn(json);
+        });
+    }
+
+     //factroy
+    $scope.factories = [];
+
+    //cnc group
+    $scope.cncGroups = [];
+
+    $scope.initFayNGupProcess = function(){
+        if( $scope.initData != null ){
+            //input factory information
+            for(var i=0; i < $scope.initData.factoryInfo.length; i++){
+                var factory = {'fid' : $scope.initData.factoryInfo[i].fid, 'name' : $scope.initData.factoryInfo[i].name};
+                $scope.factories.push( factory );
+            }
+
+            //input group information
+            for (var i=0; i < $scope.initData.groupInfo.length; i++) {
+                var group = {'fid' : $scope.initData.groupInfo[i].fid, 'gid':$scope.initData.groupInfo[i].gid, 'name' : $scope.initData.groupInfo[i].gname, 'cncNumber' : $scope.initData.groupInfo[i].cncNumber};
+                $scope.cncGroups.push( group );
+            }
+        }
+        //console.log($scope.cncGroups);
+    }
+
 
     //show the menu
     $scope.isShowMenu = false;
@@ -35,42 +79,7 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
         }else{
             $scope.isShowMenu = true;
         }
-    }
-
-
-    //timer
-    $scope.timeToRefresh = 5;
-    $interval(function(){
-    	$scope.timeToRefresh--;
-    	if($scope.timeToRefresh == 0){
-    		$scope.timeToRefresh = 5;
-    	}
-    },1000);
-    
-    //factroy
-    $scope.factories = [
-        {'fid':1,'name':'工廠1'},
-        {'fid':2,'name':'工廠2'},
-        {'fid':3,'name':'工廠3'},
-        {'fid':4,'name':'工廠4'},
-        {'fid':5,'name':'工廠5'}
-    ];
-
-    //cnc group
-    $scope.cncGroup = [
-        {'fid':1,'number':25},
-        {'fid':1,'number':5},
-        {'fid':1,'number':15},
-        {'fid':1,'number':2},
-        {'fid':2,'number':5},
-        {'fid':2,'number':8},
-        {'fid':2,'number':9},
-        {'fid':3,'number':5},
-        {'fid':4,'number':25},
-        {'fid':5,'number':9},
-        {'fid':5,'number':18},
-        {'fid':5,'number':3},
-    ];
+    }    
 
 }]);
 
