@@ -13,10 +13,15 @@ if( isset($_SESSION['companyInfo']) && isset($_SESSION['companyInfo']['user']) )
 //cncgroup info
 $gid = $_GET['group'];
 
+
 //check does group is in this company
 if( in_array( $gid, $_SESSION['companyInfo']['gid']) ){
 	$isOwnGroup = 1;
 }
+
+
+#============================== layout setting =====================================
+
 
 //choose the correct page
 if( $isCompanyLogin ){

@@ -1,6 +1,6 @@
 /* CSS Setting */
 html, body{
-	height: 100%;
+	min-height: 100%;
 }
 body{margin: 0;padding: 0;width: 100%;height:auto;margin: auto;/*color: #6b7485;*/
 font-family: '文泉驛微米黑 Regular', '文泉驛微米黑','Arial Negreta cursiva', 'Arial','微軟正黑體';
@@ -13,7 +13,8 @@ a{text-decoration: none;}
 
 /* Gobal CSS */
 .content{position: relative;margin-top: 70px;width: 1024px;margin: auto;min-height:100%;transition: height .2s;-webkit-transition: height .2s;}
-.footer{width: 100%;height: 50px;background: #888888;position: absolute;bottom: 0;}
+.hr{border-width: 0;height: 1px;color: rgba(0,0,0,0.1);background-color: rgba(0,0,0,0.1);}
+.footer{width: 100%;height: 50px;background: #888888;position: absolute;bottom: 0;display: none;}
 	#fContent{text-align: center;color: #ffffff;}
 	.footer ul{padding-top: 10px;}
 	.footer ul li{list-style: none;}
@@ -54,8 +55,9 @@ a{text-decoration: none;}
 
 .factoryDiv{width: 100%;position: relative;margin-top: 70px;}
 	.factoryTitle{text-align: left;}
-		.factoryIcon{position:absolute;background: url('http://fs.4geo.ru/get/editors/landingpage/1436177263-802767.png');width: 40px;height: 40px;left:-50px;top:-7px;background-size: 40px 40px;}
-		.factoryName{font-size: 28px;font-weight: 700;position: relative;color: #000000;}
+		.factoryIcon{position:absolute;background: url('../images/factoryIcon.png');width: 40px;height: 40px;left:-50px;top:-7px;background-size: 40px 40px;}
+		.factoryName{font-weight: 700;position: relative;color: #000000;}
+		.factoryName a{color: #888888;font-size: 20px;}
 .cncGroupDiv{width: 100%;text-align: left;margin-top: 15px;padding-left:50px;border-left: 5px solid #111d6d;}
 	.cncGroupUl{list-style: none;}
 	.cncGroupUl a{color:#111d6d;}
@@ -66,27 +68,35 @@ a{text-decoration: none;}
 
 .factoryName{font-size: 20px;}
 .factoryIcon{width: 25px;height: 25px;background-size: 25px 25px;top:	 0;left: -30px;}
-.selectCNCStatus{padding:7px 10px;width: 236px;text-align: center;margin: 15px 15px;border:none;height: 30px;border-radius: 3px;box-shadow: 0px 2px 3px 1px #888888;}
+.selectCNCStatus{padding:7px 15px;width: 236px;text-align: center;margin: 15px 15px;border:none;height: 30px;border-radius: 3px;box-shadow: 0px 2px 3px 1px #888888;}
 .selectCNCStatus:hover{cursor: pointer;}
 .selectCNCStatus option{border: none;}
 .cncDiv{}
 	.cncUl{list-style: none;}
 	.cncUl a{color:#111d6d;}
-	.cncUl li{padding:16px 20px;width: 238px;height: 260px;margin: 15px;display: inline-block;background: #EEEEEE;border-radius: 3px;border: 1px solid #888888;}
+	.cncUl li{padding:36px 20px 26px 20px;width: 238px;height: auto;margin: 15px;display: inline-block;background: #eeeeee;border-radius: 3px;border: 1px solid #888888;position: relative;}
+		.light{background:#eeeeee;color: #000000;height: 30px;width: 100%;border: 1px solid #888888;border-bottom:none;text-align: center;position: absolute;left: -1px;top: -1px;}
+		.light span{line-height: 30px;}
 	.cncUl li:hover{box-shadow: 0px 2px 1px 1px #888888;}
 
 /* only for cnc */
-.cncStatus{padding: 15px 10px;}
-	.currentStatus{}
-	.cncDetail{padding: 25px 10px;}
-	.cncInfo{float: right;width: 500px;}
+.cncStatus{padding: 15px 10px;margin-top: 35px;}
+	.currentStatus{position: relative;}
+		#cncStatusForSingle{width:50px;height: 50px;border: 2px solid #000000;background: #eeeeee;border-radius: 25px;}
+		.statusName{line-height: 50px;margin-left: 70px;font-size: 25px;font-weight: 700;color: #000000;text-decoration: underline;}
+	.cncDetail{padding: 25px 10px;text-align: center;margin-top: 50px;}
+	.cncImage{display: inline-block;padding: 15px 35px;}
+	.cncImage img{width: 150px;}
+	.cncInfo{display:inline-block;width: 300px;text-align: left;padding: 15px 35px;}
 		.cncInfoList{}
 		.cncInfoList li{list-style: none;}
 	.cncTabInfo{margin-top: 25px;}
 		.tabTitle{margin:0;padding: 0;}
 		.tabTitle a{list-style: none;width: 150px;text-align: center;display:inline-table;margin: 0;padding: 0;height: 35px;line-height: 35px;}
-			#alarm{background: #ffffff;}
+		.tabTitle li{margin: 0;padding: 0;}
+			#status{background: #ffffff;}
+			#alarm{background: #eeeeee;}
 			#record{background: #eeeeee;}
 		.tabTitle a:hover li{background: #ffffff;}
-		.cncAlarmDiv, .cncRecordDiv{width: 1000px;height: 350px;background: #ffffff;border-radius: 3px;}
-
+		.cncStatusDiv, .cncAlarmDiv, .cncRecordDiv{padding:25px 30px;width: 940px;height: 300px;background: #ffffff;border-radius: 3px;box-shadow: 0px 2px 5px 1px #888888;}
+		.cncStatusDiv li, .cncAlarmDiv li, .cncRecordDiv li{list-style: none;}

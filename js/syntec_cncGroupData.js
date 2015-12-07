@@ -4,13 +4,11 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
     $scope.filterCncStatus = "";
 
     $scope.allCncStatus = [
-        {'status' : 'Ready', 'code' : 1},
-        {'status' : 'Idle', 'code' : 2},
-        {'status' : 'Process', 'code' : 3},
-        {'status' : 'Alarm', 'code' : 4},
+        'START','ALARM','NOTREADY'
     ];
 
     $scope.initCncOverview = function(){
+
         var initObject={"method":"initCncOverview", "gid":$scope.initGid};
         $http({
             method:'POST',
@@ -35,23 +33,22 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
         if( initCncData != null){
             for(var i=0; i<initCncData.length; i++){
                 var cncInfo = {'id' : initCncData[i].CNC_id, 'serialNo' : initCncData[i].SerialNo, 'machine' : initCncData[i].Machine, 'machineType' : initCncData[i].MachineType, 'version' : initCncData[i].Version, 'dueDate' : initCncData[i].DueDate,
-                               'status':'','mode':'','alarm':'','EMG':'','MainProg':'','CurProg':''};
+                               'status':'','mode':'','alarm':'','EMG':'','MainProg':'','CurProg':'','style':''};
                 $scope.cncs.push( cncInfo );
                 $scope.PoolOfUpdateCnc.push( initCncData[i].CNC_id );
             }
         }
         //console.log($scope.cncs);
         $scope.updateCncStatus();
+
+        //show factory name and group name
+        //$scope.getFactoryNGroup( $scope.initGid );
     }
 
     //timer
-    $scope.timeToUpdate = 3;
     $interval( function(){
-        $scope.timeToUpdate--;
-        if( $scope.timeToUpdate == 0 ){
-            //$scope.updateCncStatus();
-            $scope.timeToUpdate = 3;
-        }
+        //update status every second
+        $scope.updateCncStatus();
     },1000);
 
     //updating cnc status
@@ -67,7 +64,7 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
                 }).
                 success(function(json){
                     if( json.result == "success" ){
-                        console.log(json.data);
+                        //console.log(json.data);
                         $scope.writeCncStatus( json.data );
                     }
                 }).
@@ -91,6 +88,32 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
                     $scope.cncs[i].EMG = cncStatusData.EMG;
                     $scope.cncs[i].MainProg = cncStatusData.MainProg;
                     $scope.cncs[i].CurProg = cncStatusData.CurProg;
+                
+                    //1. show the color by cnc status
+                    $scope.changeCncStyle( $scope.cncs[i] );
+
+                    break;
+                }
+            }
+
+            
+        }
+    }
+
+    $scope.changeCncStyle = function( cnc ){
+        if( cnc != null ){
+            if( cnc.alarm == "ALARM" ){
+                cnc.style={'background':'rgba(255, 58, 58,0.5)', 'color':'#ffffff', 'height':'100%'};
+            }
+            else{
+                switch( cnc.status ){
+                    case"START":
+                        // #8af779, #000000
+                        cnc.style={'background':'#8af779', 'color':'#0000000'};
+                    break;
+                    default:
+                        // #fff770
+                        cnc.style={'background':'#fff770', 'color':'#0000000'};
                     break;
                 }
             }

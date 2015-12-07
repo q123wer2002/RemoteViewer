@@ -1,32 +1,66 @@
 <!-- load specific js and css -->
 <script type="text/javascript" src="<?php echo WEB_URL."js/syntec_cncData.js"; ?>"></script>
 
+<input type="hidden" ng-init="initCncid=<?php echo $this->cncid; ?>">
+<input type="hidden" ng-init="initGid='<?php echo $this->gid; ?>'">
+
 <div class="factoryDiv" ng-controller="SyntecCnc">
+	<!-- get cnc data from DB -->
+	<input type="hidden" ng-init="initCncDetail()">
+
 	<div class="factoryTitle">
-		<span class="factoryName"><span class="factoryIcon"></span><a href="index.php">工廠1</a> > <a href="cncGroup.php">Gruop1</a> > <a href="cnc.php">Cnc 1</a></span>
+		<span class="factoryName">
+			<span class="factoryIcon"></span>
+			<a ng-href="index.php">{{thisFactoryName}}</a> > 
+			<a ng-href="cncGroup.php?gruop={{gid}}">{{thisGroupName}}</a> > 
+			<a ng-href="cnc.php?cnc={{thisCnc.id}}">{{thisCnc.serialNo}}</a>
+		</span>
 	</div>
 
 	<div class="cncStatus">
-		<h3 class="currentStatus">**Alarm</h3>
+		<div class="currentStatus">
+			<span class="light" id="cncStatusForSingle" ng-style="statusLight.style"></span>
+			<span class="statusName" ng-style="statusLight.fontColor">{{statusLight.msg}}</span>
+		</div>
 		<div class="cncDetail">
-			<img src="" width="250px" height="250px" class="cncImage">
-
+			<div class="cncImage">
+				<img src="http://www.syntecclub.com.tw/UpDownFiles/Product_pic/PIC_635368656631875000.jpg">
+			</div>
 			<div class="cncInfo">
 				<ul class="cncInfoList">
-					<li ng-repeat="cnc in cncInfo">{{cnc}}</li>
+					<li>
+						序號：{{thisCnc.serialNo}}<br>
+						機型：{{thisCnc.machineType}}<br>
+						版本：{{thisCnc.version}}<br>
+						到期日：{{thisCnc.dueDate}}
+						<hr class="hr">
+					</li>
 				</ul>
 			</div>
-			
 		</div>
 	</div>
 
 	<div class="cncTabInfo">
+
 		<ul class="tabTitle">
-			<a href="javascript:;" id="alarm" ng-click="changeToAlarm()" ng-style="alramTabBG"><li>Alarm</li></a>
-			<a href="javascript:;" id="record" ng-click="changeToRecord()" ng-style="recordTabBG"><li>Record</li></a>
+			<a href="javascript:;" id="status" ng-click="changeToStatus()" ng-style="statusTabBG"><li>控制器狀態</li></a>
+			<a href="javascript:;" id="alarm" ng-click="changeToAlarm()" ng-style="alramTabBG"><li>警報資訊</li></a>
+			<a href="javascript:;" id="record" ng-click="changeToRecord()" ng-style="recordTabBG"><li>加工紀錄</li></a>
 		</ul>
-		<div class="cncAlarmDiv" ng-show="isShowAlarm">Alarm</div>
-		<div class="cncRecordDiv" ng-show="!isShowAlarm">Record</div>
+
+		<div class="cncStatusDiv" ng-show="tabCode==0">
+			<ul>
+				<li>狀態：{{cncStatus.status}}</li>
+				<li>模式：{{cncStatus.mode}}</li>
+				<li>警報：{{cncStatus.alarm}}</li>
+				<li>EMG：{{cncStatus.EMG}}</li>
+				<li>主程式：{{cncStatus.MainProg}}</li>
+				<li>加工檔：{{cncStatus.CurProg}}</li>
+			</ul>
+		</div>
+		<div class="cncAlarmDiv" ng-show="tabCode==1">Alarm</div>
+		<div class="cncRecordDiv" ng-show="tabCode==2">Record</div>
+
 	</div>
 	
 </div>

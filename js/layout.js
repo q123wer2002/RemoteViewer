@@ -68,6 +68,33 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
             }
         }
         //console.log($scope.cncGroups);
+        $scope.getFactoryNGroup($scope.initGid);
+    }
+
+    $scope.getFactoryNGroup = function( gid ){
+        if( gid != null && gid != "" ){
+            var fid;
+
+            //layout.js has cncGroups (array)
+            for(var i=0; i<$scope.cncGroups.length; i++){
+                if( $scope.cncGroups[i].gid == gid ){
+                    fid = $scope.cncGroups[i].fid;
+                    $scope.thisGroupName = $scope.cncGroups[i].name;
+                    break;
+                }
+            }
+
+            //layout.js has factories (array)
+            for(var i=0; i<$scope.factories.length; i++){
+                if( $scope.factories[i].fid == fid ){
+                    $scope.thisFactoryName = $scope.factories[i].name;
+                    break;
+                }
+            }
+            
+            //push id into scope
+            $scope.gid = gid;
+        }
     }
 
 

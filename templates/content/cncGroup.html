@@ -1,36 +1,44 @@
 <!-- load specific js and css -->
 <script type="text/javascript" src="<?php echo WEB_URL."js/syntec_cncGroupData.js"; ?>"></script>
-
+<!-- var which is declared in this area can be used  -->
+<input type="hidden" ng-init="initGid='<?php echo $this->gid; ?>'">
+	
 <div class="factoryDiv" ng-controller="SyntecCncGroup">
 	<!-- get cnc data from DB -->
-	<input type="hidden" ng-init="initGid='<?php echo $this->gid; ?>'">
 	<input type="hidden" ng-init="initCncOverview()">
 	
 	<div class="factoryTitle">
-		<span class="factoryName"><span class="factoryIcon"></span><a href="index.php">工廠1</a> > <a href="cncGroup.php">Gruop1</a></span>
+		<span class="factoryName">
+			<span class="factoryIcon"></span>
+			<a href="index.php">{{thisFactoryName}}</a> > 
+			<a ng-href="cncGroup.php?group={{gid}}">{{thisGroupName}}{{initGid}}</a>
+		</span>
 	</div>
 
 	<div class="cncDiv">
 		<select ng-model="filterCncStatus" class="selectCNCStatus">
 	      <option value="">--- All status ---</option> <!-- not selected / blank option -->
-	      <option ng-repeat="option in allCncStatus" value="{{option.code}}">{{option.status}}</option>
+	      <option ng-repeat="option in allCncStatus" value="{{option}}">{{option}}</option>
 	    </select>
-{{timeToUpdate}}
+
 	    <div class="cncDiv">
 	    	<ul class="cncUl">
-	    		<a href="cnc.php" ng-repeat="cnc in cncs | filter: { status : filterCncStatus}">
+	    		<a ng-href="cnc.php?cnc={{cnc.id}}" ng-repeat="cnc in cncs | filter: { status : filterCncStatus}">
 	    			<li>
-						{{cnc.serialNo}}<br>
-						{{cnc.machineType}}<br>
-						{{cnc.version}}<br>
-						{{cnc.dueDate}}
-						<hr>
-						{{cnc.status}}<br>
-						{{cnc.mode}}<br>
-						{{cnc.alarm}}<br>
-						{{cnc.EMG}}<br>
-						{{cnc.MainProg}}<br>
-						{{cnc.CurProg}}<br>
+	    				<div class="light" ng-style="cnc.style">
+	    					<span ng-if="cnc.alarm == 'ALARM'">ALARM</span>
+	    					<span ng-if="cnc.alarm != 'ALARM'">{{cnc.status}}<span>
+	    				</div>
+						序號：{{cnc.serialNo}}<br>
+						機型：{{cnc.machineType}}<br>
+						版本：{{cnc.version}}<br>
+						到期日：{{cnc.dueDate}}
+						<hr class="hr">
+						模式：{{cnc.mode}}<br>
+						警報：{{cnc.alarm}}<br>
+						EMG：{{cnc.EMG}}<br>
+						加工程式：{{cnc.MainProg}}<br>
+						加工檔：{{cnc.CurProg}}<br>
 	    			</li>
 	    		</a>
 	    	</ul>

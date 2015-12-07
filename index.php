@@ -10,6 +10,8 @@ if( isset($_SESSION['companyInfo']) && isset($_SESSION['companyInfo']['user']) )
 }
 
 
+#============================== layout setting =====================================
+
 
 //choose the correct page
 if( $isCompanyLogin ){
