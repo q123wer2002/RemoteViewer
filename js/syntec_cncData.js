@@ -136,9 +136,6 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
         $scope.updateCncStatus();
         //$scope.updaetCncAlarm();
         //$scope.updateCncRecord();
-        
-        //show factory name and group name
-        $scope.getFactoryNGroup( $scope.initGid );
     }
 
     $scope.updateCncStatus = function(){

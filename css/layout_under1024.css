@@ -54,11 +54,11 @@ a{text-decoration: none;}
 			.menuCncGName li{color: #d4d9fc;font-size:12px;width: 20%;height: 25px;border: 1px solid #d4d9fc;margin-top: 7px;line-height: 25px;text-align: center;display: inline-block;}
 			.menuCncGName li:hover{background: #eeeeee;}
 
-.factoryDiv{width: 100%;position: relative;margin-top: 50px;margin-bottom: 50px;}
-	.factoryTitle{text-align: left;margin-left: 7%;font-size: 15px;padding-top: 15px;}
+.factoryDiv{width: 100%;position: relative;margin-top: 50px;}
+	.factoryTitle{text-align: left;margin-left: 3%;font-size: 15px;padding-top: 15px;}
 	.factoryTitle span{font-size: 15px;}
 	.factoryTitle a{font-size: 12px; color: black;}
-		.factoryName{font-size: 10px;font-weight: 700;position: relative;color: #000000;}
+		.factoryName{font-size: 10px;font-weight: 700;position: relative;color: #333333;}
 	.cncGroupDiv{width: 95%;text-align: left;padding-left: 3%;margin-top: 2px;}
 		.cncGroupUl{list-style: none;}
 		.cncGroupUl a{color:#000000;}
@@ -68,8 +68,9 @@ a{text-decoration: none;}
 
 .factoryName{font-size: 20px;}
 .factoryIcon{width: 25px;height: 25px;background-size: 25px 25px;top:	 0;left: -30px;}
-.selectCNCStatus{width: 90%;text-align: center;margin: 10px 5%;border: none;height: 25px;border-radius: 3px;font-size: 12px;}
+.selectCNCStatus{width: 90%;text-align: center;margin: 10px 5% 3px 5%;border: none;height: 25px;border-radius: 3px;font-size: 12px;}
 .selectCNCStatus option{border: none;}
+.lastUpdateDate{color:#888888;}
 .cncDiv{width: 95%;margin:auto;text-align: center;margin-bottom: 15px;}
 	.cncUl{list-style: none;}
 	.cncUl a{color:#111d6d;font-size: 12px;}
@@ -78,23 +79,23 @@ a{text-decoration: none;}
 		.light span{line-height: 30px;}
 
 /* only for cnc */
-.cncStatus{padding: 0px;margin:0;text-align: center;}
+.cncStatus{padding: 0px;margin-top: 10px;text-align: center;}
 	.currentStatus{text-align: center;padding: 5px 0px;position: relative;text-align: center;}
 		#cncStatusForSingle{margin-top:20px;margin-left:50px;width:20px;height: 20px;border: 2px solid #000000;background: #eeeeee;border-radius: 25px;}
-		.statusName{line-height: 50px;margin-left: 70px;font-size: 25px;font-weight: 700;color: #000000;text-decoration: underline;}
-	.cncDetail{height: auto;position: relative;margin: 0;padding:0;}
+		.statusName{line-height: 20px;font-size: 25px;font-weight: 700;color: #000000;text-decoration: underline;}
+	.cncDetail{height: auto;position: relative;margin-top: 10px;padding:15px 0px;}
 		.cncImage{display: inline-block;}
 		.cncImage img{width: 150px;}
 		.cncInfo{display: inline-block;width: 40%;position: relative;}
 			.cncInfoList{font-size:12px;text-align: left;position: absolute;top: -90px;left: 16px;}
 			.cncInfoList li{list-style: none;}
 
-.cncTabInfo{margin-top: 10px;}
+.cncTabInfo{margin-top: 20px;}
 	.tabTitle{margin:0;padding: 0;}
-	.tabTitle a{list-style: none;text-align: center;display:inline;margin: 0;padding: 0;}
-	.tabTitle li{margin: 0;padding: 0;width: 30%;display: inline-block;padding: 7px 3px;height: 35px;line-height: 35px;}
+	.tabTitle a{list-style: none;text-align: center;display:inline-block;margin: 0;padding: 0;width: 30%;}
+	.tabTitle li{margin: 0;padding: 0;display: inline-block;padding: 7px 3px;}
 		#status{background: #ffffff;}
 		#alarm{background: #eeeeee;}
 		#record{background: #eeeeee;}
-	.cncStatusDiv, .cncAlarmDiv, .cncRecordDiv{width: 90%;height: 220px;background: #ffffff;border-radius: 3px;padding: 16px 5%;}
+	.cncStatusDiv, .cncAlarmDiv, .cncRecordDiv{width: 90%;height: 220px;background: #ffffff;border-radius: 3px;padding: 16px 5%;margin: 0;}
 	.cncStatusDiv li, .cncAlarmDiv li, .cncRecordDiv li{list-style: none;}

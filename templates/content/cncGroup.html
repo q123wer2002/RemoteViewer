@@ -11,19 +11,22 @@
 		<span class="factoryName">
 			<span class="factoryIcon"></span>
 			<a href="index.php">{{thisFactoryName}}</a> > 
-			<a ng-href="cncGroup.php?group={{gid}}">{{thisGroupName}}{{initGid}}</a>
+			<a ng-href="cncGroup.php?group={{gid}}">{{thisGroupName}}</a>
 		</span>
 	</div>
 
 	<div class="cncDiv">
 		<select ng-model="filterCncStatus" class="selectCNCStatus">
-	      <option value="">--- All status ---</option> <!-- not selected / blank option -->
-	      <option ng-repeat="option in allCncStatus" value="{{option}}">{{option}}</option>
+			<option value="">--- All status ---</option> <!-- not selected / blank option -->
+			<option ng-repeat="option in allCncStatus" value="{{option}}">
+				{{option}}
+			</option>
 	    </select>
+	    <span class="lastUpdateDate">最後更新時間：{{lastModified}}</span>
 
 	    <div class="cncDiv">
 	    	<ul class="cncUl">
-	    		<a ng-href="cnc.php?cnc={{cnc.id}}" ng-repeat="cnc in cncs | filter: { status : filterCncStatus}">
+	    		<a ng-href="cnc.php?cnc={{cnc.id}}" ng-repeat="cnc in cncs | filter: filterCncStatus ">
 	    			<li>
 	    				<div class="light" ng-style="cnc.style">
 	    					<span ng-if="cnc.alarm == 'ALARM'">ALARM</span>

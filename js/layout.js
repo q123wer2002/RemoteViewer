@@ -68,7 +68,11 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
             }
         }
         //console.log($scope.cncGroups);
+
+        //show factory name and group name
         $scope.getFactoryNGroup($scope.initGid);
+
+        //
     }
 
     $scope.getFactoryNGroup = function( gid ){
@@ -104,6 +108,8 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
         if( $scope.isShowMenu ){
             $scope.isShowMenu = false;
         }else{
+            //default css .menuDiv is display:none
+            jQuery(".menuDiv").css('display','block');
             $scope.isShowMenu = true;
         }
     }    

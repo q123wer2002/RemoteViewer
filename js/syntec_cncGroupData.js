@@ -4,8 +4,11 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
     $scope.filterCncStatus = "";
 
     $scope.allCncStatus = [
-        'START','ALARM','NOTREADY'
+        'START','NOTREADY','ALARM'
     ];
+    $scope.cncFilter = function( item ){
+
+    }
 
     $scope.initCncOverview = function(){
 
@@ -29,6 +32,7 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
 
     $scope.cncs = [];
     $scope.PoolOfUpdateCnc=[];
+
     $scope.initCncProcess = function( initCncData ){
         if( initCncData != null){
             for(var i=0; i<initCncData.length; i++){
@@ -88,8 +92,11 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
                     $scope.cncs[i].EMG = cncStatusData.EMG;
                     $scope.cncs[i].MainProg = cncStatusData.MainProg;
                     $scope.cncs[i].CurProg = cncStatusData.CurProg;
-                
-                    //1. show the color by cnc status
+                    
+                    //write last modified date
+                    //$scope.lastModified = cncStatusData.updateTime;
+
+                    //show the color by cnc status
                     $scope.changeCncStyle( $scope.cncs[i] );
 
                     break;

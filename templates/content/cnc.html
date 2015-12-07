@@ -12,17 +12,18 @@
 		<span class="factoryName">
 			<span class="factoryIcon"></span>
 			<a ng-href="index.php">{{thisFactoryName}}</a> > 
-			<a ng-href="cncGroup.php?gruop={{gid}}">{{thisGroupName}}</a> > 
+			<a ng-href="cncGroup.php?group={{gid}}">{{thisGroupName}}</a> > 
 			<a ng-href="cnc.php?cnc={{thisCnc.id}}">{{thisCnc.serialNo}}</a>
 		</span>
 	</div>
 
 	<div class="cncStatus">
 		<div class="currentStatus">
-			<span class="light" id="cncStatusForSingle" ng-style="statusLight.style"></span>
-			<span class="statusName" ng-style="statusLight.fontColor">{{statusLight.msg}}</span>
+			<span class="statusName" ng-style="statusLight.fontColor">{{statusLight.msg}}</span><br>
+			<span class="lastUpdateDate">最後更新時間：</span>
 		</div>
-		<div class="cncDetail">
+
+		<div class="cncDetail" ng-style="statusLight.style">
 			<div class="cncImage">
 				<img src="http://www.syntecclub.com.tw/UpDownFiles/Product_pic/PIC_635368656631875000.jpg">
 			</div>
@@ -38,6 +39,7 @@
 				</ul>
 			</div>
 		</div>
+
 	</div>
 
 	<div class="cncTabInfo">
