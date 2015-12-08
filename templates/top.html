@@ -8,7 +8,14 @@
 			<li class="fName">{{f.name}}</li>
 			<ul class="menuCncGroup">
 				<a ng-href="cncGroup.php?group={{group.gid}}" class="menuCncGName" ng-repeat="group in cncGroups" ng-if="group.fid === f.fid">
-					<li>{{group.name}}</li>
+					<li>
+						<span>{{group.name}}</span>
+						<div class="GStatusBar" id="menuBarStatus">
+							<div class="StatusElement GreenStatus" ng-style="group.GreenBarWidth"></div>
+							<div class="StatusElement YellowStatus" ng-style="group.YellowBarWidth"></div>
+							<div class="StatusElement RedStatus" ng-style="group.RedBarWidth"></div>
+						</div>
+					</li>
 				</a>
 			</ul>
 		</ul>

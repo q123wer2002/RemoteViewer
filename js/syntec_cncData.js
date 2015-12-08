@@ -54,7 +54,7 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
         {'style':'', 'fontColor':'', 'msg':''}
     ];
     $scope.cncStatus = [
-        {'status':'','mode':'','alarm':'','EMG':'','MainProg':'','CurProg':''},
+        {'status':'','mode':'','alarm':'','EMG':'','MainProg':'','CurProg':'', 'updateTime':''},
     ];
     $scope.cncAlarm = [];
     $scope.cncRecord = [];
@@ -72,7 +72,7 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
             if( json.result == "success" ){
                 //process data
                 $scope.initCncProcess( json.data );
-                console.log(json.data);
+                //console.log(json.data);
                 
                 //update status light ( cncid )
                 $scope.updateStatusLight( $scope.initCncid );
@@ -96,24 +96,25 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
                 if( json.result == "success" ){              
                     //process status light
                     if( json.data.Alarm == "ALARM" ){
-                        $scope.statusLight.style={'background':'rgba(255, 58, 58,0.5)', 'border-color':'#ef6262'};
+                        $scope.cncStatusIconPicker= 3 ;
                         $scope.statusLight.fontColor={'color':'#ef6262'};
                         $scope.statusLight.msg = "ALARM";
                     }else{
                         switch( json.data.Status ){
                             case"START":
-                                $scope.statusLight.style={'background':'#8af779', 'border-color':'#14ff3b'};
-                                $scope.statusLight.fontColor={'color':'#8af779'};
+                                $scope.cncStatusIconPicker= 2 ;
+                                $scope.statusLight.fontColor={'color':'#2aed44'};
                                 $scope.statusLight.msg = json.data.Status;
                             break;
 
                             default:
-                                $scope.statusLight.style={'background':'#fff770', 'border-color':'#f4d430'};
+                                $scope.cncStatusIconPicker= 1 ;
                                 $scope.statusLight.fontColor={'color':'#f4d430'};
                                 $scope.statusLight.msg = json.data.Status;
                             break;
                         }
                     }
+                    $scope.statusLight.UpdateTime = json.data.update_time;
                 }
             }).
             error(function(json){
@@ -150,6 +151,7 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
             success(function(json){
                 if( json.result == "success" ){              
                     $scope.writeCncStatus( json.data );
+                    //console.log(json.data);
                 }
             }).
             error(function(json){
@@ -166,6 +168,7 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
             $scope.cncStatus.EMG = cncStatusData.EMG;
             $scope.cncStatus.MainProg = cncStatusData.MainProg;
             $scope.cncStatus.CurProg = cncStatusData.CurProg;
+            $scope.cncStatus.updateTime = cncStatusData.update_time;
         }
     }
 

@@ -12,7 +12,7 @@ switch( $method ){
 		$pwd = $post['pwd'];
 
 		//catch user data from DB
-		$sql_findUser = "SELECT * FROM company WHERE binary user='".$post['user']."';";
+		$sql_findUser = "SELECT * FROM company WHERE user='".$post['user']."';";
 		$SyntecObj->resultArray['companyInfo'] = array();
 		$SyntecObj->SQLQuery('resultArray','companyInfo',$sql_findUser);
 
@@ -24,7 +24,7 @@ switch( $method ){
 			$DBPwd = $SyntecObj->resultArray['companyInfo'][0]['pwd'];
 			
 			//compare user and password
-			if( $user == $DBUser && md5($pwd) == $DBPwd ){
+			if( md5($pwd) == $DBPwd ){
 				//correct, and save company info into SESSION
 				$_SESSION['companyInfo'] = $SyntecObj->resultArray['companyInfo'][0];
 

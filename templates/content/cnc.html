@@ -20,10 +20,28 @@
 	<div class="cncStatus">
 		<div class="currentStatus">
 			<span class="statusName" ng-style="statusLight.fontColor">{{statusLight.msg}}</span><br>
-			<span class="lastUpdateDate">最後更新時間：</span>
+			<span class="lastUpdateDate">最後更新時間：{{statusLight.UpdateTime}}</span>
+			
+			<!-- correct icon -->
+			<div id="correctIcon" ng-show="cncStatusIconPicker==1">
+				<div class="correct correctLeft"></div>
+				<div class="correct correctRight"></div>
+			</div>
+
+			<!-- start icon -->
+			<div id="startIcon" ng-show="cncStatusIconPicker==2"></div>
+
+			<!-- alarm icon -->
+			<div id="alarmIcon" ng-show="cncStatusIconPicker==3">
+				<div class="alarmTri alrmTriLeft"></div>
+				<div class="alarmTri alrmTriRight"></div>
+				<div class="alarmTri alrmTriBottom"></div>
+				<div class="alarmTri alrmTop"></div>
+				<div class="alarmTri alrmBot"></div>
+			</div>
 		</div>
 
-		<div class="cncDetail" ng-style="statusLight.style">
+		<div class="cncDetail"><!-- ng-style="statusLight.style" -->
 			<div class="cncImage">
 				<img src="http://www.syntecclub.com.tw/UpDownFiles/Product_pic/PIC_635368656631875000.jpg">
 			</div>
@@ -51,14 +69,33 @@
 		</ul>
 
 		<div class="cncStatusDiv" ng-show="tabCode==0">
-			<ul>
-				<li>狀態：{{cncStatus.status}}</li>
-				<li>模式：{{cncStatus.mode}}</li>
-				<li>警報：{{cncStatus.alarm}}</li>
-				<li>EMG：{{cncStatus.EMG}}</li>
-				<li>主程式：{{cncStatus.MainProg}}</li>
-				<li>加工檔：{{cncStatus.CurProg}}</li>
-			</ul>
+			<table>
+				<tr>
+					<td width="70px">狀態</td>
+					<td>{{cncStatus.status}}</td>
+				</tr>
+				<tr>
+					<td>模式</td>
+					<td>{{cncStatus.mode}}</td>
+				</tr>
+				<tr>
+					<td>警報</td>
+					<td>{{cncStatus.alarm}}</td>
+				</tr>
+				<tr>
+					<td>EMG</td>
+					<td>{{cncStatus.EMG}}</td>
+				</tr>
+				<tr>
+					<td>主程式</td>
+					<td>{{cncStatus.MainProg}}</td>
+				</tr>
+				<tr>
+					<td>加工檔</td>
+					<td>{{cncStatus.CurProg}}</td>
+				</tr>
+			</table>
+			<span class="lastUpdateDate">最後更新時間：{{cncStatus.updateTime}}</span>
 		</div>
 		<div class="cncAlarmDiv" ng-show="tabCode==1">Alarm</div>
 		<div class="cncRecordDiv" ng-show="tabCode==2">Record</div>

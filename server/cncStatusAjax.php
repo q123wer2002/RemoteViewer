@@ -87,7 +87,7 @@ switch( $method ){
 		$cncid = $post['cncid'];
 
 		//sql to get cnc status and alarm (alarm not yet)
-		$sql_getStatusNAlarm = "SELECT cnc_status.Status, cnc_status.Alarm FROM cnc_status 
+		$sql_getStatusNAlarm = "SELECT cnc_status.Status, cnc_status.Alarm, cnc_status.update_time FROM cnc_status 
 								WHERE cnc_status.cnc_id=".$cncid."";
 		$SyntecObj->resultArray['getStatusNAlarm'] = array();
 		$SyntecObj->SQLQuery('resultArray','getStatusNAlarm',$sql_getStatusNAlarm);

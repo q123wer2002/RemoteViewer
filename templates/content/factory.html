@@ -10,7 +10,16 @@
 		<div class="cncGroupDiv">
 			<ul class="cncGroupUl">
 				<a ng-href="cncGroup.php?group={{group.gid}}" ng-repeat="group in cncGroups" ng-if="group.fid === f.fid">
-					<li>{{group.name}}<br>{{group.cncNumber}}台</li>
+					<li>
+						{{group.name}}<br>
+						{{group.cncNumber}}台<br><br>
+						控制器狀態：
+						<div class="GStatusBar">
+							<div class="StatusElement GreenStatus" ng-style="group.GreenBarWidth"><span>{{group.GreenNum}}</span></div>
+							<div class="StatusElement YellowStatus" ng-style="group.YellowBarWidth"><span>{{group.YellowNum}}</span></div>
+							<div class="StatusElement RedStatus" ng-style="group.RedBarWidth"><span>{{group.RedNum}}</span></div>
+						</div>
+					</li>
 				</a>
 			</ul>
 		</div>

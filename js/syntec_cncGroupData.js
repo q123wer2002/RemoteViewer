@@ -4,14 +4,13 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
     $scope.filterCncStatus = "";
 
     $scope.allCncStatus = [
-        'START','NOTREADY','ALARM'
+        'NOTREADY','READY','START','BLOCKSTOP','ALARM'
     ];
     $scope.cncFilter = function( item ){
 
     }
 
     $scope.initCncOverview = function(){
-
         var initObject={"method":"initCncOverview", "gid":$scope.initGid};
         $http({
             method:'POST',
@@ -37,7 +36,7 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
         if( initCncData != null){
             for(var i=0; i<initCncData.length; i++){
                 var cncInfo = {'id' : initCncData[i].CNC_id, 'serialNo' : initCncData[i].SerialNo, 'machine' : initCncData[i].Machine, 'machineType' : initCncData[i].MachineType, 'version' : initCncData[i].Version, 'dueDate' : initCncData[i].DueDate,
-                               'status':'','mode':'','alarm':'','EMG':'','MainProg':'','CurProg':'','style':''};
+                               'status':'','mode':'','alarm':'','EMG':'','MainProg':'','CurProg':'','update_time':'','style':''};
                 $scope.cncs.push( cncInfo );
                 $scope.PoolOfUpdateCnc.push( initCncData[i].CNC_id );
             }
@@ -92,7 +91,7 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
                     $scope.cncs[i].EMG = cncStatusData.EMG;
                     $scope.cncs[i].MainProg = cncStatusData.MainProg;
                     $scope.cncs[i].CurProg = cncStatusData.CurProg;
-                    
+                    $scope.cncs[i].update_time = cncStatusData.update_time;
                     //write last modified date
                     //$scope.lastModified = cncStatusData.updateTime;
 

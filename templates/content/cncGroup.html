@@ -17,12 +17,11 @@
 
 	<div class="cncDiv">
 		<select ng-model="filterCncStatus" class="selectCNCStatus">
-			<option value="">--- All status ---</option> <!-- not selected / blank option -->
+			<option value="">--- All status ---</option> <!-- not selected / 	blank option -->
 			<option ng-repeat="option in allCncStatus" value="{{option}}">
 				{{option}}
 			</option>
 	    </select>
-	    <span class="lastUpdateDate">最後更新時間：{{lastModified}}</span>
 
 	    <div class="cncDiv">
 	    	<ul class="cncUl">
@@ -35,13 +34,11 @@
 						序號：{{cnc.serialNo}}<br>
 						機型：{{cnc.machineType}}<br>
 						版本：{{cnc.version}}<br>
-						到期日：{{cnc.dueDate}}
 						<hr class="hr">
 						模式：{{cnc.mode}}<br>
-						警報：{{cnc.alarm}}<br>
 						EMG：{{cnc.EMG}}<br>
-						加工程式：{{cnc.MainProg}}<br>
 						加工檔：{{cnc.CurProg}}<br>
+	    				<span class="lastUpdateDate">最後更新：{{cnc.update_time}}</span>
 	    			</li>
 	    		</a>
 	    	</ul>

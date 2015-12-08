@@ -25,8 +25,14 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
             //console.log(json);
         });
     }
+    
+    //factroy
+    $scope.factories = [];
 
-    $scope.initData = "";
+    //cnc group
+    $scope.cncGroups = [];
+    $scope.PoolOfUpdateGroup = [];
+
     $scope.initFactoryNGroup = function(){
         var initObject={"method":"getIndexData"};
         $http({
@@ -37,9 +43,8 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
         }).
         success(function(json){
             if( json.result == "success" ){
-                $scope.initData = json.data;
-                //console.log( $scope.initData );
-                $scope.initFayNGupProcess();
+                //console.log( json.data );
+                $scope.initFayNGupProcess( json.data );
             }
         }).
         error(function(json){
@@ -47,32 +52,90 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
         });
     }
 
-     //factroy
-    $scope.factories = [];
-
-    //cnc group
-    $scope.cncGroups = [];
-
-    $scope.initFayNGupProcess = function(){
-        if( $scope.initData != null ){
+    $scope.initFayNGupProcess = function( initFacNGroData ){
+        if( initFacNGroData != null ){
             //input factory information
-            for(var i=0; i < $scope.initData.factoryInfo.length; i++){
-                var factory = {'fid' : $scope.initData.factoryInfo[i].fid, 'name' : $scope.initData.factoryInfo[i].name};
+            for(var i=0; i < initFacNGroData.factoryInfo.length; i++){
+                var factory = {'fid' : initFacNGroData.factoryInfo[i].fid, 'name' : initFacNGroData.factoryInfo[i].name};
                 $scope.factories.push( factory );
             }
 
             //input group information
-            for (var i=0; i < $scope.initData.groupInfo.length; i++) {
-                var group = {'fid' : $scope.initData.groupInfo[i].fid, 'gid':$scope.initData.groupInfo[i].gid, 'name' : $scope.initData.groupInfo[i].gname, 'cncNumber' : $scope.initData.groupInfo[i].cncNumber};
+            for (var i=0; i < initFacNGroData.groupInfo.length; i++){
+                var group = {'fid' : initFacNGroData.groupInfo[i].fid, 'gid':initFacNGroData.groupInfo[i].gid, 'name' : initFacNGroData.groupInfo[i].gname, 'cncNumber' : initFacNGroData.groupInfo[i].cncNumber,
+                            'YellowNum' : 0, 'GreenNum' : 0, 'RedNum' : 0, 'YellowBarWidth':'','GreenBarWidth':'','RedBarWidth':''};
                 $scope.cncGroups.push( group );
+ 
+                $scope.PoolOfUpdateGroup.push( initFacNGroData.groupInfo[i].gid );
             }
         }
         //console.log($scope.cncGroups);
 
         //show factory name and group name
-        $scope.getFactoryNGroup($scope.initGid);
+        $scope.getFactoryNGroup( $scope.initGid );
+    }
 
-        //
+    $interval( function(){
+        $scope.updateGroupStatusBar();
+    },1000);
+
+    $scope.updateGroupStatusBar = function(){
+        if( $scope.PoolOfUpdateGroup != null){
+            for (var i=0; i<$scope.PoolOfUpdateGroup.length; i++){
+                var initObject={"method":"updateGroupStatus", "gid":$scope.PoolOfUpdateGroup[i] };
+                $http({
+                    method:'POST',
+                    url:'server/factoryNgroupAjax.php',
+                    data: $.param(initObject),
+                    headers: {'Content-type': 'application/x-www-form-urlencoded'},
+                }).
+                success(function(json){
+                    if( json.result == "success" ){
+                        //console.log(json.data);
+                        $scope.writeGroupStatus( json.data );
+                    }
+                }).
+                error(function(json){
+                    console.warn(json);
+                });
+            }
+        }
+    }
+    $scope.writeGroupStatus = function( GroupData ){
+        if( GroupData != null ){
+            //init
+            var gid;
+            var greenNum = 0;
+            var yellowNum = 0;
+            var redNum = 0;
+            
+            //count number of each light
+            for(var i=0; i<GroupData.length; i++){
+                gid = GroupData[i].gid;
+                if( GroupData[i].NumOfStatus == "0" ){}
+                else if( GroupData[i].Alarm == "ALARM" ){ redNum += parseInt( GroupData[i].NumOfStatus ); }
+                else if( GroupData[i].Status == "START" ){ greenNum += parseInt( GroupData[i].NumOfStatus ); }
+                else{ yellowNum += parseInt( GroupData[i].NumOfStatus ); }
+            }
+
+            //write back into group
+            for(var i=0; i<$scope.cncGroups.length; i++){
+                if( $scope.cncGroups[i].gid == gid ){
+                    var totalNum = $scope.cncGroups[i].cncNumber;
+
+                    $scope.cncGroups[i].YellowNum = yellowNum;
+                    $scope.cncGroups[i].GreenNum = greenNum;
+                    $scope.cncGroups[i].RedNum = redNum;
+
+                    $scope.cncGroups[i].YellowBarWidth = {'width' : (yellowNum/totalNum)*100 +'%' };
+                    $scope.cncGroups[i].GreenBarWidth = {'width' : (greenNum/totalNum)*100 +'%' };
+                    $scope.cncGroups[i].RedBarWidth = {'width' : (redNum/totalNum)*100 +'%' };
+                    
+                    //show the status bar
+                    jQuery(".StatusElement").css('display','block');
+                }
+            }
+        }
     }
 
     $scope.getFactoryNGroup = function( gid ){

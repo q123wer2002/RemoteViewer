@@ -6,6 +6,7 @@ $post = $_POST;
 $method = $post['method'];
 
 switch( $method ){
+
 	case 'getIndexData':
 		//company login, get facetory data
 		$companyID = $_SESSION['companyInfo']['cid'];
@@ -44,9 +45,39 @@ switch( $method ){
 
 		//return data
 		$result = array( "result" => "success", "data" => $SyntecObj->resultArray['indexData'] );
-		
 		echo json_encode($result);
 		
+	break;
+	
+	case 'updateGroupStatus':
+		$gid = $post['gid'];
+
+		//sql to get cncstatus
+		$sql_getGroupStatus="SELECT cnc_group.cncgid as gid, cnc_status.Status, cnc_status.Alarm, COUNT( cnc_status.cnc_id ) as NumOfStatus 
+							 FROM cnc_group 
+							 LEFT JOIN cnc_status ON cnc_status.cnc_id IN (SELECT cnc.CNC_id FROM cnc WHERE cnc.CNCGroup=cnc_group.cncgid) 
+							 WHERE cnc_group.cncgid = ".$gid." 
+							 GROUP BY cnc_status.Status;";
+		$SyntecObj->resultArray['getGroupStatus'] = array();
+		$SyntecObj->SQLQuery('resultArray','getGroupStatus',$sql_getGroupStatus);
+
+		//adjust array
+		$groupStatus = array();
+		if( !empty($SyntecObj->resultArray['getGroupStatus']) ){
+			$groupStatus = $SyntecObj->resultArray['getGroupStatus'];
+		}
+
+		//release space
+		$SyntecObj->resultArray = null;
+		unset( $SyntecObj->resultArray );
+
+		//return result
+		$result = array( "result" => "success", "data" => $groupStatus );
+		echo json_encode( $result );
+
+	break;
+
+	default:
 	break;
 }
 

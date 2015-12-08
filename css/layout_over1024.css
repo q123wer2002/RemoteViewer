@@ -19,6 +19,20 @@ a{text-decoration: none;}
 	.footer ul{padding-top: 10px;}
 	.footer ul li{list-style: none;}
 
+#correctIcon{width:300px;height:300px;position:absolute;right: 190px;top: 190px;z-index: -1;}
+	.correct{height: 30px;background: #f4d430;border-radius: 12px;position: absolute;}
+	.correctLeft{width: 170px;-webkit-transform: rotate(50deg);top:50px;}
+	.correctRight{width: 300px;-webkit-transform: rotate(-50deg);left: 70px;}
+
+#startIcon{border-top: 130px solid #eeeeee;border-bottom: 130px solid #eeeeee;border-left: 200px solid #2aed44;border-radius: 10px;position: absolute;right: 200px;top: 70px;z-index: -1;}
+
+#alarmIcon{width: 300px;height: 300px;position: absolute;right: 190px;top: 170px;z-index: -1;}
+	.alarmTri{width: 50px;height: 25px;background: #ef6262;position: absolute;border-radius: 10px;}
+	.alrmTriLeft{left: 140px;width: 350px;-webkit-transform: rotate(55deg);}
+	.alrmTriRight{right: 0;width: 350px;-webkit-transform: rotate(-55deg);}
+	.alrmTriBottom{top: 135px;width: 390px;left: 25px;}
+	.alrmTop{height: 150px;width: 25px;right: 70px;top: -65px;}
+	.alrmBot{right: 70px;top: 100px;width: 25px;}
 
 /* only for login page */
 .LogInPage{padding:70px 0px;width: 100%;text-align: center;margin: auto;}
@@ -50,7 +64,8 @@ a{text-decoration: none;}
 		.menuFactory li{list-style: none;}
 		.fName{font-size: 20px;position:relative;font-weight: 700;}
 			.menuCncGroup{border-left: 3px solid #111d6d;padding-left: 15px;margin-left: 30px;}
-			.menuCncGName li{width: 150px;height: 35px;border: 1px solid #000000;margin-top: 7px;line-height: 35px;text-align: center;}
+			.menuCncGName li{width: 150px;height: 35px;border: 1px solid #000000;margin-top: 7px;line-height: 35px;text-align: center;position: relative;}
+			#menuBarStatus{width: 100%;height: 100%;position: absolute;top: 0;left: 0;z-index: -1;}
 			.menuCncGName:hover li{background: #eeeeee;}
 
 .factoryDiv{width: 100%;position: relative;margin-top: 70px;}
@@ -62,7 +77,13 @@ a{text-decoration: none;}
 .cncGroupDiv{width: 100%;text-align: left;margin-top: 15px;padding-left:50px;border-left: 5px solid #111d6d;}
 	.cncGroupUl{list-style: none;}
 	.cncGroupUl a{color:#111d6d;}
-	.cncGroupUl li{padding:5px 7px;width:150px;height:136px;display: inline-block;border: 1px solid #888888;margin: 7px;border-radius: 3px;text-align: center;}
+	.cncGroupUl li{padding:5px 7px;width:150px;height:136px;display: inline-block;border: 1px solid #888888;margin: 7px;border-radius: 3px;text-align: left;position: relative;}
+		.GStatusBar{width: 94%;height: 20px;border:1px solid rgba(0,0,0,0.1);border-radius: 3px;overflow: hidden;}
+			.StatusElement{height: 100%;display: inline;margin: 0;padding: 0;float: left;text-align: center;display: none;}
+			.StatusElement span{font-size: 9px;line-height: 15px;color: #888888;}
+			.GreenStatus{background: #8af779;}
+			.YellowStatus{background: #fff770;}
+			.RedStatus{background: rgba(255, 58, 58,0.5);}
 	.cncGroupUl li:hover{box-shadow: 0px 2px 1px 1px #888888;}
 
 /* only for cncGroup */
@@ -72,21 +93,22 @@ a{text-decoration: none;}
 .selectCNCStatus{padding:7px 15px;width: 236px;text-align: center;margin: 15px 15px;border:none;height: 30px;border-radius: 3px;box-shadow: 0px 2px 3px 1px #888888;}
 .selectCNCStatus:hover{cursor: pointer;}
 .selectCNCStatus option{border: none;}
-.lastUpdateDate{color:#888888;}
 .cncDiv{}
 	.cncUl{list-style: none;}
 	.cncUl a{color:#111d6d;}
-	.cncUl li{padding:36px 20px 26px 20px;width: 238px;height: auto;margin: 15px;display: inline-block;background: #eeeeee;border-radius: 3px;border: 1px solid #888888;position: relative;}
+	.cncUl li{padding:36px 20px 26px 20px;width: 238px;height: auto;margin: 25px 15px 15px 15px;display: inline-block;background: #eeeeee;border-radius: 3px;border: 1px solid #888888;position: relative;}
 		.light{background:#eeeeee;color: #000000;height: 30px;width: 100%;border: 1px solid #888888;border-bottom:none;text-align: center;position: absolute;left: -1px;top: -1px;}
 		.light span{line-height: 30px;}
+	.cncUl .lastUpdateDate{color:#888888;position: absolute;bottom: -20px;font-size: 13px;left: 40px;}
 	.cncUl li:hover{box-shadow: 0px 2px 1px 1px #888888;}
 
 /* only for cnc */
-.cncStatus{padding: 15px 10px;margin-top: 15px;}
+.cncStatus{padding: 15px 10px;margin-top: 15px;position: relative;}
 	.currentStatus{position: relative;text-align: center;}
+	.lastUpdateDate{color:#888888;font-size: 13px;float: right;}
 		#cncStatusForSingle{width:50px;height: 50px;border: 2px solid #000000;background: #eeeeee;border-radius: 25px;}
 		.statusName{line-height: 50px;font-size: 25px;font-weight: 700;color: #000000;text-decoration: underline;}
-	.cncDetail{padding: 25px 10px;text-align: center;margin-top: 25px;border:2px solid #eeeeee;border-radius: 3px;}
+	.cncDetail{padding: 25px 10px;text-align: center;margin-top: 25px;}
 	.cncImage{display: inline-block;padding: 15px 35px;}
 	.cncImage img{width: 150px;}
 	.cncInfo{display:inline-block;width: 250px;text-align: left;padding: 15px 35px;}
@@ -102,3 +124,6 @@ a{text-decoration: none;}
 		.tabTitle a:hover li{background: #ffffff;}
 		.cncStatusDiv, .cncAlarmDiv, .cncRecordDiv{padding:25px 30px;width: 964px;height: 300px;background: #ffffff;border-radius: 3px;box-shadow: 0px 2px 5px 1px #888888;}
 		.cncStatusDiv li, .cncAlarmDiv li, .cncRecordDiv li{list-style: none;}
+		.cncStatusDiv table, th, td{border: 1px solid black;border-collapse: collapse;}
+		.cncStatusDiv th, td{padding: 15px;}
+
