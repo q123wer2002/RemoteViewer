@@ -24,24 +24,38 @@
 	    </select>
 
 	    <div class="cncDiv">
-	    	<ul class="cncUl">
+	    	<ul class="cncUl" ng-if="cncs.length > 0">
 	    		<a ng-href="cnc.php?cnc={{cnc.id}}" ng-repeat="cnc in cncs | filter: filterCncStatus ">
 	    			<li>
-	    				<div class="light" ng-style="cnc.style">
-	    					<span ng-if="cnc.alarm == 'ALARM'">ALARM</span>
-	    					<span ng-if="cnc.alarm != 'ALARM'">{{cnc.status}}<span>
+	    				<!-- background setting -->
+	    				<div class="light" id="alarmBG" ng-if="cnc.statusBG == 3">
+	    					<span style="color:#eeeeee;">ALARM</span>
 	    				</div>
-						序號：{{cnc.serialNo}}<br>
-						機型：{{cnc.machineType}}<br>
-						版本：{{cnc.version}}<br>
-						<hr class="hr">
-						模式：{{cnc.mode}}<br>
-						EMG：{{cnc.EMG}}<br>
-						加工檔：{{cnc.CurProg}}<br>
-	    				<span class="lastUpdateDate">最後更新：{{cnc.update_time}}</span>
+	    				<div class="light" id="startBG" ng-if="cnc.statusBG == 2">
+	    					<span>{{cnc.status}}<span> 
+	    				</div>
+	    				<div class="light" id="defaultBG" ng-if="cnc.statusBG == 1">
+	    					<span>{{cnc.status}}<span>
+	    				</div>
+
+	    				<!-- data setting -->
+	    				<span class="cncPic"><img src="images/cnc.jpg"></span><br>
+						<span id="CNCserialNo">序號 : {{cnc.serialNo}}<br></span>
+						<span class="OnlyViewOnWeb">機型 : {{cnc.machineType}}<br></span>
+						<span class="OnlyViewOnWeb">版本 : {{cnc.version}}<br></span>
+						<hr class="hr vertical" id="cncOverVertical">
+						<span class="OnlyViewOnWeb">模式 : {{cnc.mode}}<br></span>
+						<span class="OnlyViewOnWeb">EMG : {{cnc.EMG}}<br></span>
+						<span class="OnlyViewOnWeb">加工檔 : {{cnc.CurProg}}<br></span>
+	    				<span class="lastUpdateDate">08:05</span>
+
+	    				<!-- OOE -->
+	    				<span id="OOETitle">OOE</span>
+	    				<span id="OOEData">95%</span>
 	    			</li>
 	    		</a>
 	    	</ul>
+	    	<span ng-if="cncs.length == 0">目前沒有任何控制器</span>
 	    </div>
 
 	</div>

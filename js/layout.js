@@ -131,8 +131,10 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
                     $scope.cncGroups[i].GreenBarWidth = {'width' : (greenNum/totalNum)*100 +'%' };
                     $scope.cncGroups[i].RedBarWidth = {'width' : (redNum/totalNum)*100 +'%' };
                     
-                    //show the status bar
-                    jQuery(".StatusElement").css('display','block');
+                    if( totalNum != 0 && totalNum != null){
+                        //show the status bar
+                        jQuery(".StatusElement").css('display','block');
+                    }
                 }
             }
         }

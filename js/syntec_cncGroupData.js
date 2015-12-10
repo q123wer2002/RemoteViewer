@@ -36,7 +36,7 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
         if( initCncData != null){
             for(var i=0; i<initCncData.length; i++){
                 var cncInfo = {'id' : initCncData[i].CNC_id, 'serialNo' : initCncData[i].SerialNo, 'machine' : initCncData[i].Machine, 'machineType' : initCncData[i].MachineType, 'version' : initCncData[i].Version, 'dueDate' : initCncData[i].DueDate,
-                               'status':'','mode':'','alarm':'','EMG':'','MainProg':'','CurProg':'','update_time':'','style':''};
+                               'status':'','mode':'','alarm':'','EMG':'','MainProg':'','CurProg':'','update_time':'','statusBG':0};
                 $scope.cncs.push( cncInfo );
                 $scope.PoolOfUpdateCnc.push( initCncData[i].CNC_id );
             }
@@ -109,17 +109,18 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
     $scope.changeCncStyle = function( cnc ){
         if( cnc != null ){
             if( cnc.alarm == "ALARM" ){
-                cnc.style={'background':'rgba(255, 58, 58,0.5)', 'color':'#ffffff', 'height':'100%'};
+                //rgba(255, 58, 58,0.5)
+                cnc.statusBG=3;
             }
             else{
                 switch( cnc.status ){
                     case"START":
                         // #8af779, #000000
-                        cnc.style={'background':'#8af779', 'color':'#0000000'};
+                        cnc.statusBG=2;
                     break;
                     default:
                         // #fff770
-                        cnc.style={'background':'#fff770', 'color':'#0000000'};
+                        cnc.statusBG=1;
                     break;
                 }
             }

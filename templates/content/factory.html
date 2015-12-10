@@ -14,7 +14,7 @@
 						{{group.name}}<br>
 						{{group.cncNumber}}台<br><br>
 						控制器狀態：
-						<div class="GStatusBar">
+						<div class="GStatusBar" ng-if="group.cncNumber != 0">
 							<div class="StatusElement GreenStatus" ng-style="group.GreenBarWidth"><span>{{group.GreenNum}}</span></div>
 							<div class="StatusElement YellowStatus" ng-style="group.YellowBarWidth"><span>{{group.YellowNum}}</span></div>
 							<div class="StatusElement RedStatus" ng-style="group.RedBarWidth"><span>{{group.RedNum}}</span></div>

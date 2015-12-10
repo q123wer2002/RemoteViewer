@@ -8,7 +8,15 @@
 	<!-- get cnc data from DB -->
 	<input type="hidden" ng-init="initCncDetail()">
 
-	<div class="factoryTitle">
+	<div class="OnlyViewOnMobile statusBanner" ng-style="statusLight.BGColor">
+		<span class="statusName">{{statusLight.msg}}</span>
+		<span class="statusDetail">{{statusLight.msgDetail}}</span>
+		<!-- OOE -->
+		<span id="OOETitle">OOE</span>
+		<span id="OOEData">95%</span>
+	</div>
+
+	<div class="factoryTitle OnlyAdjustOnCncPage">
 		<span class="factoryName">
 			<span class="factoryIcon"></span>
 			<a ng-href="index.php">{{thisFactoryName}}</a> > 
@@ -19,20 +27,20 @@
 
 	<div class="cncStatus">
 		<div class="currentStatus">
-			<span class="statusName" ng-style="statusLight.fontColor">{{statusLight.msg}}</span><br>
-			<span class="lastUpdateDate">最後更新時間：{{statusLight.UpdateTime}}</span>
+			<span class="statusName OnlyViewOnWeb" ng-style="statusLight.fontColor">{{statusLight.msg}} - {{statusLight.msgDetail}}</span><br>
+			<span class="lastUpdateDate">{{statusLight.UpdateTime}}</span>
 			
 			<!-- correct icon -->
-			<div id="correctIcon" ng-show="cncStatusIconPicker==1">
+			<div class="OnlyViewOnWeb" id="correctIcon" ng-show="cncStatusIconPicker==1">
 				<div class="correct correctLeft"></div>
 				<div class="correct correctRight"></div>
 			</div>
 
 			<!-- start icon -->
-			<div id="startIcon" ng-show="cncStatusIconPicker==2"></div>
+			<div class="OnlyViewOnWeb" id="startIcon" ng-show="cncStatusIconPicker==2"></div>
 
 			<!-- alarm icon -->
-			<div id="alarmIcon" ng-show="cncStatusIconPicker==3">
+			<div class="OnlyViewOnWeb" id="alarmIcon" ng-show="cncStatusIconPicker==3">
 				<div class="alarmTri alrmTriLeft"></div>
 				<div class="alarmTri alrmTriRight"></div>
 				<div class="alarmTri alrmTriBottom"></div>
@@ -43,15 +51,16 @@
 
 		<div class="cncDetail"><!-- ng-style="statusLight.style" -->
 			<div class="cncImage">
-				<img src="http://www.syntecclub.com.tw/UpDownFiles/Product_pic/PIC_635368656631875000.jpg">
+				<img src="images/cnc.jpg">
 			</div>
 			<div class="cncInfo">
 				<ul class="cncInfoList">
 					<li>
+						型號：{{thisCnc.machine}}<br>
 						序號：{{thisCnc.serialNo}}<br>
 						機型：{{thisCnc.machineType}}<br>
 						版本：{{thisCnc.version}}<br>
-						到期日：{{thisCnc.dueDate}}
+						剩餘天數：5天
 						<hr class="hr">
 					</li>
 				</ul>
@@ -63,13 +72,37 @@
 	<div class="cncTabInfo">
 
 		<ul class="tabTitle">
-			<a href="javascript:;" id="status" ng-click="changeToStatus()" ng-style="statusTabBG"><li>控制器狀態</li></a>
-			<a href="javascript:;" id="alarm" ng-click="changeToAlarm()" ng-style="alramTabBG"><li>警報資訊</li></a>
-			<a href="javascript:;" id="record" ng-click="changeToRecord()" ng-style="recordTabBG"><li>加工紀錄</li></a>
+			<a href="javascript:;" id="OOE" ng-click="changeToOOE()" ng-style="OOETabBG">
+				<li>
+					<span class="tabIcon"><img src="images/OOE.png"></span>
+					<span class="tabName">稼動率</span>
+				</li>
+			</a>
+			<a href="javascript:;" id="status" ng-click="changeToStatus()" ng-style="statusTabBG">
+				<li>
+					<span class="tabIcon"><img src="images/status.png"></span>
+					<span class="tabName">機台狀態</span>
+				</li>
+			</a>
+			<a href="javascript:;" id="alarm" ng-click="changeToAlarm()" ng-style="alramTabBG">
+				<li>
+					<span class="tabIcon"><img src="images/alarm.png"></span>
+					<span class="tabName">警報資訊</span>
+				</li>
+			</a>
+			<a href="javascript:;" id="record" ng-click="changeToRecord()" ng-style="recordTabBG">
+				<li>
+					<span class="tabIcon"><img src="images/record.png"></span>
+					<span class="tabName">加工紀錄</span>
+				</li>
+			</a>
 		</ul>
 
+		<div class="cncOOEDiv" ng-show="tabCode==3">
+			
+		</div>
 		<div class="cncStatusDiv" ng-show="tabCode==0">
-			<table>
+			<table id="statusTable">
 				<tr>
 					<td width="70px">狀態</td>
 					<td>{{cncStatus.status}}</td>
@@ -95,10 +128,69 @@
 					<td>{{cncStatus.CurProg}}</td>
 				</tr>
 			</table>
-			<span class="lastUpdateDate">最後更新時間：{{cncStatus.updateTime}}</span>
+			<span class="lastUpdateDate eachCncUpdate">最後更新時間：{{cncStatus.updateTime}}</span>
 		</div>
-		<div class="cncAlarmDiv" ng-show="tabCode==1">Alarm</div>
-		<div class="cncRecordDiv" ng-show="tabCode==2">Record</div>
+		<div class="cncAlarmDiv" ng-show="tabCode==1">
+			<table id="alarmTable" ng-show="cncAlarm.length != 0">
+				<tr>
+					<td>警報編號</td>
+					<td>警報訊息</td>
+					<td>警報時間</td>
+				</tr>
+				<!-- it has alarm -->
+				<tr ng-if="cncStatusIconPicker == 3">
+					<td class="CurAlmBG">{{cncAlarm[0].aid}}</td>
+					<td class="CurAlmBG">{{cncAlarm[0].almTime}}</td>
+					<td class="CurAlmBG">{{cncAlarm[0].almMsg}}</td>
+				</tr>
+				<tr ng-repeat="alm in cncAlarm | orderBy : '-almTime' " ng-if="alm.aid != cncAlarm[0].aid && cncStatusIconPicker == 3">
+					<td>{{alm.aid}}</td>
+					<td>{{alm.almTime}}</td>
+					<td>{{alm.almMsg}}</td>
+				</tr>
+				<!-- no alarm -->
+				<tr ng-repeat="alm in cncAlarm | orderBy : '-almTime' ">
+					<td>{{alm.aid}}</td>
+					<td>{{alm.almTime}}</td>
+					<td>{{alm.almMsg}}</td>
+				</tr>
+			</table>
+			<span ng-show="cncAlarm.length == 0">無任何警報</span>
+			<span class="lastUpdateDate eachCncUpdate">最後更新時間：{{cncAlarm[0].updateTime}}</span>
+		</div>
+		<div class="cncRecordDiv" ng-show="tabCode==2">
+			<ul id="recordTable">
+				<li>
+					<span>加工程式：</span>
+					<span>{{cncRecord.CurProg}}</span>
+				</li>
+				<li>
+					<span>開始日期：</span>
+					<span>{{cncRecord.startDate}}</span>
+				</li>
+				<li>
+					<span>加工時間：</span>
+					<span>{{cncRecord.cycleTime}}</span>
+				</li>
+				<li>
+					<span>累積加工時間：</span>
+					<span>{{cncRecord.totalCycleTime}}</span>
+				</li>
+				<li>
+					<span>已加工件數：</span>
+					<span>{{cncRecord.partCount}}</span>
+				</li>
+				<li>
+					<span>預計加工件數：</span>
+					<span>{{cncRecord.requirePartCount}}</span>
+				</li>
+				<li>
+					<span>總加工件數：</span>
+					<span>{{cncRecord.totalPartCount}}</span>
+				</li>
+			</ul>
+			<span class="lastUpdateDate eachCncUpdate">最後更新時間：{{cncRecord.updateTime}}</span>
+		</div>
 
 	</div>
 	
