@@ -1,4 +1,5 @@
 <!-- load specific js and css -->
+<script type="text/javascript" src="<?php echo WEB_URL."js/lib/jsapi.js"; ?>"></script>
 <script type="text/javascript" src="<?php echo WEB_URL."js/syntec_cncData.js"; ?>"></script>
 
 <input type="hidden" ng-init="initCncid=<?php echo $this->cncid; ?>">
@@ -27,7 +28,7 @@
 
 	<div class="cncStatus">
 		<div class="currentStatus">
-			<span class="statusName OnlyViewOnWeb" ng-style="statusLight.fontColor">{{statusLight.msg}} - {{statusLight.msgDetail}}</span><br>
+			<span class="statusName OnlyViewOnWeb" ng-style="statusLight.fontColor">{{statusLight.msg}} {{statusLight.msgDetail}}</span><br>
 			<span class="lastUpdateDate">{{statusLight.UpdateTime}}</span>
 			
 			<!-- correct icon -->
@@ -51,7 +52,7 @@
 
 		<div class="cncDetail"><!-- ng-style="statusLight.style" -->
 			<div class="cncImage">
-				<img src="images/cnc.jpg">
+				<img src="<?php echo WEB_URL."images/cnc.jpg"; ?>">
 			</div>
 			<div class="cncInfo">
 				<ul class="cncInfoList">
@@ -74,32 +75,33 @@
 		<ul class="tabTitle">
 			<a href="javascript:;" id="OOE" ng-click="changeToOOE()" ng-style="OOETabBG">
 				<li>
-					<span class="tabIcon"><img src="images/OOE.png"></span>
+					<span class="tabIcon"><img src="<?php echo WEB_URL."images/OOE.png"; ?>"></span>
 					<span class="tabName">稼動率</span>
 				</li>
 			</a>
 			<a href="javascript:;" id="status" ng-click="changeToStatus()" ng-style="statusTabBG">
 				<li>
-					<span class="tabIcon"><img src="images/status.png"></span>
+					<span class="tabIcon"><img src="<?php echo WEB_URL."images/status.png"; ?>"></span>
 					<span class="tabName">機台狀態</span>
 				</li>
 			</a>
 			<a href="javascript:;" id="alarm" ng-click="changeToAlarm()" ng-style="alramTabBG">
 				<li>
-					<span class="tabIcon"><img src="images/alarm.png"></span>
+					<span class="tabIcon"><img src="<?php echo WEB_URL."images/alarm.png"; ?>"></span>
 					<span class="tabName">警報資訊</span>
 				</li>
 			</a>
 			<a href="javascript:;" id="record" ng-click="changeToRecord()" ng-style="recordTabBG">
 				<li>
-					<span class="tabIcon"><img src="images/record.png"></span>
+					<span class="tabIcon"><img src="<?php echo WEB_URL."images/record.png"; ?>"></span>
 					<span class="tabName">加工紀錄</span>
 				</li>
 			</a>
 		</ul>
 
 		<div class="cncOOEDiv" ng-show="tabCode==3">
-			
+			<!-- Google Chart -->
+			<div class="googleCshart" ng-ooe-chart></div>
 		</div>
 		<div class="cncStatusDiv" ng-show="tabCode==0">
 			<table id="statusTable">

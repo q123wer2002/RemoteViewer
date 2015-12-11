@@ -1,5 +1,7 @@
 
-SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function SyntecCnc($scope,$http,$interval){
+// google api for chart
+
+SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval',function SyntecCnc($scope,$http,$timeout,$interval){
     
     $scope.tabCode = 3;
     $scope.changeToStatus = function(){
@@ -78,6 +80,13 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
 
 
     $scope.initCncDetail = function(){
+        
+        //delay loading google chart
+        //$timeout(function(){
+            //after 2000 ms to loading google chart
+            //$scope.initGoogleChart();
+        //},2000);
+
         var initObject={"method":"initCncDetail", "cncid":$scope.initCncid};
         $http({
             method:'POST',
@@ -113,6 +122,16 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
         $scope.updateCncStatus();
         //$scope.updaetCncAlarm();
         //$scope.updateCncRecord();
+    }
+    $scope.initGoogleChart = function(){
+        
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawVisualization);
+
+        drawVisualization();
+    }
+    function drawVisualization(){
+        
     }
 
     //update status light
@@ -285,3 +304,65 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http', '$interval',function S
     }
 
 }]);
+
+SyntecRemoteWeb.directive('ngOoeChart', function() {
+    return {
+      restrict: 'A',
+      link: function($scope, $elm, $attr) {
+        // Some raw data (not necessarily accurate)
+        var data = google.visualization.arrayToDataTable([
+            ['日期','加工時間','閒置時間','警報時間','關機時間','稼動率'],
+            ['2015/12/09', 13, 1.2, 0.7, 2.1, 0.83],
+            ['2015/12/10', 12.5, 1.5, 0.8, 3.4, 0.90],
+            ['2015/12/11', 11.8, 1.8, 1.5, 1.4,  0.95],
+            ['2015/12/12', 13.2, 0.7, 0.8, 1.2, 0.93],
+            ['2015/12/13', 12.8, 1.1,  1.3, 0.8, 0.92],
+            ['2015/12/14', 13, 1.2, 0.7, 2.1, 0.90],
+            ['2015/12/15', 12.5, 1.5, 0.8, 3.4, 0.90],
+            ['2015/12/16', 11.8, 1.8, 1.5, 1.4,  0.95],
+            ['2015/12/17', 13.2, 0.7, 0.8, 1.2, 0.93],
+            ['2015/12/18', 12.8, 1.1,  1.3, 0.8, 0.92]
+        ]);
+
+        var options = {
+            title : '稼動率',
+            vAxis: {
+                0 : {//axis 0
+                    title : '時間(hr)',
+                    minValue:0,
+                    maxValue:100
+                }, 
+                1 : {//axis 1
+                    title : '稼動率',
+                    minValue : 0,
+                    viewWindowMode : {min:0},
+                } 
+            },
+            hAxis: {title: '日期'},
+            seriesType: 'bars',
+            pointSize: 5,
+            series: {
+                0 : { color : "#2aed44" }, //加工
+                1 : { color : "#f4d430" }, //閒置
+                2 : { color : "#ef6262" }, //警報
+                3 : { color : "#cecccc" }, //關機
+                4 : { //稼動率
+                    color : "#1b2568",
+                    targetAxisIndex : 1,
+                    type: 'line',
+                    pointShape: 'circle',
+                },
+                
+            },
+        };
+
+        var chart = new google.visualization.ComboChart( $elm[0] );
+        chart.draw( data, options );
+      }
+  }
+});
+
+google.setOnLoadCallback(function() {
+    angular.bootstrap(document.body, ['SyntecRemoteWeb']);
+});
+google.load('visualization', '1', {packages: ['corechart']});
