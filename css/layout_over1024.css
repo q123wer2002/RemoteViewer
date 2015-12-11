@@ -52,7 +52,7 @@ a{text-decoration: none;}
 .menuIcon{float: left;margin-top: 10px;margin-left: 50px;width: 30px;height: 30px;}
 .menuIcon:hover{cursor: pointer;}
 	.row{width: 25px;height: 2px;background: #ffffff;margin: 5px 0px;}
-	.cross{position:absolute;width: 25px;height: 3px;background: #ffffff;top: 22px;}
+	.cross{position:absolute;width: 25px;height: 3px;background: #ffffff;top: 22px;display: none;}
 		#crossOne{-webkit-transform: rotate(45deg);transform: rotate(45deg);}
 		#crossTwo{-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}
 

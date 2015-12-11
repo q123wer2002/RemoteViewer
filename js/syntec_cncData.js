@@ -80,13 +80,6 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
 
 
     $scope.initCncDetail = function(){
-        
-        //delay loading google chart
-        //$timeout(function(){
-            //after 2000 ms to loading google chart
-            //$scope.initGoogleChart();
-        //},2000);
-
         var initObject={"method":"initCncDetail", "cncid":$scope.initCncid};
         $http({
             method:'POST',
@@ -97,11 +90,11 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
         success(function(json){
             if( json.result == "success" ){
                 //process data
-                $scope.initCncProcess( json.data );
-                //console.log(json.data);
-                
-                //update status light ( cncid )
-                $scope.updateStatusLight( $scope.initCncid );
+
+                $timeout(function(){
+                    $scope.initCncProcess( json.data );
+                    $scope.updateStatusLight( $scope.initCncid );
+                },300);
             }
         }).
         error(function(json){
@@ -122,16 +115,6 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
         $scope.updateCncStatus();
         //$scope.updaetCncAlarm();
         //$scope.updateCncRecord();
-    }
-    $scope.initGoogleChart = function(){
-        
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawVisualization);
-
-        drawVisualization();
-    }
-    function drawVisualization(){
-        
     }
 
     //update status light
@@ -305,62 +288,77 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
 
 }]);
 
-SyntecRemoteWeb.directive('ngOoeChart', function() {
+SyntecRemoteWeb.directive('ngOoeChart', ['$timeout',  function OOEChart($timeout) {
     return {
       restrict: 'A',
       link: function($scope, $elm, $attr) {
         // Some raw data (not necessarily accurate)
         var data = google.visualization.arrayToDataTable([
-            ['日期','加工時間','閒置時間','警報時間','關機時間','稼動率'],
-            ['2015/12/09', 13, 1.2, 0.7, 2.1, 0.83],
-            ['2015/12/10', 12.5, 1.5, 0.8, 3.4, 0.90],
-            ['2015/12/11', 11.8, 1.8, 1.5, 1.4,  0.95],
-            ['2015/12/12', 13.2, 0.7, 0.8, 1.2, 0.93],
-            ['2015/12/13', 12.8, 1.1,  1.3, 0.8, 0.92],
-            ['2015/12/14', 13, 1.2, 0.7, 2.1, 0.90],
-            ['2015/12/15', 12.5, 1.5, 0.8, 3.4, 0.90],
-            ['2015/12/16', 11.8, 1.8, 1.5, 1.4,  0.95],
-            ['2015/12/17', 13.2, 0.7, 0.8, 1.2, 0.93],
-            ['2015/12/18', 12.8, 1.1,  1.3, 0.8, 0.92]
+            ['日期', '稼動率', '加工時間', '閒置時間', '警報時間', '關機時間'],
+            ['12/09',0.89, 13, 1.2, 0.7, 2.1],
+            ['12/10',0.95, 12.5, 1.5, 0.8, 3.4],
+            ['12/11',0.87, 11.8, 1.8, 1.5, 1.4],
+            ['12/12',0.92, 13.2, 0.7, 0.8, 1.2],
+            ['12/13',0.91, 12.8, 1.1,  1.3, 0.8],
+            ['12/14',0.96, 13, 1.2, 0.7, 2.1],
+            ['12/15',0.97, 12.5, 1.5, 0.8, 3.4],
+            ['12/16',0.95, 11.8, 1.8, 1.5, 1.4],
+            ['12/17',0.86, 13.2, 0.7, 0.8, 1.2],
+            ['12/18',0.93, 12.8, 1.1,  1.3, 0.8]
         ]);
 
         var options = {
             title : '稼動率',
             vAxis: {
-                0 : {//axis 0
-                    title : '時間(hr)',
-                    minValue:0,
-                    maxValue:100
-                }, 
-                1 : {//axis 1
+                0 : {//axis 0  OOE
                     title : '稼動率',
                     minValue : 0,
                     viewWindowMode : {min:0},
+                }, 
+                1 : {//axis 1 time
+                    title : '時間(hr)',
+                    minValue:0,
+                    maxValue:100
                 } 
             },
             hAxis: {title: '日期'},
             seriesType: 'bars',
             pointSize: 5,
             series: {
-                0 : { color : "#2aed44" }, //加工
-                1 : { color : "#f4d430" }, //閒置
-                2 : { color : "#ef6262" }, //警報
-                3 : { color : "#cecccc" }, //關機
-                4 : { //稼動率
+                0 : { //稼動率
                     color : "#1b2568",
-                    targetAxisIndex : 1,
+                    targetAxisIndex : 0,
                     type: 'line',
                     pointShape: 'circle',
                 },
+                1 : { //加工
+                    color : "#2aed44",
+                    targetAxisIndex : 1,
+                }, 
+                2 : { //閒置
+                    color : "#f4d430",
+                    targetAxisIndex : 1,
+                }, 
+                3 : { //警報
+                    color : "#ef6262",
+                    targetAxisIndex : 1,
+                }, 
+                4 : { //關機
+                    color : "#cecccc",
+                    targetAxisIndex : 1,
+                }, 
                 
             },
         };
 
         var chart = new google.visualization.ComboChart( $elm[0] );
-        chart.draw( data, options );
+
+        $timeout(function(){
+            chart.draw( data, options );
+        },300);
       }
   }
-});
+}]);
 
 google.setOnLoadCallback(function() {
     angular.bootstrap(document.body, ['SyntecRemoteWeb']);

@@ -175,6 +175,10 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
         }else{
             //default css .menuDiv is display:none
             jQuery(".menuDiv").css('display','block');
+
+            //default cross is display none
+            jQuery('.cross').css('display','block');
+            
             $scope.isShowMenu = true;
         }
     }    

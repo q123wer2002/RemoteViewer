@@ -56,13 +56,13 @@ a{text-decoration: none;}
 .menuIcon{float: left;margin-top: 8px;margin-left: 10px;width: 15px;height: 15px;}
 .menuIcon:hover{cursor: pointer;}
 	.row{width: 24px;height: 2px;background: #ffffff;margin: 4px 8px;}
-	.cross{position:absolute;width: 24px;height: 2px;background: #ffffff;top: 18px;left:20px;}
+	.cross{position:absolute;width: 24px;height: 2px;background: #ffffff;top: 18px;left:20px;display: none;}
 		#crossOne{-webkit-transform: rotate(45deg);transform: rotate(45deg);}
 		#crossTwo{-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}
 
 
 /* menu */
-.menuDiv{width: 100%;position:fixed;height: 100%;background-color: rgba(17,29,109,0.9);z-index: 5;top: 40px;}
+.menuDiv{width: 100%;position:fixed;height: 100%;background-color: rgba(17,29,109,0.9);z-index: 5;top: 40px;display: none;}
 	.topTriangle{display: none;}
 	.menuList{}
 		.menuFactory{width: 100%;margin-left: 7%;margin-top: 5%;}
@@ -144,7 +144,7 @@ a{text-decoration: none;}
 	
 
 	.cncOOEDiv, .cncStatusDiv, .cncAlarmDiv, .cncRecordDiv{width: 90%;height: 220px;background: #ffffff;border-radius: 3px;padding: 16px 5% 50px 5%;margin-top: -20px;position: relative;overflow: auto;}
-		.googleCshart{width: 500px;height: 80%;position: absolute;left: -5%;top: 0;z-index: 1;	}
+		.googleCshart{width: 700px;height: 80%;position: absolute;left: -50px;top: 0;z-index: 1;	}
 
 	.cncStatusDiv li, .cncAlarmDiv li, .cncRecordDiv li{list-style: none;}
 	.cncStatusDiv{text-align: center;}
