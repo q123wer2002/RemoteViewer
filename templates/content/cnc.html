@@ -1,5 +1,5 @@
 <!-- load specific js and css -->
-<script type="text/javascript" src="<?php echo WEB_URL."js/lib/jsapi.js"; ?>"></script>
+<script type="text/javascript" src="<?php echo WEB_URL."js/lib/highcharts.js"; ?>"></script>
 <script type="text/javascript" src="<?php echo WEB_URL."js/syntec_cncData.js"; ?>"></script>
 
 <input type="hidden" ng-init="initCncid=<?php echo $this->cncid; ?>">
@@ -101,7 +101,8 @@
 
 		<div class="cncOOEDiv" ng-show="tabCode==3">
 			<!-- Google Chart -->
-			<div class="googleCshart" ng-ooe-chart></div>
+			<div class="OOEChart" ng-init="updateOOE()"></div>
+
 		</div>
 		<div class="cncStatusDiv" ng-show="tabCode==0">
 			<table id="statusTable">

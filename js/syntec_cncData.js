@@ -286,81 +286,117 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
         }
     }
 
-}]);
+    $scope.updateOOE = function(){
+        $scope.OOEDate = ['12/1', '12/2', '12/3', '12/4', '12/5', '12/6', '12/7', '12/8', '12/9', '12/10'];
+        $scope.OOE = [95, 94, 89, 92, 90, 84, 96, 87, 93, 90];
+        $scope.OOECycleTime = [15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 15.7, 15.8, 16, 13.9];
+        $scope.OOEAlarmTime = [5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 6, 3.9];
+        $scope.OOEIdleTime = [5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 6, 3.9];
+        $scope.OOEOffTime = [5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 6, 3.9];
 
-SyntecRemoteWeb.directive('ngOoeChart', ['$timeout',  function OOEChart($timeout) {
-    return {
-      restrict: 'A',
-      link: function($scope, $elm, $attr) {
-        // Some raw data (not necessarily accurate)
-        var data = google.visualization.arrayToDataTable([
-            ['日期', '稼動率', '加工時間', '閒置時間', '警報時間', '關機時間'],
-            ['12/09',0.89, 13, 1.2, 0.7, 2.1],
-            ['12/10',0.95, 12.5, 1.5, 0.8, 3.4],
-            ['12/11',0.87, 11.8, 1.8, 1.5, 1.4],
-            ['12/12',0.92, 13.2, 0.7, 0.8, 1.2],
-            ['12/13',0.91, 12.8, 1.1,  1.3, 0.8],
-            ['12/14',0.96, 13, 1.2, 0.7, 2.1],
-            ['12/15',0.97, 12.5, 1.5, 0.8, 3.4],
-            ['12/16',0.95, 11.8, 1.8, 1.5, 1.4],
-            ['12/17',0.86, 13.2, 0.7, 0.8, 1.2],
-            ['12/18',0.93, 12.8, 1.1,  1.3, 0.8]
-        ]);
-
-        var options = {
-            title : '稼動率',
-            vAxis: {
-                0 : {//axis 0  OOE
-                    title : '稼動率',
-                    minValue : 0,
-                    viewWindowMode : {min:0},
-                }, 
-                1 : {//axis 1 time
-                    title : '時間(hr)',
-                    minValue:0,
-                    maxValue:100
-                } 
+        //OOE chart
+        jQuery('.OOEChart').highcharts({
+            chart: {
+                zoomType: 'xy'
             },
-            hAxis: {title: '日期'},
-            seriesType: 'bars',
-            pointSize: 5,
-            series: {
-                0 : { //稼動率
-                    color : "#1b2568",
-                    targetAxisIndex : 0,
-                    type: 'line',
-                    pointShape: 'circle',
+            title: {
+                text: '稼動率圖表'
+            },
+            xAxis: [{
+                categories: $scope.OOEDate,
+                crosshair: true
+            }],
+            yAxis: [{ // Primary yAxis
+                labels: {
+                    format: '{value}%',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
                 },
-                1 : { //加工
-                    color : "#2aed44",
-                    targetAxisIndex : 1,
-                }, 
-                2 : { //閒置
-                    color : "#f4d430",
-                    targetAxisIndex : 1,
-                }, 
-                3 : { //警報
-                    color : "#ef6262",
-                    targetAxisIndex : 1,
-                }, 
-                4 : { //關機
-                    color : "#cecccc",
-                    targetAxisIndex : 1,
-                }, 
-                
+                title: {
+                    text: '稼動率',
+                    style: {
+                        color: Highcharts.getOptions().colors[1]
+                    }
+                }
+            }, { // Secondary yAxis
+                title: {
+                    text: '時間',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                labels: {
+                    format: '{value}hr',
+                    style: {
+                        color: Highcharts.getOptions().colors[0]
+                    }
+                },
+                opposite: true
+            }],
+            tooltip: {
+                shared: true
             },
-        };
+            legend: {
+                layout: 'horizontal',
+                align: 'center',
+                x: 0,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+            },
+            series: [{
+                name: '稼動率',
+                type: 'line',
+                data: $scope.OOE,
+                color: '#111d6d',
+                zIndex: 2,
+                tooltip: {
+                    valueSuffix: ' %'
+                }
+            },{
+                name: '加工時間',
+                type: 'column',
+                yAxis: 1,
+                data: $scope.OOECycleTime,
+                color: '#8af779',
+                tooltip: {
+                    valueSuffix: ' hr'
+                }
 
-        var chart = new google.visualization.ComboChart( $elm[0] );
+            },{
+                name: '警報時間',
+                type: 'column',
+                yAxis: 1,
+                data: $scope.OOEAlarmTime,
+                color: '#ef6262',
+                tooltip: {
+                    valueSuffix: ' hr'
+                }
 
-        $timeout(function(){
-            chart.draw( data, options );
-        },300);
-      }
-  }
+            },{
+                name: '閒置時間',
+                type: 'column',
+                yAxis: 1,
+                data: $scope.OOEIdleTime,
+                color: '#fff770',
+                tooltip: {
+                    valueSuffix: ' hr'
+                }
+
+            },{
+                name: '關機時間',
+                type: 'column',
+                yAxis: 1,
+                data: $scope.OOEOffTime,
+                color: '#bfbfbd',
+                tooltip: {
+                    valueSuffix: ' hr'
+                }
+
+            }]
+        });
+    }
+
 }]);
-
-google.setOnLoadCallback(function() {
-    angular.bootstrap(document.body, ['SyntecRemoteWeb']);
-});
-google.load('visualization', '1', {packages: ['corechart']});
