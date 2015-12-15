@@ -130,6 +130,7 @@ a{text-decoration: none;}
 		.cncInfo{display: inline-block;width: 55%;position: relative;}
 			.cncInfoList{font-size:14px;text-align: left;position: absolute;top: -90px;left: 25px;}
 			.cncInfoList li{list-style: none;}
+			#systime{float: left;margin-left: -150px;margin-top: -20px;}
 
 .cncTabInfo{margin-top: 20px;}
 	.tabTitle{margin:0;padding: 0;position: fixed;bottom: 0;width: 100%;background-color: #eeeeee;box-shadow: 0px -2px 5px 0px #888888;z-index: 5;}

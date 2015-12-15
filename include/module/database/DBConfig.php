@@ -1,4 +1,5 @@
 <?php
+//$dbHost = "10.10.80.159";
 $dbHost = "localhost";
 $dbUser = "root";
 $dbPass = "";

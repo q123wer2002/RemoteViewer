@@ -61,8 +61,9 @@
 						序號：{{thisCnc.serialNo}}<br>
 						機型：{{thisCnc.machineType}}<br>
 						版本：{{thisCnc.version}}<br>
-						剩餘天數：5天
+						剩餘天數：{{thisCnc.restTime}}
 						<hr class="hr">
+						<span id="systime">機台時間<br>{{cncSysTime}}</span>
 					</li>
 				</ul>
 			</div>
@@ -119,10 +120,6 @@
 					<td>{{cncStatus.alarm}}</td>
 				</tr>
 				<tr>
-					<td>EMG</td>
-					<td>{{cncStatus.EMG}}</td>
-				</tr>
-				<tr>
 					<td>主程式</td>
 					<td>{{cncStatus.MainProg}}</td>
 				</tr>
@@ -158,14 +155,14 @@
 					<td>{{alm.almMsg}}</td>
 				</tr>
 			</table>
-			<span ng-show="cncAlarm.length == 0">無任何警報</span>
+			<span ng-show="cncAlarm.length == 0">無任何警報</span><br>
 			<span class="lastUpdateDate eachCncUpdate">最後更新時間：{{cncAlarm[0].updateTime}}</span>
 		</div>
 		<div class="cncRecordDiv" ng-show="tabCode==2">
 			<ul id="recordTable">
 				<li>
 					<span>加工程式：</span>
-					<span>{{cncRecord.CurProg}}</span>
+					<span>{{cncStatus.CurProg}}</span>
 				</li>
 				<li>
 					<span>開始日期：</span>
@@ -191,7 +188,7 @@
 					<span>總加工件數：</span>
 					<span>{{cncRecord.totalPartCount}}</span>
 				</li>
-			</ul>
+			</ul><br>
 			<span class="lastUpdateDate eachCncUpdate">最後更新時間：{{cncRecord.updateTime}}</span>
 		</div>
 

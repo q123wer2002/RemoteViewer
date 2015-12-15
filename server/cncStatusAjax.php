@@ -68,22 +68,30 @@ switch( $method ){
 		$SyntecObj->resultArray['getCncInfo'] = array();
 		$SyntecObj->SQLQuery('resultArray','getCncInfo',$sql_getCncInfo);
 
+		//sql to get cnc usetime
+		$sql_getCncUseTime="SELECT * FROM cnc_time WHERE cnc_id=".$cncid."";
+		$SyntecObj->resultArray['getCncUseTime'] = array();
+		$SyntecObj->SQLQuery('resultArray','getCncUseTime',$sql_getCncUseTime);
+
 		//adjust array
-		$cncInfo = array();
+		$initCncDetail = array();
 		if( !empty($SyntecObj->resultArray['getCncInfo']) ){
-			$cncInfo = $SyntecObj->resultArray['getCncInfo'][0];
+			$initCncDetail['cncInfo'] = $SyntecObj->resultArray['getCncInfo'][0];
+		}
+		if( !empty($SyntecObj->resultArray['getCncUseTime']) ){
+			$initCncDetail['cncTime'] = $SyntecObj->resultArray['getCncUseTime'][0];
 		}
 
 		$SyntecObj->resultArray = null;
 		unset( $SyntecObj->resultArray );
 
 		//return result
-		$result = array( "result" => "success", "data" => $cncInfo );
+		$result = array( "result" => "success", "data" => $initCncDetail );
 		echo json_encode( $result );
 
 	break;
 
-	case'updateStatusLight':
+	case'updateStatusLightNSysTime':
 		$cncid = $post['cncid'];
 
 		//sql to get cnc status and alarm (alarm not yet)
@@ -92,21 +100,30 @@ switch( $method ){
 		$SyntecObj->resultArray['getStatusNAlarm'] = array();
 		$SyntecObj->SQLQuery('resultArray','getStatusNAlarm',$sql_getStatusNAlarm);
 
+		//sql to get system time
+		$sql_getCncSysTime = "SELECT TimeCurrent FROM cnc_time WHERE cnc_id=".$cncid."";
+		$SyntecObj->resultArray['getCncSysTime'] = array();
+		$SyntecObj->SQLQuery('resultArray','getCncSysTime',$sql_getCncSysTime);
+
 		//adjust array
-		$cncStatusNAlarm = array();
+		$cncStatusNAlarmNSystime = array();
 		if( !empty($SyntecObj->resultArray['getStatusNAlarm']) ){
-			$cncStatusNAlarm = $SyntecObj->resultArray['getStatusNAlarm'][0];
+			$cncStatusNAlarmNSystime['statusNalarm'] = $SyntecObj->resultArray['getStatusNAlarm'][0];
+		}
+
+		if( !empty($SyntecObj->resultArray['getCncSysTime']) ){
+			$cncStatusNAlarmNSystime['systime'] = $SyntecObj->resultArray['getCncSysTime'][0];
 		}
 
 		//check alarm or not
-		if( !empty($cncStatusNAlarm) ){
-			if( $cncStatusNAlarm['Alarm'] == "ALARM" ){
+		if( !empty($cncStatusNAlarmNSystime) ){
+			if( $cncStatusNAlarmNSystime['statusNalarm']['Alarm'] == "ALARM" ){
 				$sql_getCurAlm = "SELECT almMsg FROM cnc_alarm WHERE cnc_id=".$cncid." ORDER BY almTime DESC LIMIT 0,1;";
 				$SyntecObj->resultArray['getCurAlm'] = array();
 				$SyntecObj->SQLQuery('resultArray','getCurAlm',$sql_getCurAlm);
 
 				if( !empty($SyntecObj->resultArray['getCurAlm']) ){
-					$cncStatusNAlarm['currentAlarm'] = $SyntecObj->resultArray['getCurAlm'][0]['almMsg'];
+					$cncStatusNAlarmNSystime['statusNalarm']['currentAlarm'] = $SyntecObj->resultArray['getCurAlm'][0]['almMsg'];
 				}
 			}
 		}
@@ -115,7 +132,7 @@ switch( $method ){
 		unset( $SyntecObj->resultArray );
 
 		//return result
-		$result = array( "result" => "success", "data" => $cncStatusNAlarm );
+		$result = array( "result" => "success", "data" => $cncStatusNAlarmNSystime );
 		echo json_encode( $result );
 
 	break;

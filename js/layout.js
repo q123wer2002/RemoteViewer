@@ -122,14 +122,17 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
             for(var i=0; i<$scope.cncGroups.length; i++){
                 if( $scope.cncGroups[i].gid == gid ){
                     var totalNum = $scope.cncGroups[i].cncNumber;
+                    var restNum = totalNum - yellowNum - greenNum - redNum;
 
                     $scope.cncGroups[i].YellowNum = yellowNum;
                     $scope.cncGroups[i].GreenNum = greenNum;
                     $scope.cncGroups[i].RedNum = redNum;
+                    $scope.cncGroups[i].restNum = restNum;
 
                     $scope.cncGroups[i].YellowBarWidth = {'width' : (yellowNum/totalNum)*100 +'%' };
                     $scope.cncGroups[i].GreenBarWidth = {'width' : (greenNum/totalNum)*100 +'%' };
                     $scope.cncGroups[i].RedBarWidth = {'width' : (redNum/totalNum)*100 +'%' };
+                    $scope.cncGroups[i].noneStatusWidth = {'width' : (restNum/totalNum)*100 + '%'};
                     
                     if( totalNum != 0 && totalNum != null){
                         //show the status bar

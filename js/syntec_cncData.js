@@ -36,7 +36,7 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
     //updating data every second
     $interval(function(){
         //update status light
-        $scope.updateStatusLight();
+        $scope.updateStatusLightNSysTime();
 
         //update cnc information
         switch( $scope.tabCode ){
@@ -65,7 +65,7 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
 
     //cnc information
     $scope.thisCnc = [
-        {'id' :'', 'serialNo' : '', 'machine' : '', 'machineType' : '', 'version' : '', 'dueDate' : ''},
+        {'id' :'', 'serialNo' : '', 'machine' : '', 'machineType' : '', 'version' : '', 'restTime' : ''},
     ];
     $scope.statusLight = [
         {'style':'', 'fontColor':'', 'msg':''},
@@ -90,10 +90,10 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
         success(function(json){
             if( json.result == "success" ){
                 //process data
-
+                //console.log(json.data.cncTime);
                 $timeout(function(){
                     $scope.initCncProcess( json.data );
-                    $scope.updateStatusLight( $scope.initCncid );
+                    $scope.updateStatusLightNSysTime( $scope.initCncid );
                 },300);
             }
         }).
@@ -103,12 +103,23 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
     }
     $scope.initCncProcess = function( initCncData ){
         if( initCncData != null){
-            $scope.thisCnc.id = initCncData.CNC_id;
-            $scope.thisCnc.serialNo = initCncData.SerialNo;
-            $scope.thisCnc.machine = initCncData.Machine;
-            $scope.thisCnc.machineType = initCncData.MachineType;
-            $scope.thisCnc.version = initCncData.Version;
-            $scope.thisCnc.dueDate = initCncData.DueDate;
+            //info data
+            if( initCncData.cncInfo != null ){
+                $scope.thisCnc.id = initCncData.cncInfo.CNC_id;
+                $scope.thisCnc.serialNo = initCncData.cncInfo.SerialNo;
+                $scope.thisCnc.machine = initCncData.cncInfo.Machine;
+                $scope.thisCnc.machineType = initCncData.cncInfo.MachineType;
+                $scope.thisCnc.version = initCncData.cncInfo.Version;
+                $scope.thisCnc.dueDate = initCncData.cncInfo.DueDate;
+            }
+            //time data
+            if( initCncData.cncTime != null ){
+                if( initCncData.cncTime.TimeStatus == "DT_NoTimeLimit" ){
+                    $scope.thisCnc.restTime = "無限制";
+                }else{
+                    $scope.thisCnc.restTime = changetime2Date( "hour", initCncData.cncTime.TimeRemain );
+                }
+            }
         }
         //console.log("hello");
         
@@ -118,9 +129,9 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
     }
 
     //update status light
-    $scope.updateStatusLight = function(){
+    $scope.updateStatusLightNSysTime = function(){
         if( $scope.initCncid != null ){
-            var initObject={"method":"updateStatusLight", "cncid":$scope.initCncid };
+            var initObject={"method":"updateStatusLightNSysTime", "cncid":$scope.initCncid };
             $http({
                 method:'POST',
                 url:'server/cncStatusAjax.php',
@@ -131,29 +142,33 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
                 if( json.result == "success" ){              
                     //process status light
                     //console.log(json.data);
-                    if( json.data.Alarm == "ALARM" ){
+                    //systime
+                    $scope.cncSysTime = json.data.systime.TimeCurrent;
+                    
+                    //status and alarm
+                    if( json.data.statusNalarm.Alarm == "ALARM" ){
                         $scope.cncStatusIconPicker= 3 ;
                         $scope.statusLight.BGColor = {'background':'#ef6262'};
                         $scope.statusLight.fontColor={'color':'#ef6262'};
                         $scope.statusLight.msg = "ALARM";
-                        $scope.statusLight.msgDetail = json.data.currentAlarm;
+                        $scope.statusLight.msgDetail = json.data.statusNalarm.currentAlarm;
                         //
                     }else{
-                        switch( json.data.Status ){
+                        switch( json.data.statusNalarm.Status ){
                             case"START":
                                 $scope.cncStatusIconPicker= 2 ;
                                 $scope.statusLight.BGColor = {'background':'#2aed44'};
                                 $scope.statusLight.fontColor={'color':'#2aed44'};
-                                $scope.statusLight.msg = json.data.Status;
+                                $scope.statusLight.msg = json.data.statusNalarm.Status;
                                 //
                             break;
                             
                             default:
-                                if( json.data.Status != null){
+                                if( json.data.statusNalarm.Status != null){
                                     $scope.cncStatusIconPicker= 1 ;
                                     $scope.statusLight.BGColor = {'background':'#f4d430'};
                                     $scope.statusLight.fontColor={'color':'#f4d430'};
-                                    $scope.statusLight.msg = json.data.Status;
+                                    $scope.statusLight.msg = json.data.statusNalarm.Status;
                                     //
                                 }else{
                                     $scope.cncStatusIconPicker= 0 ;
@@ -161,7 +176,7 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
                             break;
                         }
                     }
-                    $scope.statusLight.UpdateTime = json.data.update_time;
+                    $scope.statusLight.UpdateTime = json.data.statusNalarm.update_time;
                 }
             }).
             error(function(json){
@@ -275,11 +290,10 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
     $scope.writeCncRecord = function( cncRecordData ){
         if( cncRecordData != null ){
             //update cnc status
-            $scope.cncRecord.CurProg = cncRecordData.CurProg;
             $scope.cncRecord.startDate = cncRecordData.cycleStartDate;
-            $scope.cncRecord.cycleTime = cncRecordData.cycleTime;
-            $scope.cncRecord.totalCycleTime = cncRecordData.totalCycleTime;
-            $scope.cncRecord.partCount = cncRecordData.partCount;
+            $scope.cncRecord.cycleTime = changetime2Date( "second", cncRecordData.cycleTime );
+            $scope.cncRecord.totalCycleTime = changetime2Date( "second", cncRecordData.totalCycleTime );
+            $scope.cncRecord.totalPartCount = cncRecordData.partCount;
             $scope.cncRecord.requirePartCount = cncRecordData.requirePartCount;
             $scope.cncRecord.totalPartCount = cncRecordData.totalPartCount;
             $scope.cncRecord.updateTime = cncRecordData.update_time;

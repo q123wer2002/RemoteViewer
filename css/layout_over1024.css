@@ -85,6 +85,7 @@ a{text-decoration: none;}
 			.GreenStatus{background: #8af779;}
 			.YellowStatus{background: #fff770;}
 			.RedStatus{background: rgba(255, 58, 58,0.5);}
+			.NoneStatus{background: #d8d8d6;}
 	.cncGroupUl li:hover{box-shadow: 0px 2px 1px 1px #888888;}
 
 /* only for cncGroup */
