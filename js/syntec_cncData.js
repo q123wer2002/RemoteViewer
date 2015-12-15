@@ -251,14 +251,14 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
                         var isthisAlarmExist = false;
 
                         //check this alarm is exist or not
-                        if( $scope.cncAlarm[j].aid == cncAlarmData[i].aid ){
+                        if( $scope.cncAlarm[j].almTime == cncAlarmData[i].almTime ){
                             isthisAlarmExist = true;
                             continue;
                         } 
                     }
 
                     if( !isthisAlarmExist ){
-                        var alarm = {'aid' : cncAlarmData[i].aid, 'almMsg' : cncAlarmData[i].almMsg, 'almTime' : cncAlarmData[i].almTime, 'updateTime' : cncAlarmData[i].update_time};
+                        var alarm = {'almMsg' : cncAlarmData[i].almMsg, 'almTime' : cncAlarmData[i].almTime, 'updateTime' : cncAlarmData[i].update_time};
                         $scope.cncAlarm.push(alarm);
                     }
                 }

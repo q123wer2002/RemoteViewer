@@ -141,7 +141,7 @@ switch( $method ){
 		$cncid = $post['cncid'];
 
 		//sql to get cncAlarm
-		$sql_getCncAlarm="SELECT aid, almMsg, almTime, update_time FROM cnc_alarm WHERE cnc_id=".$cncid." ORDER BY almTime DESC ;";
+		$sql_getCncAlarm="SELECT almMsg, almTime, update_time FROM cnc_alarm WHERE cnc_id=".$cncid." ORDER BY almTime DESC ;";
 		$SyntecObj->resultArray['getCncAlarm'] = array();
 		$SyntecObj->SQLQuery('resultArray','getCncAlarm',$sql_getCncAlarm);
 

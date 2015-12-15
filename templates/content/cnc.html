@@ -133,26 +133,13 @@
 		<div class="cncAlarmDiv" ng-show="tabCode==1">
 			<table id="alarmTable" ng-show="cncAlarm.length != 0">
 				<tr>
-					<td>警報編號</td>
 					<td>警報訊息</td>
 					<td>警報時間</td>
 				</tr>
 				<!-- it has alarm -->
 				<tr ng-if="cncStatusIconPicker == 3">
-					<td class="CurAlmBG">{{cncAlarm[0].aid}}</td>
 					<td class="CurAlmBG">{{cncAlarm[0].almTime}}</td>
 					<td class="CurAlmBG">{{cncAlarm[0].almMsg}}</td>
-				</tr>
-				<tr ng-repeat="alm in cncAlarm | orderBy : '-almTime' " ng-if="alm.aid != cncAlarm[0].aid && cncStatusIconPicker == 3">
-					<td>{{alm.aid}}</td>
-					<td>{{alm.almTime}}</td>
-					<td>{{alm.almMsg}}</td>
-				</tr>
-				<!-- no alarm -->
-				<tr ng-repeat="alm in cncAlarm | orderBy : '-almTime' ">
-					<td>{{alm.aid}}</td>
-					<td>{{alm.almTime}}</td>
-					<td>{{alm.almMsg}}</td>
 				</tr>
 			</table>
 			<span ng-show="cncAlarm.length == 0">無任何警報</span><br>

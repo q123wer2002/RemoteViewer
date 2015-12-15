@@ -145,7 +145,8 @@ a{text-decoration: none;}
 	
 
 	.cncOOEDiv, .cncStatusDiv, .cncAlarmDiv, .cncRecordDiv{width: 90%;height: 220px;background: #ffffff;border-radius: 3px;padding: 16px 5% 50px 5%;margin-top: -20px;position: relative;overflow: auto;}
-		.OOEChart{width: 700px;height: 90%;position: absolute;left: 0px;top: 0;z-index: 1;	}
+	.cncOOEDiv{height: 250px;}
+		.OOEChart{width: 700px;height: 220px;position: absolute;left: 0px;top: 0;z-index: 1;}
 
 	.cncStatusDiv li, .cncAlarmDiv li, .cncRecordDiv li{list-style: none;}
 	.cncStatusDiv{text-align: center;}
