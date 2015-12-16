@@ -15,7 +15,7 @@ $gid = $_GET['group'];
 
 
 //check does group is in this company
-if( in_array( $gid, $_SESSION['companyInfo']['gid']) ){
+if( isset($_SESSION['companyInfo']['gid']) && in_array( $gid, $_SESSION['companyInfo']['gid']) ){
 	$isOwnGroup = 1;
 }
 

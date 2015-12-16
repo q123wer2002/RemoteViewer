@@ -2,7 +2,13 @@
 include_once "../include/createObj.php";
 
 //get post data
-$post = $_POST	;
+if( isset($_POST) && isset($_POST['method']) ){
+	$post = $_POST;
+}else{
+	echo "not defined";
+	exit;
+}
+
 $method = $post['method'];
 
 switch( $method ){
