@@ -58,6 +58,29 @@ switch( $method ){
 	case 'updateGroupStatus':
 		$gid = $post['gid'];
 
+		//sql to get time diff over 5 minutes
+		$sql_getCncTimeDiff = "SELECT cnc_time.cnc_id, cnc_time.TimeCurrent
+							   FROM cnc_group
+							   LEFT JOIN cnc_time ON cnc_time.cnc_id IN (SELECT cnc.CNC_id FROM cnc WHERE cnc.CNCGroup=cnc_group.cncgid)
+							   WHERE cnc_group.cncgid = ".$gid." AND
+                               timestampdiff( minute, cnc_time.TimeCurrent, now() ) > 5;";
+		$SyntecObj->resultArray['getCncTimeDiff'] = array();
+		$SyntecObj->SQLQuery('resultArray','getCncTimeDiff',$sql_getCncTimeDiff);
+		
+		//check offline cnc
+		if( !empty($SyntecObj->resultArray['getCncTimeDiff']) ){
+			//it has offline cnc
+			foreach ($SyntecObj->resultArray['getCncTimeDiff'] as $key => $value) {
+				//update status into offline
+				$sql_updateToOffline = "UPDATE cnc_status SET Status = 'OFFLINE'  WHERE cnc_id=".$value['cnc_id']."";
+				mysql_query($sql_updateToOffline);
+			}
+		}
+
+		//release space
+		$SyntecObj->resultArray = null;
+		unset( $SyntecObj->resultArray );
+			   
 		//sql to get cncstatus
 		$sql_getGroupStatus="SELECT cnc_group.cncgid as gid, cnc_status.Status, cnc_status.Alarm, COUNT( cnc_status.cnc_id ) as NumOfStatus 
 							 FROM cnc_group 

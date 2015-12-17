@@ -87,6 +87,7 @@ a{text-decoration: none;}
 				.GreenStatus{background: #8af779;}
 				.YellowStatus{background: #fff770;}
 				.RedStatus{background: rgba(255, 58, 58,0.5);}
+				.OfflineStatus{background: #d8d8d6;}
 
 /* only for cncGroup */
 
@@ -102,6 +103,7 @@ a{text-decoration: none;}
 		.light{color: #000000;height: 100%;width: 100%;position: absolute;left: 0px;top: 0px;}
 		.light span{line-height: 30px;font-weight:700;position: absolute;left: 75px;font-size: 15px;}
 		#alarmBG{background: rgb(255,112,112);}
+		#OfflineBG{background: #d8d8d6;}
 		#startBG{background: rgb(138,247,121);background: -moz-linear-gradient(left, rgba(138,247,121,1) 0%, rgba(238,238,238,1) 97%);background: -webkit-linear-gradient(left, rgba(138,247,121,1) 0%,rgba(238,238,238,1) 97%);background: linear-gradient(to right, rgba(138,247,121,1) 0%,rgba(238,238,238,1) 97%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#8af779', endColorstr='#eeeeee',GradientType=1 );}
 		#defaultBG{background: rgb(255,247,112);background: -moz-linear-gradient(left, rgba(255,247,112,1) 0%, rgba(238,238,238,1) 97%);background: -webkit-linear-gradient(left, rgba(255,247,112,1) 0%,rgba(238,238,238,1) 97%);background: linear-gradient(to right, rgba(255,247,112,1) 0%,rgba(238,238,238,1) 97%);filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff770', endColorstr='#eeeeee',GradientType=1 );}
 		#cncOverVertical{position: absolute;top: 0;right: 105px;}

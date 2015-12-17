@@ -146,7 +146,13 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
                     $scope.cncSysTime = json.data.systime.TimeCurrent;
                     
                     //status and alarm
-                    if( json.data.statusNalarm.Alarm == "ALARM" ){
+                    if( json.data.statusNalarm.Status == "OFFLINE" ){
+                        $scope.cncStatusIconPicker= 0 ;
+                        $scope.statusLight.BGColor = {'background':'#a4a6b2'};
+                        $scope.statusLight.fontColor={'color':'#a4a6b2'};
+                        $scope.statusLight.msg = json.data.statusNalarm.Status;
+                    }
+                    else if( json.data.statusNalarm.Alarm == "ALARM" ){
                         $scope.cncStatusIconPicker= 3 ;
                         $scope.statusLight.BGColor = {'background':'#ef6262'};
                         $scope.statusLight.fontColor={'color':'#ef6262'};
@@ -171,7 +177,7 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
                                     $scope.statusLight.msg = json.data.statusNalarm.Status;
                                     //
                                 }else{
-                                    $scope.cncStatusIconPicker= 0 ;
+                                    $scope.cncStatusIconPicker= 999 ; //default
                                 }
                             break;
                         }

@@ -63,7 +63,7 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
             //input group information
             for (var i=0; i < initFacNGroData.groupInfo.length; i++){
                 var group = {'fid' : initFacNGroData.groupInfo[i].fid, 'gid':initFacNGroData.groupInfo[i].gid, 'name' : initFacNGroData.groupInfo[i].gname, 'cncNumber' : initFacNGroData.groupInfo[i].cncNumber,
-                            'YellowNum' : 0, 'GreenNum' : 0, 'RedNum' : 0, 'YellowBarWidth':'','GreenBarWidth':'','RedBarWidth':''};
+                            'YellowNum' : 0, 'GreenNum' : 0, 'RedNum' : 0, 'OfflineNum' : 0, 'YellowBarWidth':'','GreenBarWidth':'','RedBarWidth':'', 'OfflineWidth':''};
                 $scope.cncGroups.push( group );
  
                 $scope.PoolOfUpdateGroup.push( initFacNGroData.groupInfo[i].gid );
@@ -108,11 +108,13 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
             var greenNum = 0;
             var yellowNum = 0;
             var redNum = 0;
+            var offlineNum = 0;
             
             //count number of each light
             for(var i=0; i<GroupData.length; i++){
                 gid = GroupData[i].gid;
                 if( GroupData[i].NumOfStatus == "0" ){}
+                else if( GroupData[i].Status == "OFFLINE" ){ offlineNum += parseInt( GroupData[i].NumOfStatus ); }
                 else if( GroupData[i].Alarm == "ALARM" ){ redNum += parseInt( GroupData[i].NumOfStatus ); }
                 else if( GroupData[i].Status == "START" ){ greenNum += parseInt( GroupData[i].NumOfStatus ); }
                 else{ yellowNum += parseInt( GroupData[i].NumOfStatus ); }
@@ -122,17 +124,17 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
             for(var i=0; i<$scope.cncGroups.length; i++){
                 if( $scope.cncGroups[i].gid == gid ){
                     var totalNum = $scope.cncGroups[i].cncNumber;
-                    var restNum = totalNum - yellowNum - greenNum - redNum;
+                    //var restNum = totalNum - yellowNum - greenNum - redNum;
 
                     $scope.cncGroups[i].YellowNum = yellowNum;
                     $scope.cncGroups[i].GreenNum = greenNum;
                     $scope.cncGroups[i].RedNum = redNum;
-                    $scope.cncGroups[i].restNum = restNum;
+                    $scope.cncGroups[i].OfflineNum = offlineNum;
 
                     $scope.cncGroups[i].YellowBarWidth = {'width' : (yellowNum/totalNum)*100 +'%' };
                     $scope.cncGroups[i].GreenBarWidth = {'width' : (greenNum/totalNum)*100 +'%' };
                     $scope.cncGroups[i].RedBarWidth = {'width' : (redNum/totalNum)*100 +'%' };
-                    $scope.cncGroups[i].noneStatusWidth = {'width' : (restNum/totalNum)*100 + '%'};
+                    $scope.cncGroups[i].OfflineWidth = {'width' : (offlineNum/totalNum)*100 + '%'};
                     
                     if( totalNum != 0 && totalNum != null){
                         //show the status bar

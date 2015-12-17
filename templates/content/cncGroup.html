@@ -28,6 +28,9 @@
 	    		<a ng-href="cnc.php?cnc={{cnc.id}}" ng-repeat="cnc in cncs | filter: filterCncStatus ">
 	    			<li>
 	    				<!-- background setting -->
+	    				<div class="light" id="OfflineBG" ng-if="cnc.statusBG == 0">
+	    					<span>{{cnc.status}}<span> 
+	    				</div>
 	    				<div class="light" id="alarmBG" ng-if="cnc.statusBG == 3">
 	    					<span style="color:#eeeeee;">ALARM</span>
 	    				</div>

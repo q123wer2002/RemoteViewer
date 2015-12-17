@@ -4,7 +4,7 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
     $scope.filterCncStatus = "";
 
     $scope.allCncStatus = [
-        'NOTREADY','READY','START','BLOCKSTOP','ALARM'
+        'OFFLINE','NOTREADY','READY','START','BLOCKSTOP','ALARM'
     ];
     $scope.cncFilter = function( item ){
 
@@ -108,19 +108,22 @@ SyntecRemoteWeb.controller('SyntecCncGroup',['$scope','$http', '$interval',funct
 
     $scope.changeCncStyle = function( cnc ){
         if( cnc != null ){
-            if( cnc.alarm == "ALARM" ){
+            if( cnc.status == "OFFLINE" ){
+                cnc.statusBG = 0;
+            }
+            else if( cnc.alarm == "ALARM" ){
                 //rgba(255, 58, 58,0.5)
-                cnc.statusBG=3;
+                cnc.statusBG = 3;
             }
             else{
                 switch( cnc.status ){
-                    case"START":
+                    case "START":
                         // #8af779, #000000
-                        cnc.statusBG=2;
+                        cnc.statusBG = 2;
                     break;
                     default:
                         // #fff770
-                        cnc.statusBG=1;
+                        cnc.statusBG = 1;
                     break;
                 }
             }
