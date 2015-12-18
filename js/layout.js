@@ -25,7 +25,10 @@ SyntecRemoteWeb.controller('SyntecRemote',['$scope','$http', '$interval',functio
             //console.log(json);
         });
     }
-    
+    //live
+    $scope.isLiveFactory = "離線";
+
+
     //factroy
     $scope.factories = [];
 

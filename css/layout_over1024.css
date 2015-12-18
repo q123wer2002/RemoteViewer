@@ -95,6 +95,10 @@ a{text-decoration: none;}
 .selectCNCStatus{padding:7px 15px;width: 236px;text-align: center;margin: 15px 15px;border:none;height: 30px;border-radius: 3px;box-shadow: 0px 2px 3px 1px #888888;}
 .selectCNCStatus:hover{cursor: pointer;}
 .selectCNCStatus option{border: none;}
+.LiveDiv{float: right;margin-top: 20px;margin-right: 20px;}
+.LiveDiv:hover{text-decoration: underline;}
+.LiveDiv span{font-size: 16px;line-height: 16px;font-weight: 700;}
+	.liveIcon{width: 14px;height: 14px;background: gray;border-radius: 10px;margin: auto;display: inline-block;}
 .cncDiv{}
 	.cncUl{list-style: none;}
 	.cncUl a{color:#111d6d;}
@@ -147,3 +151,5 @@ a{text-decoration: none;}
 		.cncAlarmDiv a{font-size: 12px;}
 		.cncAlarmDiv a:hover{text-decoration: underline;}
 			.CurAlmBG{background:#ef6262;}
+
+

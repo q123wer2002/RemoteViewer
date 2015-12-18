@@ -1,0 +1,72 @@
+<!-- load specific js and css -->
+<link rel="stylesheet" type="text/css" media="screen and (max-width : 800px)" href="css/liveHouse_under1024.css">
+<link rel="stylesheet" type="text/css" media="screen and (min-width : 800px)" href="css/liveHouse_over1024.css">
+
+<script type="text/javascript" src="<?php echo WEB_URL."js/syntec_cncGroupData.js"; ?>"></script>
+<!-- var which is declared in this area can be used  -->
+<input type="hidden" ng-init="initGid='<?php echo $this->gid; ?>'">
+	
+<div class="factoryDiv" ng-controller="SyntecCncGroup">
+
+	<!-- get cnc data from DB -->
+	<input type="hidden" ng-init="initCncOverview()">
+
+	<a href="javascript:history.back(0);" class="backLink">
+		<span class="backIcon"></span>
+		<span class="backTitle">返回</span>
+	</a>
+
+	<h1>
+		<div class="liveIcon"></div>
+		工場離線
+	</h1>
+	
+	<div class="liveHouse">
+		<div class="cncDiv onlyForLiveList OnlyViewOnMobile">
+	    	<ul class="cncUl" ng-if="cncs.length > 0">
+	    		<a ng-href="cnc.php?cnc={{cnc.id}}" ng-repeat="cnc in cncs | filter: filterCncStatus ">
+	    			<li>
+	    				<span id="CncStatus">{{cnc.status}}</span>
+	    				<span>{{cnc.serialNo}}</span>
+	    			</li>
+	    		</a>
+	    	</ul>
+	    	<span ng-if="cncs.length == 0">目前沒有任何控制器</span>
+	    </div>
+
+	    <div></div>
+	</div>
+
+	<div class="cncDiv onlyForLiveList OnlyViewOnWeb">
+    	<ul class="cncUl" ng-if="cncs.length > 0">
+    		<a ng-href="cnc.php?cnc={{cnc.id}}" ng-repeat="cnc in cncs | filter: filterCncStatus ">
+    			<li>
+    				<!-- background setting -->
+    				<div class="light" id="OfflineBG" ng-if="cnc.statusBG == 0">
+    					<span>{{cnc.status}}<span> 
+    				</div>
+    				<div class="light" id="alarmBG" ng-if="cnc.statusBG == 3">
+    					<span style="color:#eeeeee;">ALARM</span>
+    				</div>
+    				<div class="light" id="startBG" ng-if="cnc.statusBG == 2">
+    					<span>{{cnc.status}}<span> 
+    				</div>
+    				<div class="light" id="defaultBG" ng-if="cnc.statusBG == 1">
+    					<span>{{cnc.status}}<span>
+    				</div>
+
+    				<!-- data setting -->
+    				<span class="cncPic"><img src="<?php echo WEB_URL."images/cnc.jpg"; ?>"></span><br>
+					<span id="CNCserialNo">序號 : {{cnc.serialNo}}<br></span>
+    				<!-- <span class="lastUpdateDate">08:05</span> -->
+
+    				<!-- OOE -->
+    				<!-- <span id="OOETitle">OOE</span>
+    				<span id="OOEData">95%</span> -->
+    			</li>
+    		</a>
+    	</ul>
+    	<span ng-if="cncs.length == 0">目前沒有任何控制器</span>
+    </div>
+	
+</div>

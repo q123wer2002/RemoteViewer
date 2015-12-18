@@ -6,6 +6,17 @@
 <div class="factoryDiv" ng-controller="SyntecCncGroup">
 	<!-- get cnc data from DB -->
 	<input type="hidden" ng-init="initCncOverview()">
+
+	<a href="cncGroupLive.php?group={{gid}}" class="LiveDiv OnlyViewOnWeb">
+    	<div class="liveIcon"></div>
+    	<span> {{isLiveFactory}} 工廠實境</span>
+    </a>
+
+    <a href="cncGroupLive.php?group={{gid}}" class="LiveDiv OnlyViewOnMobile">
+    	<div class="liveIcon">
+    		<span>{{isLiveFactory}}</span>
+    	</div>
+    </a>
 	
 	<div class="factoryTitle">
 		<span class="factoryName">

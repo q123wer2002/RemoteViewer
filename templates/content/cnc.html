@@ -8,6 +8,11 @@
 <div class="factoryDiv" ng-controller="SyntecCnc">
 	<!-- get cnc data from DB -->
 	<input type="hidden" ng-init="initCncDetail()">
+	
+	<a href="cncGroupLive.php?group={{gid}}" class="LiveDiv OnlyViewOnWeb">
+    	<div class="liveIcon"></div>
+    	<span> {{isLiveFactory}} 工廠實境</span>
+    </a>
 
 	<div class="OnlyViewOnMobile statusBanner" ng-style="statusLight.BGColor">
 		<span class="statusName">{{statusLight.msg}}</span>
@@ -25,6 +30,7 @@
 			<a ng-href="cnc.php?cnc={{thisCnc.id}}">{{thisCnc.serialNo}}</a>
 		</span>
 	</div>
+
 
 	<div class="cncStatus">
 		<div class="currentStatus">
@@ -98,6 +104,14 @@
 					<span class="tabName">加工紀錄</span>
 				</li>
 			</a>
+
+			<a href="cncGroupLive.php?group={{gid}}" id="live">
+				<li class="OnlyViewOnMobile">
+					<div class="liveTab">
+						<span>{{isLiveFactory}}</span>
+					</div>
+				</li>
+			</a>
 		</ul>
 
 		<div class="cncOOEDiv" ng-show="tabCode==3">
@@ -133,11 +147,11 @@
 		<div class="cncAlarmDiv" ng-show="tabCode==1">
 			<table id="alarmTable" ng-show="cncAlarm.length != 0">
 				<tr>
-					<td>警報訊息</td>
 					<td>警報時間</td>
+					<td>警報訊息</td>
 				</tr>
 				<!-- it has alarm -->
-				<tr ng-if="cncStatusIconPicker == 3">
+				<tr ng-if="cncStatusIconPicker == 3 || cncStatusIconPicker == 0">
 					<td class="CurAlmBG">{{cncAlarm[0].almTime}}</td>
 					<td class="CurAlmBG">{{cncAlarm[0].almMsg}}</td>
 				</tr>

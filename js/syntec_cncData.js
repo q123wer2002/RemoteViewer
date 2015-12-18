@@ -251,19 +251,19 @@ SyntecRemoteWeb.controller('SyntecCnc',['$scope','$http','$timeout', '$interval'
         if( cncAlarmData != null ){
             //means the number of alarm is not the same
             if( cncAlarmData.length != $scope.cncAlarm.length ){
-                
+
                 for(var i=0; i<cncAlarmData.length; i++){
                     for(var j=0; j<$scope.cncAlarm.length; j++){
                         var isthisAlarmExist = false;
 
                         //check this alarm is exist or not
-                        if( $scope.cncAlarm[j].almTime == cncAlarmData[i].almTime ){
+                        if( $scope.cncAlarm[i].almTime == cncAlarmData[j].almTime ){
                             isthisAlarmExist = true;
                             continue;
                         } 
                     }
 
-                    if( !isthisAlarmExist ){
+                    if( !isthisAlarmExist || $scope.cncAlarm.length == 0 ){
                         var alarm = {'almMsg' : cncAlarmData[i].almMsg, 'almTime' : cncAlarmData[i].almTime, 'updateTime' : cncAlarmData[i].update_time};
                         $scope.cncAlarm.push(alarm);
                     }

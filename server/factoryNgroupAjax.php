@@ -59,11 +59,11 @@ switch( $method ){
 		$gid = $post['gid'];
 
 		//sql to get time diff over 5 minutes
-		$sql_getCncTimeDiff = "SELECT cnc_time.cnc_id, cnc_time.TimeCurrent
+		$sql_getCncTimeDiff = "SELECT cnc_time.cnc_id, cnc_time.update_time
 							   FROM cnc_group
 							   LEFT JOIN cnc_time ON cnc_time.cnc_id IN (SELECT cnc.CNC_id FROM cnc WHERE cnc.CNCGroup=cnc_group.cncgid)
 							   WHERE cnc_group.cncgid = ".$gid." AND
-                               timestampdiff( minute, cnc_time.TimeCurrent, now() ) > 5;";
+                               timestampdiff( minute, cnc_time.update_time, now() ) > 5;";
 		$SyntecObj->resultArray['getCncTimeDiff'] = array();
 		$SyntecObj->SQLQuery('resultArray','getCncTimeDiff',$sql_getCncTimeDiff);
 		
