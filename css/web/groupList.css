@@ -1,0 +1,163 @@
+.groupTopBar{
+	margin-top: 70px;
+	width: 100%;
+	height: 50px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+	position: relative;
+}
+.groupTopBar span{
+	display: inline-block;
+	color:#888888;
+	padding-top: 30px;
+	font-size: 18px;
+	font-weight: 700;
+}
+.groupTopBar .leftTop{
+	text-align: left;
+	margin-right: 15px;
+}
+.groupTopBar .rightTop{
+	float: right;
+}
+.groupTopBar .middleTop{
+	display: inline-block;
+	margin: auto;
+	margin-left: 150px;
+}
+.groupTopBar .middleTop .inputDiv{
+	display: inline-block;
+	background: #ffffff;
+	width: 90px;
+	padding-left: 10px;
+	margin: 0px 20px 0px 10px;
+}
+.groupTopBar .middleTop .inputDiv input{
+	width: 75px;
+}
+.groupTopBar .statusListView{
+	list-style: none;
+	position: absolute;
+	right: 0;
+	top: 15px;
+}
+.groupTopBar .statusListView li{
+	display: inline-block;
+	width: 100px;
+	text-align: center;
+	padding: 7px 5px;
+	border-radius: 3px;
+	margin: 10px;
+	font-size: 15px;
+}
+
+.cncOverView{
+	width: 100%;
+	margin: auto;
+	display: none;
+	text-align: center;
+}
+.cncOverView .selectCNCStatus{
+	padding: 5px;
+	border-radius: 3px;
+	margin: 20px auto 10px auto;
+	width: 150px;
+}
+.cncOverView .cncView{
+	margin:10px auto;
+	list-style: none;
+}
+.cncOverView .cncView  a{
+	color: #888888;
+}
+.cncOverView .cncView li{
+	display: inline-block;
+	width: 220px;
+	height: 310px;
+	margin: 30px 10px;
+	padding: 10px 5px;
+	position: relative;
+	float: left;
+	background: #F5F4F4;
+	border-radius: 3px;
+	text-align: left;
+}
+.cncOverView .cncView li:hover{ box-shadow: 0px 3px 10px #888888; }
+.cncOverView .cncView li .cncStatusName{
+	position: absolute;
+	top: -25px;
+	left: 0px;
+	font-size: 17px;
+	font-weight: 500;
+    color: #585858;
+}
+.cncOverView .cncView li .cncPhoto{
+	width: 100%;
+	height: 140px;
+	margin-left: 0px;
+	margin-bottom: 8px;
+	border-bottom:1px solid #ffffff;
+	text-align: center;
+}
+.cncOverView .cncView li .cncPhoto img{
+	max-height: 90%;
+	max-width: 90%;
+}
+.cncOverView .cncView li .briefDetail{
+	position: absolute;
+	left: 40px;
+	bottom: 40px;
+}
+.cncOverView .cncView li p{
+	margin-left: -30px;
+	width: 130px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	-ms-text-overflow:ellipsis;
+}
+.cncOverView .cncView li .subtitle{
+	width: 100px;
+	font-size: 12px;
+	font-weight: 700;
+	margin-left: 0px;
+	text-align: left;
+	color: #000000;
+}
+.cncOverView .cncView li .subData{
+	font-size: 14px;
+}
+.cncOverView .cncView li .cOOEDIv{
+	float: right;
+	width: auto;
+}
+.cncOverView .cncView li .cOOEDIv span{
+	display: block;
+}
+.cncOverView .cncView li .cOOE{
+	font-family: 'Poiret One', cursive;
+	font-weight: 900;
+	font-size: 40px;
+}
+.cncOverView .cncView li .cncUpdateTime{
+	position: absolute;
+	right: 0;
+	bottom: -20px;
+	font-size: 9px;
+	width: auto;
+}
+.cncOverView .cncView li .processBar{
+	position: absolute;
+	bottom: 7px;
+	left: 3%;
+	width: 93%;
+	height: 25px;
+	border:1px solid #ffffff;
+}
+.cncOverView .cncView li .processBar .process{
+	position: absolute;
+	left: 0;
+	width:0;
+	height: 100%;
+	background:#ffffff;
+}

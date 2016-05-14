@@ -1,0 +1,45 @@
+<!-- load specific css/js only for this page -->
+<?php if($this->viewDevice == "mobile"){ ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo WEB_URL; ?>css/mobile/factoryOverview.css">
+<?php }elseif($this->viewDevice == "web"){ ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo WEB_URL; ?>css/web/factoryOverview.css">
+<?php } ?>
+	<script src="<?php echo WEB_URL; ?>js/factory.js" type="text/javascript"></script>
+
+<div class="limitWebView" ng-controller="factoryControl">
+	<!-- the show list -->
+	<input type="hidden" ng-init='userShowList = <?php echo $this->userDefinedShowList; ?>'>
+	<input type="hidden" ng-init="Void_initFactoryData()">
+
+	<div class="factoryListView">
+		<ul class="statusListView">
+			<li ng-repeat="status in ENUM_Status" ng-style="{'background':status.color}">
+				{{status.name}}
+			</li>
+		</ul>
+
+		<ul class="factoryList">
+			<a href="factory{{factory.fID}}" ng-repeat="factory in factories" title="{{factory.fName}}">
+				<li>
+					<h3 class="fNmae"><span ng-if="factory.fName != null">{{factory.fName}}</span></h3>
+					<p class="fTotalCnc"><span ng-if="factory.fTotalCNC != null">{{factory.fTotalCNC}}台</span></p>
+					<p class="fOOE">
+						<span ng-if="factory.fOOE !== ''">{{factory.fOOE | round}}%</span>
+						<span ng-if="factory.fOOE === ''">　</span>
+					</p>
+					<p class="fEachStatus">
+						<span ng-if="factory.fStatusOfCnc != null">
+							<span class="statusLine"
+							ng-repeat="(status,data) in factory.fStatusOfCnc" 
+							ng-style="{'background':ENUM_Status[status].color, 'width':data.width}"
+							>
+								<span style="color:#000000" ng-if="data.num != 0">{{data.num}}</span>
+							</span>
+						</span>
+					</p>
+				</li>
+			</a>
+		</ul>
+
+	</div>
+</div>

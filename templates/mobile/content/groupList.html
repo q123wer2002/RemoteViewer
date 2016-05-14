@@ -1,0 +1,74 @@
+<!-- load specific css/js only for this page -->
+<?php if($this->viewDevice == "mobile"){ ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo WEB_URL; ?>css/mobile/groupList.css">
+<?php }elseif($this->viewDevice == "web"){ ?>
+	<link rel="stylesheet" type="text/css" href="<?php echo WEB_URL; ?>css/web/groupList.css">
+<?php } ?>
+	<script src="<?php echo WEB_URL; ?>js/group.js" type="text/javascript"></script>
+
+<div ng-controller="groupControl">
+	<input type="hidden" ng-init="GID = <?php echo $this->gID; ?>">
+	<input type="hidden" ng-init='userShowList = <?php echo $this->userDefinedShowList; ?>'>
+	<input type="hidden" ng-init='Void_initCNCData()'>
+
+	<!-- <div class="fixedbottom">
+		<a href="javascript:;" title="IPCAM" style="color:#172A7E;font-weight: 800;font-size: 5vw;">{{groupIPCAM}}</a>
+	</div> -->
+
+	<div class="groupTopBar">
+		<a href="index" class="leftTop" title="{{factoryName}}"><span>{{factoryName}}</span></a>
+		<a href="group{{GID}}" class="leftTop" title="{{groupName}}"><span>{{groupName}}</span></a>
+		
+		<!-- <div class="rightTop">
+			<span style="color:#205081;font-size: 4vw;">稼動率標準</span>
+			<div class="inputDiv">
+				<input type="text" ng-model="settingOOE">
+			</div>
+	    </div> -->
+		
+		<select ng-model="filterCncStatus" class="selectCNCStatus">
+			<option value="">--- All status ---</option> <!-- not selected / blank option -->
+			<option ng-repeat="(status,data) in ENUM_Status" value="{{status}}">
+				{{data.name}}
+			</option>
+	    </select>
+	</div>	
+
+	<div class="cncOverView">
+		<ul class="cncView" ng-show="cncs.length != 0">
+			<a href="cnc{{cnc.cncID}}" title="{{cnc.name}}" ng-repeat="cnc in cncs | filter:{'cncStatus':filterCncStatus}">
+				<li ng-style="{'border-color':cncBGColor(cnc), 'color':'#000000'}">
+					<span class="cncStatusName" ng-style="{'color':cncBGColor(cnc)}">{{cncStatusName(cnc.cncStatus)}}</span>
+					<div class="cncPhoto"><img ng-src="{{cnc.cncPic}}" /></div>
+					<h3 class="cncName">
+						<span ng-if="cnc.cncName != ''">{{cnc.cncName}}</span>
+						<span ng-if="cnc.cncName == ''">Name</span>
+					</h3>
+					<div class="briefDetail">
+						<p ng-if="cnc.cncMainProg != null">
+							<span class="subtitle">主程式</span>
+							<span class="subData" ng-if="cnc.cncMainProg != ''">{{cnc.cncMainProg}}</span>
+							<span class="subData" ng-if="cnc.cncMainProg == ''">MainP</span>
+						</p>
+						<p ng-if="cnc.cncMode != null">
+							<span class="subtitle">模式</span>
+							<span class="subData">{{cnc.cncMode}}</span>
+						</p>
+						<!-- <p ng-if="cnc.cncRestTime != null">
+							<span class="subtitle">剩餘時間</span>
+							<span class="subData">{{cnc.cncRestTime}}</span>
+						</p> -->
+					</div>
+					<span class="cOOE" ng-show="cnc.cncOOE != ''">{{ cnc.cncOOE-settingOOE | round }}%</span>
+					<div class="processBar">
+						<div class="process" ng-style="{'width':cnc.cncProcess, 'background':ENUM_Status[cnc.cncStatus].color}"></div>
+					</div>
+					<span class="updateTime">更新時間：{{cnc.cncUpdateTime}}</span>
+				</li>
+			</a>
+		</ul>
+
+		<h3 ng-show="cncs.length == 0" style="text-align: center;margin-top: 70px;color:red;">{{groupName}}群組 內中沒有控制器</h3>
+	</div>
+
+</div>

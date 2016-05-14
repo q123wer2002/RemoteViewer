@@ -1,0 +1,66 @@
+<!--
+1. 目前警報 true/false
+2. 歷史警報 (序號, 模組, 號碼, 發生時間, 警報內容) 
+3. 警報統計 (各模組出現的次數, 警報內容出現次數 ((由多到少、依時間選取
+-->
+
+<div class="alarmDiv">
+	<input type="hidden" ng-init="setAlmParam(curtAlmUnit)">
+
+	<div class="choseAlmUnitDiv">
+		<span style="font-size: 3vw">顯示選擇</span>
+		<span class="UnitChose" title="{{value.name}}"
+		ng-repeat="(key, value) in alarmUnit"
+		ng-if="value.display"  
+		ng-style="{'background':value.bgColor, 'color':value.fontColor}"
+		ng-click="setAlmParam(key)"
+		>{{value.name}}</span>
+	</div>
+
+	<div class="unitAlmDiv" ng-show="curtAlmUnit == 'curtAlm'">
+		<ul>
+			<li ng-repeat="alm in curtAlm" ng-if="curtAlm.length != 0">
+				<div class="almInfo">
+					<p>{{alm.module}} | {{alm.no}}</p>
+				</div>
+				<span class="content">{{alm.content}}</span>
+				<span class="timestamp">{{alm.time}}</span>
+			</li>
+			<li ng-if="curtAlm.length == 0">
+				<span class="content">目前無警報</span>
+			</li>
+		</ul>
+	</div>
+
+	<div class="unitAlmDiv" ng-show="curtAlmUnit == 'hisAlm'">
+		<table border="1" style="width:100%;border-collapse: collapse;text-align: center;font-size: 3vw;">
+			<tr style="background:#F98080;table-layout: fixed;font-weight: 700;">
+				<td>序號</td>
+				<td>模組</td> 
+				<td>號碼</td>
+				<td>警報內容</td>
+				<td>發生時間</td>
+			</tr>
+			<tr ng-repeat="alm in hisAlm" ng-if="hisAlm.length != 0">
+				<td>{{$index+1}}</td>
+				<td>{{alm.module}}</td> 
+				<td>{{alm.no}}</td>
+				<td>{{alm.content}}</td>
+				<td style="font-size: 9px;">{{alm.time}}</td>
+			</tr>
+			<tr ng-if="hisAlm.length == 0">
+				<td></td>
+				<td></td> 
+				<td></td>
+				<td>無歷史警報</td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+	<div class="unitAlmDiv" ng-show="curtAlmUnit == 'anlyzAlm'" style="overflow: hidden;">
+		<div class="almChart moduleChart"></div>
+		<div class="almChart contentChart"></div>
+	</div>
+
+</div>

@@ -1,0 +1,355 @@
+.groupTopBar{
+	margin-top: 20vw;
+	width: 90vw;
+	border-bottom: 1px solid rgba(32,80,129,0.4);
+	margin-left: 5vw;
+	padding-bottom: 2vw;
+	text-align: center;
+}
+.groupTopBar .leftTop{
+	text-align: left;
+}
+.groupTopBar span{
+	display: block;
+	color:#205081;
+	font-size: 4.5vw;
+	font-weight: 500;
+	margin-top: 1vw;
+}
+.groupTopBar .rightTop{
+	position: absolute;
+	right: 1.5vw;
+	top: -0.5vw;
+	margin-right: 5vw;
+	text-align: center;
+}
+.groupTopBar .rightTop .updatetime{
+	color: #888888;
+	font-size: 3vw;
+}
+.cncMid2Bar{
+	width: 90vw;
+	height: auto;
+	margin:auto;
+	margin-top: 5vw;
+	text-align: center;
+	padding-bottom: 25px;
+}
+.cncMid2Bar div{
+	display: inline-block;
+}
+.cncMid2Bar .imgDiv{
+	width: 35vw;
+	height: auto;
+	border-radius: 3px;
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+}
+.cncMid2Bar .imgDiv img{
+	max-width: 100%;
+	max-height: 100%;
+}
+.cncMid2Bar .cncDetailDiv{
+	width: 50vw;
+	margin-left: 3vw;
+	text-align: left;
+}
+.cncMid2Bar .cncDetailDiv .CNCDetailUl{
+	list-style: none;
+}
+.cncMid2Bar .cncDetailDiv .CNCDetailUl span{
+	font-size: 4vw;
+}
+.cncMid2Bar .cncDetailDiv .CNCDetailUl .cncTitle{
+	color: #888888;
+}
+.cncMid2Bar .cncDetailDiv .CNCDetailUl .cncData{
+}
+
+.TabHisData{
+	list-style: none;
+	border-top: 1px solid rgba(17,29,109,0.5);
+	position: fixed;
+	width: 100vw;
+	height: 16vw;
+	max-height: 150px;
+	bottom: 0;
+	background: rgba(255,255,255,0.8);
+	z-index: 12;
+}
+.TabHisData a{
+	color: #000000;
+}
+.TabHisData li{
+	display: inline-block;
+	text-align: center;
+	width: 18vw;
+	font-size: 15px;
+	padding: 3vw 3.1vw  0vw 3vw;
+}
+.TabHisData li span{
+	display: block;
+	font-size: 4vw;
+}
+.tabIcon{
+	max-width: 50px;
+	max-height: 50px;
+	width: 6.5vw;
+	height: 6.5vw;
+	background-size: 100% auto;
+	margin: auto;
+}
+
+.cncHisDetailDiv{
+	padding-bottom: 16vw;
+	margin-left: 3vw;
+}
+
+/*OOE*/
+	.OOEDIv{
+		width: 100vw;
+		position: relative;
+		padding-top: 3vw;
+		overflow-x:auto; 
+		border-top: 1px solid rgba(32,80,129,0.4);
+	}
+	.choseOOEUnitDiv{
+		position: fixed;
+		left: 2vw;
+		bottom:18vw;
+		z-index: 12;
+		background: rgba(255,255,255,0.8);
+		text-align: center;
+		border:1px solid rgba(32,80,129,0.4);
+		padding: 1.5vw;
+	}
+	.choseOOEUnitDiv .UnitChose{
+		display: block;
+		width: 10vw;
+		font-size: 2vw;
+		margin: auto;
+		margin-top: 2vw;
+		padding: 1vw 2vw;
+		text-align: center;
+		border:1px solid #878787;
+		border-radius: 3px;
+		height: 10vw;
+		line-height: 10vw;
+	}
+	.arrowDiv{
+		margin: auto;
+		margin-top: 3vw;
+		border-top:1px solid #000000;
+		text-align: center;
+		width: 18vw;
+	}	
+	.arrowDiv a{
+		margin-top: 1vw;
+		display: inline-block;
+		color: #888888;
+		text-align: center;
+	}
+	.arrowDiv span{
+		font-size: 3vw;
+	}
+	.arrowDiv .arrowIcon{
+		background: url(../../images/arrow.png);
+		width: 5vw;
+		height: 5vw;
+		background-size: 5vw auto;
+		display: block;
+		margin-left: 0;
+	}
+	.arrowDiv #leftArrow{
+		float: left;
+	}
+	.arrowDiv #leftArrow .arrowIcon{
+		-ms-transform: rotate(180deg); 
+	    -webkit-transform: rotate(180deg); 
+	    transform: rotate(180deg);
+	}
+	.arrowDiv #rightArrow{
+		float: right;
+	}
+
+	.OOEChart{
+		min-width: 600px;
+		min-height: 250px;
+		position: relative;
+		width: 100vw;
+		height: 30vw;
+	}
+	.OOEDIv #avgOOEShow{
+		font-size: 15vw;
+		font-family: 'Poiret One';
+		font-weight: 900;
+		color:#111d6d;
+	}
+	.OOEDIv #explainAVGHisOOE{
+		width: 55vw;
+		margin: 5vw auto;
+		padding:2vw;
+		border: 1px solid rgba(32,80,129,0.4);
+		border-radius: 1vw;
+		color: #111d6d;
+		background: #eeeeee;
+	}
+/*Alarm*/
+	.alarmDiv{
+		position: relative;
+		padding-top: 3vw;
+		overflow-x:hidden; 
+		border-top: 1px solid rgba(32,80,129,0.4);
+	}
+	.choseAlmUnitDiv{
+		position: fixed;
+		left: 2vw;
+		bottom:18vw;
+		z-index: 12;
+		background: rgba(255,255,255,0.8);
+		text-align: center;
+		border:1px solid rgba(255,69,69,0.4);
+		padding: 1.5vw;
+	}
+	.choseAlmUnitDiv .UnitChose{
+		display: block;
+		width: 10vw;
+		margin: 2vw auto;
+		font-size: 2vw;
+		padding: 1vw 2vw;
+		text-align: center;
+		border:1px solid #878787;
+		border-radius: 3px;
+		height: 10vw;
+		line-height: 10vw;
+	}
+	/* current alarm*/
+		.unitAlmDiv{
+			width: 75vw;
+			margin-left: 20.5vw;
+			margin-right: 2vw;
+		}
+		.unitAlmDiv ul{
+			list-style: none;
+			overflow-y : auto;
+			text-align: center;
+			overflow: hidden;
+		}
+		.unitAlmDiv ul li{
+			position: relative;
+			margin: auto;
+			text-align: left;
+			border-bottom: 1px solid rgba(255,69,69,0.4);
+			padding-bottom: 5vw;
+			margin-top: 2vw;
+		}
+		.unitAlmDiv ul li *{
+			display: inline-block;
+		}
+		.unitAlmDiv ul li .content{
+			color:red;
+			font-size: 6.5vw;
+			font-weight: 700;
+		}
+		.unitAlmDiv ul li .almInfo{
+			height: auto;
+			text-align: center;
+		}
+		.unitAlmDiv ul li .almInfo p{
+			font-size: 4vw;
+		}
+		.timestamp{
+			color: #888888;
+			font-size: 2vw;
+			float: right;
+			margin-right: 6vw;
+		}
+	/* history alarm*/
+		.unitAlmDiv table, th, td {
+		   border: 1px solid rgba(0,0,0,0.2);
+		   overflow: hidden;
+		}
+		.unitAlmDiv tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+	/* analyze alarm */
+		.unitAlmDiv .almChart{
+			min-height: 200px;
+			border-bottom: 1px solid rgba(255,69,69,0.4);
+		}
+		.unitAlmDiv #quote{
+			font-size: 18px;
+			color: #000000;
+			text-align: center;
+		}
+/*Record*/
+	.recordDiv{
+		position: relative;
+		padding-top: 3vw;
+		overflow-x:hidden; 
+		border-top: 1px solid rgba(32,80,129,0.4);
+	}
+	.choseRecodUnitDiv{
+		position: fixed;
+		left: 2vw;
+		bottom:18vw;
+		z-index: 12;
+		background: rgba(255,255,255,0.8);
+		text-align: center;
+		border:1px solid rgba(22,186,3,0.4);
+		padding: 1.5vw;
+	}
+	.choseRecodUnitDiv .UnitChose{
+		display: block;
+		width: 10vw;
+		margin: auto;
+		font-size: 2vw;
+		margin-top: 2vw;
+		padding: 1vw 2vw;
+		text-align: center;
+		border:1px solid #878787;
+		border-radius: 3px;
+		height: 10vw;
+		line-height: 10vw;
+	}
+	.unitRecodDiv{
+		width: 75vw;
+		margin-left: 20.5vw;
+		margin-right: 2vw;
+		overflow-y:auto;
+	}
+	.unitRecodDiv .recordOverview{
+		margin: auto;
+		text-align: center;
+		position: relative;
+	}
+	.unitRecodDiv .recordOverview .processBar{
+		width: 50vw;
+		height: 7vw;
+		margin: 5vw auto 40px auto;
+		border:1px solid #16BA03;
+		border-radius: 5px;
+		position: relative;
+	}
+	.unitRecodDiv .recordOverview .processBar .process{
+		width: 0px;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background: #16BA03;
+		text-align: center;
+		color: #ffffff;
+	}
+	.unitRecodDiv .recordOverview .recordDetail{
+		margin: auto;
+		text-align: left;
+	}
+	.unitRecodDiv .recordOverview .recordDetail table{
+		font-size: 15px;
+	}
+	.unitRecodDiv tr:nth-child(even) {
+		background-color: #f2f2f2;
+	}
+

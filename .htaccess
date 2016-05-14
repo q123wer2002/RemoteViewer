@@ -1,0 +1,17 @@
+# secure htaccess file
+
+ErrorDocument 401 /error401
+ErrorDocument 403 /error403
+ErrorDocument 404 /error404
+ErrorDocument 500 /error500
+
+# disable directory browsing
+Options All -Indexes
+
+RewriteEngine On
+RewriteRule index index.php
+RewriteRule userSetting setting.php
+RewriteRule ^factory([0-9]*)$ factory.php?factory=$1
+RewriteRule ^group([0-9]*)$ group.php?group=$1
+RewriteRule ^cnc([0-9]*)$ cnc.php?cnc=$1
+RewriteRule ^error([0-9]*)$ error.php?errorCode=$1

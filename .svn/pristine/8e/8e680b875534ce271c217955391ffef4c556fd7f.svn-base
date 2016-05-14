@@ -1,0 +1,147 @@
+.facGopBigDiv{
+	width: 1024px;
+	margin: auto;
+	position: relative;
+	height: 500px;
+	margin-top: 90px;
+}
+.facGopBigDiv .LeftFacList{
+	position: absolute;
+	width: 20%;
+	height: 100%;
+	min-width: 200px;
+	top: 100px;
+	left: 0;
+	background: #f0f0f0;
+	text-align: center;
+	padding-right: 50px;
+	border-right:1px solid rgba(17,29,109,0.5);
+}
+.facGopBigDiv .backDes{
+	color:#000000;
+	margin-top: 50px;
+	font-size: 20px;
+}
+.facGopBigDiv #backicon{
+	display: inline-block;
+	background-image: url(../../images/backIcon.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 23px;
+	height: 23px;
+	background-size: 23px auto;
+}
+.facGopBigDiv .LeftFacList .factoryView{
+	list-style: none;
+}
+.facGopBigDiv .LeftFacList .factoryView a{
+	color: #868686;
+	transition:none;
+}
+.facGopBigDiv .LeftFacList .factoryView a:hover li{
+	border-color: #000000;
+}
+.facGopBigDiv .LeftFacList .factoryView li{
+	font-weight: 800;
+	width: 85%;
+	min-height: 130px;
+	padding: 25px 5%;
+	margin-top: 10px;
+	margin-left: 2.5%;
+	border-radius: 3px;
+	position: relative;
+	border:1px solid #868686;
+}
+.facGopBigDiv .LeftFacList .factoryView li .fEachStatus{
+	width: 90%;
+	left: 5%;
+	position: absolute;
+	bottom: 20px;
+}
+.facGopBigDiv .LeftFacList .factoryView li .statusLine{
+	text-align: center;
+	float: left;
+	font-size: 9px;
+	line-height: 20px;
+	height: 20px;
+	color: #000000;
+	border-radius: 1px;
+}
+.facGopBigDiv .RightGopView{
+	width:75%;
+	min-width: 1000px;
+	min-height: 700px;
+	height: 80%;
+	margin-left: 30%;
+	color: #000000;
+}
+
+.facGopBigDiv .RightGopView .groupView{
+	width: 80%;
+	margin-top: 30px;
+	list-style: none;
+}
+.RightGopView .groupView .groupLI{
+	display: inline-block;
+	border-top: 1px solid rgba(17,29,109,0.7);
+	width: 30%;
+	min-width: 250px;
+	height: 200px;
+	margin: 10px 31px;
+	position: relative;
+	overflow: hidden;
+}
+.RightGopView .groupView .groupLI .bgBlackLink{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: rgba(17,29,109,0.7);
+	top: 199px;
+}
+.RightGopView .groupView a{
+	color: #888888;
+}
+.RightGopView .groupView a:hover .groupLI .bgBlackLink{top: 0;}
+.RightGopView .groupView li .groupName{
+	font-size: 30px;
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	font-weight: 300;
+}
+.RightGopView .groupView li .IPCAM{
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+.RightGopView .groupView li .gStatusOfCNC{
+	position: absolute;
+	bottom: 15px;
+	left: 15px;
+}
+.gStatusOfCNC .gStatusBar{
+	list-style: none;
+}
+.gStatusOfCNC .gStatusBar li{
+	width: 90px;
+	height: 25px;
+	border-radius: 3px;
+	margin: 5px 0px;
+	text-align: center;
+	font-size: 9px;
+	line-height: 25px;
+	font-weight: 700;
+	color: #000000;
+}
+.RightGopView .groupView li .gOOE{
+	position: absolute;
+	right: 7px;
+	bottom: 17px;
+	font-size: 40px;
+	color: #000000;
+}
+.RightGopView .groupView li .gTotalCNC{
+	position: absolute;
+	right: 25px;
+	bottom: 75px;
+}

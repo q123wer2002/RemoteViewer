@@ -1,0 +1,80 @@
+<!--
+1. 目前加工狀況 (加工程式, 預計加工件數, 已經加工件數, 總加工件數, 總加工 時間, 開始加工時間)
+2. 歷史加工狀況 (序號, 程式名稱, 開始日期時間, 總時間, 工件數, 平均一個工件時間)
+-->
+
+<div class="recordDiv">
+	<input type="hidden" ng-init="setRecodParam(curtRecodUnit)">
+	<div class="choseRecodUnitDiv">
+		<span style="font-size: 9px">顯示選擇</span>
+		<span class="UnitChose" title="{{value.name}}"
+		ng-repeat="(key, value) in recodUnits" 
+		ng-style="{'background':value.bgColor, 'color':value.fontColor}"
+		ng-click="setRecodParam(key)"
+		>{{value.name}}</span>	
+	</div>
+
+	<div class="unitRecodDiv" style="overflow: hidden;" ng-show="curtRecodUnit == 'curtWork'">
+		<div class="recordOverview">
+			<h2>{{curtWork['MainProg']}}</h2>
+			<div class="processBar">
+				<div class="process" ng-style="{'width':curtWork['progress']}">
+					<span style='line-height: 35px;font-size: 15px;'>{{curtWork['progress']}}</span>
+					<span style='position: absolute;right: 0px;bottom: -30px;font-size: 15px;color:#000000;'>{{curtWork['partcount']}}</span>
+				</div>
+				<span style="position: absolute;right: -5px;bottom: -30px;font-size: 15px;">{{curtWork['require_partcount']}}</span>
+			</div>
+			<div class="recordDetail">
+				<table border="1" style="width:100%;border-collapse: collapse;text-align: center;">
+					<tr style="background:#90EBA9;table-layout: fixed;font-weight: 700;">
+						<!-- <td>加工開始日期</td> -->
+						<td>加工時間</td> 
+						<!-- <td>加工剩餘時間(秒)</td> -->
+						<td>總加工時間(秒)</td>
+						<td>更新時間</td>
+					</tr>
+					<tr>
+						<!-- <td>{{curtWork['cycleStartDate']}}</td> -->
+						<td>{{curtWork['cycletime']}}</td> 
+						<!-- <td>{{curtWork['restTime']}}</td> -->
+						<td>{{curtWork['total_cycletime']}}</td>
+						<td>{{curtWork['update_time']}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="unitRecodDiv" ng-show="curtRecodUnit == 'hisWork'">
+		<table border="1" style="width:100%;border-collapse: collapse;text-align: center;">
+			<tr style="background:#16BA03;table-layout: fixed;font-weight: 700;">
+				<td>序號</td>
+				<td>程式名稱</td> 
+				<td>開始日期</td>
+				<td>開始時間</td>
+				<td>總時間</td>
+				<td>工件數</td>
+				<td>程式註解</td>
+			</tr>
+			<tr ng-repeat="work in hisWork" ng-if="hisWork.length != 0">
+				<td style="font-size: 12px;">{{$index+1}}</td>
+				<td style="font-size: 14px;">{{work.ProgName}}</td> 
+				<td style="font-size: 14px;">{{work.StartDate}}</td>
+				<td style="font-size: 14px;">{{work.StartTime}}</td>
+				<td style="font-size: 14px;">{{work.TotalTime}}</td>
+				<td style="font-size: 14px;">{{work.PartCount}}</td>
+				<td style="font-size: 14px;">{{work.comment}}</td>
+			</tr>
+			<tr ng-if="hisWork.length == 0">
+				<td></td>
+				<td>無歷史加工資訊</td> 
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+</div>

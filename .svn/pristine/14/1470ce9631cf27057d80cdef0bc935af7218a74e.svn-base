@@ -1,0 +1,87 @@
+
+.facGopBigDiv{
+	margin-top: 22vw;
+}
+.tabFactory{
+	height: 6vw;
+	margin: 0px 3vw;
+	display:flex;
+}
+.tabFactory .tabName{
+	width: 20vw;
+	height: 6vw;
+	overflow: hidden;
+	text-align: center;
+	line-height: 6vw;
+	padding: 0.5vw;
+	margin-right: 0.3px;
+	border:1px solid rgba(17,29,109,0.5);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	-ms-text-overflow:ellipsis;
+	color: #000000;
+}
+.factoryListView{
+	width: 100%;
+	height: auto;
+	margin-top: 2vw;
+	display:flex;
+    align-items:center;  
+    justify-content:center;
+}
+
+.factoryListView .factoryList{
+	list-style: none;
+	margin: auto;
+	text-align: center;
+}
+.factoryListView .factoryList li{
+	display: inline-block;
+	width: 45vw;
+	height: 40vw;
+	border: 1px solid rgba(17,29,109,0.5);
+	margin: 3vw auto 1vw auto;
+	position: relative;
+	box-shadow: 0px 2px 5px #888888;
+}
+
+.factoryListView .factoryList li .fNmae{
+	text-align: left;
+	font-size: 4.5vw;
+	font-weight: 900;
+	margin: 3vw auto 2vw 5vw;
+	color: rgba(0,0,0,0.7);
+}
+.factoryListView .factoryList li .fTotalCnc{
+	position: absolute;
+	right: 3vw;
+	top: 7vw;
+	font-size: 4vw;
+	font-weight: 500;
+	color: #888785;
+}
+.factoryListView .factoryList li .fOOE{
+	position: absolute;
+	text-align: center;
+	font-size: 8vw;
+	font-weight: 700;
+	color: rgba(0,0,0,0.7);
+	right: 3vw;
+	bottom: 1vw;
+	font-family: 'Poiret One';
+	font-weight: 900;
+}
+.factoryListView .factoryList li .fEachStatus{
+	position: absolute;
+	width: 25vw;
+	text-align: center;
+	margin-left: 2vw;
+}
+.factoryListView .factoryList li .fEachStatus span{
+	color:#000000;
+	line-height: 5vw;
+	display: block;
+	font-size: 4vw;
+	height: 5vw;
+	margin-bottom:2.5vw;
+}

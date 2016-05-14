@@ -1,0 +1,41 @@
+
+
+<div class="OOEDIv">
+
+	<input type="hidden" ng-init="setOOEParam(curtUnit, ENUM_getTypes['changeUnit'] )">
+
+	<div class="choseOOEUnitDiv">
+		
+		<span style="font-size: 3vw">選擇顯示單位</span>
+		<span class="UnitChose" ng-repeat="(key, value) in OOEUnits" title="{{value.name}}" ng-style="{'background':value.bgColor, 'color':value.fontColor}" ng-click="setOOEParam(key, ENUM_getTypes['changeUnit'] )">{{value.name}}</span>	
+		
+		<div class="arrowDiv" ng-show="curtUnit != 'AVGHisOOE'">
+			<a href="javascript:;" ng-click="setOOEParam(curtUnit, ENUM_getTypes['previousData'] )" title="前十筆資料" id="leftArrow" 
+			ng-show="
+			(OOEUnits[curtUnit].dataShowRule[ (OOEUnits[curtUnit].dataPoint)+1 ].startPoint != (allDateRecordAry.length) )
+			">
+				<span class="arrowIcon"></span>
+				<span>前十</span>
+			</a>
+			<a href="javascript:;"  ng-click="setOOEParam(curtUnit, ENUM_getTypes['backData'] )" title="後十筆資料" id="rightArrow" ng-show="
+			OOEUnits[curtUnit].dataShowRule[ (OOEUnits[curtUnit].dataPoint)-1 ].preTimeUnit != null
+			">
+				<span class="arrowIcon"></span>
+				<span>後十</span>
+			</a>
+		</div>
+
+	</div>
+
+	<div class="OOEChart" ng-show="curtUnit != 'AVGHisOOE'"></div>
+
+	<div style="margin-left: 22vw;width: 70vw;text-align: center;" ng-show="curtUnit == 'AVGHisOOE'">
+		<p id="avgOOEShow">{{avgHisOOE}}%</p>
+		<div id="explainAVGHisOOE">
+			<h4 style="font-weight: 500;">計算方式說明(秒)</h4>
+			<h5 style="margin:auto;border-bottom: 1px solid #111d6d;width: 52vw;">控制器歷史加工時間(R1011) = {{R1011_allCycTime}}</h5>
+			<h5>控制器歷史開機時間(R1013) = {{R1013_allOpenTime}}</h5>
+		</div>
+	</div>
+
+</div>

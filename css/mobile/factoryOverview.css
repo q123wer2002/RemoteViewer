@@ -1,0 +1,90 @@
+
+.factoryListView{
+	width: 100%;
+	height: auto;
+	margin-top: 17vw;
+}
+.statusListView{
+	width: 100%;
+	list-style: none;
+	text-align: center;
+}
+.statusListView li{
+	width: 12vw;
+	display: inline-block;
+	font-size: 2.8vw;
+	padding: 1vw;
+	text-align: center;
+	color: #000000;
+	border-radius: 0.5vw;
+	margin: 0px 0.5vw;
+}
+
+.factoryListView .factoryList{list-style: none;}
+.factoryListView .factoryList li{
+	width: 95vw;
+	max-height: 48vw;
+	border: 1px solid rgba(17,29,109,0.5);
+	margin: 6vw auto;
+	position: relative;
+	box-shadow: 0px 2px 10px #979797;
+}
+
+.factoryListView .factoryList li .fNmae{
+	text-align: left;
+	font-size: 5.5vw;
+	font-weight: 900;
+	margin: 3vw auto 3vw 5vw;
+	color: rgba(0,0,0,0.7);
+}
+.factoryListView .factoryList li .fTotalCnc{
+	position: absolute;
+	right: 3vw;
+	top: 1vw;
+	font-size: 5.5vw;
+	font-weight: 500;
+	color: #000000;
+}
+.factoryListView .factoryList li .fOOE span{
+	position: absolute;
+	text-align: center;
+	font-size: 10vw;
+	font-weight: 700;
+	color: rgba(0,0,0,0.7);
+	right: 3vw;
+	bottom: 0;
+	font-family: 'Poiret One';
+	font-weight: 900;
+}
+.factoryListView .factoryList li .fEachStatus{
+	width: 50vw;
+	min-height: 10vw;
+	text-align: center;
+	margin:0vw 0vw 7vw 7vw;
+}
+.factoryListView .factoryList li .fEachStatus span{
+	color:#000000;
+	line-height: 5vw;
+	display: block;
+	font-size: 4vw;
+	height: 5vw;
+	margin-bottom:2.5vw;
+}
+.factoryListView .factoryList li .inlineBlock .EachStatusNum{
+	font-size: 3.5vw;
+	line-height: 5vw;
+	font-weight: 500;
+	color: #888785;
+	margin: 2px 1vw auto 0vw;
+}
+.factoryListView .factoryList li .inlineBlock .statusLine{
+	/* change by number! */
+	width: 60vw;
+	border-radius: 3px;
+	line-height: 5vw;
+	height: 5vw;
+	margin: 2px 1vw auto 10vw;
+}
+.inlineBlock{
+	display:inline-block;
+}
