@@ -15,7 +15,7 @@ body{
 }
 
 a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, center, cite, code, dd, del, details, dfn, div, dl, dt, em, embed, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, input, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video{
-	margin: 0;padding: 0;border: 0;transition:opacity .2s ease,color .2s ease,background .2s ease,box-shadow .2s ease,border .2s ease,width .2s ease, left.2s ease, top.2s ease, right.2s ease;font-family: '微軟正黑體';font-weight: 400;
+	margin: 0;padding: 0;border: 0;transition:opacity .2s ease,color .2s ease,background .2s ease,box-shadow .2s ease,border .2s ease,width .2s ease, left .2s ease, top.2s ease, right.2s ease;font-family: '微軟正黑體';font-weight: 400;
 }
 
  *:focus { outline: none; }

@@ -246,5 +246,4 @@ SyntecRemoteWeb.controller('SyntecAccount',['$scope','$http', '$interval',functi
 			});
 		}
 
-
 }]);

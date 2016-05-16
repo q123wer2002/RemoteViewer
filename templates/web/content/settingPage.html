@@ -1,16 +1,18 @@
 <!-- load specific css/js only for this page -->
-<?php if($this->viewDevice == "mobile"){ ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo WEB_URL; ?>css/mobile/settingCSS.css">
-<?php }elseif($this->viewDevice == "web"){ ?>
-	<link rel="stylesheet" type="text/css" href="<?php echo WEB_URL; ?>css/web/settingCSS.css">
-<?php } ?>
-	<script src="<?php echo WEB_URL; ?>js/account.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo WEB_URL; ?>css/web/settingCSS.css">
+<script src="<?php echo WEB_URL; ?>js/account.js" type="text/javascript"></script>
 
 <div class="limitWebView settingBigDiv" ng-controller="SyntecAccount">
+	<input type="hidden" ng-init="viewDevice = '<?php echo $this->viewDevice; ?>'">
 	<input type="hidden" ng-init="initSettingData()">
+	
 	<a href="javascript:history.back();" title="返回" class="backLink">
 		<span class="back_icon"></span>
 		<span style="position: absolute;width: 100px;left: 32px;top: 0;font-size: 20px;">返回</span>
+	</a>
+
+	<a href="layoutSetting.php" title="客製首頁" class="nextLink" ng-click="triggerCustomerPage()">
+		<span style="font-size: 20px;">客製首頁</span>
 	</a>
 	
 	<h2 style="text-align: center;">設定</h2>
@@ -35,7 +37,6 @@
 			</div>
 		</div>
 	</div>
-
 
 	<div class="settingDiv">
 		<h3>工廠資訊</h3>
@@ -65,5 +66,4 @@
 			</div>
 		</div>
 	</div>
-
 </div>

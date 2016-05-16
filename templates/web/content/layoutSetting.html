@@ -1,0 +1,74 @@
+<link rel="stylesheet" type="text/css" href="<?php echo WEB_URL; ?>css/web/layoutSetting.css">
+<script src="<?php echo WEB_URL; ?>js/layoutSetting.js" type="text/javascript"></script>
+
+<div class="settingBigDiv limitWebView" ng-controller="SyntecLayoutSet">
+	<!-- <a href="javascript:history.back();" title="返回" class="backLink">
+		<span class="back_icon"></span>
+		<span style="position: absolute;width: 150px;left: 32px;top: 0;font-size: 20px;">返回設定頁面</span>
+	</a> -->
+	<input type="hidden" ng-init="viewDevice = '<?php echo $this->viewDevice; ?>'">
+
+	<div class="layoutListLeftDiv" ng-style="{'background':tagObjectAry[curtTag].color}">
+		<a href="javascript:;" class="layoutTag"
+		ng-repeat="(tagKey, tagValue) in tagObjectAry" 
+		title="{{tagValue.tagName}}"
+		ng-click="ShowLayoutItem(tagKey, tagValue)" 
+		ng-style="{'top':tagValue.top, 'background':tagValue.color}">{{tagValue.tagName}}</a>
+		
+		<div ng-show="tagObjectAry['myLayout'].isShow">
+			<h2>我的樣式表</h2>
+			<ul class="myLayoutList">
+				<a href="javascript:;" ng-repeat="layout in myLayoutList"><li>{{layout.name}}</li></a>
+			</ul>
+		</div>
+
+		<div ng-show="tagObjectAry['viewFunList'].isShow">
+			<h2>功能列表</h2>
+			<a href="javasscript:;" class="funListSelectorIcon" title="大圖式" ng-click="ViewFunList(viewDevice,'bigView')"><span id="squareicon"></span></a>
+			<a href="javasscript:;" class="funListSelectorIcon" title="列表" ng-click="ViewFunList(viewDevice,'listView')"><span id="listicon"></span></a>
+			<h4>{{szShowHint}}</h4>
+			<ul class="FunListItemDiv">
+				<li></li>
+			</ul>
+		</div>
+
+	</div>
+
+	<div class="layoutSettingDiv">
+		<h1>預設樣式</h1>
+		<hint>直接點擊方塊，可以進行編輯 <span style="font-size:16px;color:red;">沒字表示沒有設定</span></hint>
+		<div class="listViewDiv layoutViewDiv">
+			<h3 style="float:right;margin-top:30px;">列表樣版</h3>
+			<ul class="listViewItems">
+				<li ng-repeat="(key, value) in curtLayout['web']['listView']" ng-style="{'background':isEmptyCom(value)}">{{value}}</li>
+			</ul>
+		</div>
+		<div class="bigViewDiv layoutViewDiv">
+			<h3 style="float:right;margin-top:30px;">大圖示樣版</h3>
+			<div class="bigVIewItems">
+				<div class="innerItems">
+					<ul class="topItems itemsCube">
+						<li 
+						ng-repeat="(key,value) in curtLayout['web']['bigView']['top']"
+						ng-style=szCubeStyle(value)>{{value}}</li>
+					</ul>
+					<ul class="midItems itemsCube">
+						<li 
+						ng-repeat="(key,value) in curtLayout['web']['bigView']['mid']"
+						ng-style=szCubeStyle(value)>{{value}}</li>
+					</ul>
+					<ul class="botItems itemsCube">
+						<li 
+						ng-repeat="(key,value) in curtLayout['web']['bigView']['bot']"
+						ng-style=szCubeStyle(value)>{{value}}</li>
+					</ul>
+				</div>
+				<ul class="outItems itemsCube">
+					<li 
+					ng-repeat="(key,value) in curtLayout['web']['bigView']['out']"
+					ng-style=szCubeStyle(value)>{{value}}</li>
+				</ul>
+			</div>
+		</div>	
+	</div>
+</div>
