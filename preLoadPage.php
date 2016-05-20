@@ -30,41 +30,12 @@ if( $isRegisterCompany == false ){
 }
 unset( $isRegisterCompany  );
 
-//get cnc id from this factory to check function list
-$isGetFunctionList = ( isset($_SESSION['RemoteViewer']['canUseFunctionList']) ) ? true : false;
-if( $isGetFunctionList == false ){
-	
-	//include database api, function module
+//delete command
+if( !empty($_SESSION['companyInfo']['oldWid']) == true ){
 	include_once APP_PATH.'/include/database/DBDataAPI.php';
-	include_once APP_PATH.'/include/module/funModuleClass.php';
-	//end include
-
-	$aryCNCList = array();
-	$nFactoryID = $_SESSION['RemoteViewer']['companyInfo']['fid'][0];
-	$nErrorCode = GetDBData('CncListFromF', $nFactoryID, array(), $aryCNCList );
-	
-	//means success
-	if( $nErrorCode === 0 ){
-		$nCNCID = $aryCNCList[0]['cnc_id']; //default
-
-		//get function list
-		$functionObj = new FunctionObj( $nCNCID );
-
-		//save into session
-		$_SESSION['RemoteViewer']['canUseFunctionList'] = $functionObj->aryCheckFunctionList();
-		//print_r($_SESSION['RemoteViewer']['canUseFunctionList']);
-
-		unset( $nCNCID );
-		unset( $functionObj );
-	}
-
-	unset( $aryCNCList );
-	unset( $nFactoryID );
-	unset( $nErrorCode );
-	//exit;
+	$result = array();
+	GetDBData('DeleteAllOldCmdByWid', 0, array(), $result );
 }
-unset( $isGetFunctionList );
-
 
 //$RemoteModule->userMode = $_SESSION['RemoteViewer']['user']['Mode'];
 $RemoteModule->userMode = $_SESSION['RemoteViewer']['user']['Mode'];

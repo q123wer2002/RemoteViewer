@@ -1,0 +1,40 @@
+
+
+<div class="diagnosisDiv" ng-controller="cncDiagnosis">
+	
+	<input type="hidden" ng-init="setDiagParam(curtDiagUnit)">
+	<input type="hidden" ng-init="Command()">
+
+	<div class="choseDiagnosisUnitDiv">
+		<span style="font-size: 9px">顯示單位</span>
+		<span class="UnitChose" ng-repeat="(key, value) in diagUnits" title="{{value.name}}" ng-style="{'background':value.bgColor, 'color':value.fontColor}" ng-click="setDiagParam(key)">{{value.name}}</span>
+	</div>
+
+	<div class="showBitDiv">
+		<div class="inputNo">
+			<input type="number" class="inputDiagNo" ng-model="nDiagNo" ng-change="FindSpecificNo()" placeholder="輸入診斷編號">
+		</div>
+		<h3 class="bitTitle">{{curtDiagUnit}}</h3>
+		<table class="bitTable" border="1" >
+			<tr ng-repeat="i in ShowDiagTens()">
+				<td ng-repeat="j in [-1,0,1,2,3,4,5,6,7,8,9]">
+					<div ng-style="TitleStyle(i,j)">{{ShowTitle(i,j)}}</div>
+					<div ng-style="MappingStyle(i,j)">{{MappingDiagData(i,j)}}</div>
+				</td>
+			</tr>
+		</table>
+
+		<span class="updatingTime">最後更新時間：{{diagnosisCmd['UpdateTime']}}</span>
+		
+		<div class="arrowDiv">
+			<a href="javascript:;" title="上一頁" ng-click="PreDiagNo()" ng-show="diagnosisCmd['Start'] != 0">
+				<span class="arrowIcon" id="preIcon"></span>
+			</a>
+			
+			<a href="javascript:;" title="下一頁" ng-click="NextDiagNo()">
+				<span class="arrowIcon"></span>
+			</a>
+		</div>
+	</div>
+
+</div>

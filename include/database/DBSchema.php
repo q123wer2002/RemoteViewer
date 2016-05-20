@@ -131,4 +131,67 @@
 		"EXPEXTWORKTIME"=> "factory.expected_work_time",
 		"COMPANYID"		=> "factory.company_id",
 	);
+
+	$SYSDEFAULTLAYOUT = array(
+		"TABLE"			=> "system_default_layout",
+		"ALL"			=> "system_default_layout.*",
+		"ID"			=> "system_default_layout.default_layout_id",
+		"DEVICE"		=> "system_default_layout.layout_device",
+		"NAME"			=> "system_default_layout.layout_name",
+		"DETAIL"		=> "system_default_layout.layout_detail",
+		"FILE"			=> "system_default_layout.layout_file",
+		"UPDATETIME"	=> "system_default_layout.update_time",
+	);
+
+	$COMPANYLAYOUT = array(
+		"TABLE"			=> "company_layout",
+		"ALL"			=> "company_layout.*",
+		"LAYOUTID"		=> "company_layout.layout_id",
+		"COMPANYID"		=> "company_layout.company_id",
+		"LAYOUTDEVICE"	=> "company_layout.layout_device",
+		"LAYOUTNAME"	=> "company_layout.name",
+		"LAYOUTFILE"	=> "company_layout.file",
+		"UPDATETIME"	=> "company_layout.update_time",
+	);
+
+	$CNCCOMMAND = array(
+		"TABLE"			=> "cnc_command",
+		"ALL"			=> "cnc_command.*",
+		"WID"			=> "cnc_command.wid",
+		"CNCID"			=> "cnc_command.cnc_id",
+		"COMMAND"		=> "cnc_command.command",
+		"PARAMETER1"	=> "cnc_command.parameter_1",
+		"PARAMETER2"	=> "cnc_command.parameter_2",
+		"WEBTIME"		=> "cnc_command.web_time",
+	);
+
+	$CNCVARIABLE = array(
+		"TABLE"			=> "cnc_variable",
+		"ALL"			=> "cnc_variable.*",
+		"WID"			=> "cnc_variable.wid",
+		"CNCID"			=> "cnc_variable.cnc_id",
+		"TYPE"			=> "cnc_variable.type",
+		"NO"			=> "cnc_variable.no",
+		"VALUE"			=> "cnc_variable.value",
+		"AGENTTIME"		=> "cnc_variable.agent_time",
+	);
+
+	$CNCFILEUPLOAD = array(
+		"TABLE"			=> "cnc_file_upload",
+		"ALL"			=> "cnc_file_upload.*",
+		"WID"			=> "cnc_file_upload.wid",
+		"STATUS"		=> "cnc_file_upload.status",
+		"PROGRESS"		=> "cnc_file_upload.progress",
+		"AGENTTIME"		=> "cnc_file_upload.agent_time",
+	);
+
+	$CNCFILEDOWNLOAD = array(
+		"TABLE"			=> "cnc_file_download",
+		"ALL"			=> "cnc_file_download.*",
+		"WID"			=> "cnc_file_download.wid",
+		"STATUS"		=> "cnc_file_download.status",
+		"PROGRESS"		=> "cnc_file_download.progress",
+		"AGENTTIME"		=> "cnc_file_download.agent_time",
+	);
+	
 ?>

@@ -354,4 +354,146 @@
 	.unitRecodDiv tr:nth-child(even) {
 		background-color: #f2f2f2;
 	}
+/*Diagnosis*/
+	.choseDiagnosisUnitDiv .UnitChose{
+		cursor: pointer;
+		font-size: 12px;
+		margin: 0px 10px;
+		padding: 5px 7px;
+		border:1px solid #FF6800;
+		border-radius: 3px;
+	}
+	.choseDiagnosisUnitDiv .UnitChose:hover{
+		background: #FF6800 !important;
+		color: #ffffff !important;
+	}
+	.showBitDiv{
+		width: 90%;
+		height: 330px;
+		margin-top: 7px;
+		position: relative;
+		padding: 16px 5%;
+	}
+	.showBitDiv .inputNo{
+		position: absolute;
+		top: 0px;
+		left: 500px;
+		background:#eeeeee;
+	}
+	.showBitDiv .inputNo .inputDiagNo{
+		background:#eeeeee;
+		padding: 10px;
+		border-radius: 3px;
+		font-size:15px;
+	}
+	.showBitDiv .bitTitle{
+		font-size: 30px;
+		font-weight: 700;
+	}
+	.showBitDiv .bitTable{
+		 width:100%;
+		 border-collapse: collapse;
+		 text-align: center;
+	}
+	.showBitDiv table, th, td{
+		border: 1px solid rgba(0,0,0,0.2);
+	}
+	.showBitDiv tr:nth-child(odd) {
+		background-color: #FEF0E6;
+	}
+	.showBitDiv table{
+		table-layout: fixed;
+    	width: 100px;
+	}
+	.showBitDiv .updatingTime{
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		font-size: 13px;
+		color: #888888;
+	}
+	.showBitDiv .arrowDiv{
+		position: absolute;
+		bottom: 35px;
+		left: 470px;
+		width: 80px;
+	}
+	.showBitDiv .arrowIcon{
+		background: url(../../images/arrow.png);
+		width: 25px;
+		height: 25px;
+		background-size: 25px auto;
+		display: inline-block;
+		position: absolute;
+		right: 0px;
+	}
+	.showBitDiv #preIcon{
+		-ms-transform: rotate(180deg); /* IE 9 */
+	    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+	    transform: rotate(180deg);
+	    left: 0px;
+	}
 
+/*FileTransfer*/
+	.choseFileTransUnitDiv .UnitChose{
+		cursor: pointer;
+		font-size: 12px;
+		margin: 0px 10px;
+		padding: 5px 7px;
+		border:1px solid #62000F;
+		border-radius: 3px;
+	}
+	.choseFileTransUnitDiv .UnitChose:hover{
+		background: #62000F !important;
+		color: #ffffff !important;
+	}
+	.fileTransDiv{
+		width: 90%;
+		height: 330px;
+		margin-top: 7px;
+		position: relative;
+		padding: 16px 5%;
+	}
+	.fileTransDiv .cncFilesDiv{
+		width: 350px;
+		height: 300px;
+		margin-left: 120px; 
+		overflow-y: auto;
+		border:1px solid rgba(0,0,0,0.2);
+		border-radius: 3px;
+		text-align: center;
+		background: #eeeeee;
+	}
+	.fileTransDiv .cncFilesDiv li{
+		border-bottom: 1px solid rgba(0,0,0,0.3);
+		padding: 15px 0px;
+		background: #ffffff;
+	}
+	.fileTransDiv .cncFilesDiv li:hover{
+		background: #BDBDBD;
+	}
+	.fileTransDiv .fileTransBtnDiv{
+		position: absolute;
+		top: 60px;
+		right: 200px;
+		text-align: left;
+	}
+	.fileTransDiv .fileTransBtnDiv .btnListUi{
+		list-style: none;
+		margin-top: 70px;
+		width: 100px;
+	}
+	.fileTransDiv .fileTransBtnDiv .btnListUi a{
+		color: #62000F;
+	}
+	.fileTransDiv .fileTransBtnDiv .btnListUi li{
+		padding:7px 5px;
+		background: #ffffff;
+		text-align: center;
+		margin-top: 12px; 
+		border-radius: 3px;
+		border:1px solid #62000F;
+	}
+	.fileTransDiv .fileTransBtnDiv .btnListUi li:hover{
+		background: #BDBDBD;
+	}

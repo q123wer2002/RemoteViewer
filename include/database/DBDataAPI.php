@@ -29,13 +29,56 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 		case "myFIDnGID":
 			$companyID = $nCategoryID;
 
-			$sqlTmp = "SELECT {$FACTORY['ID']}, {$GROUP['ID']} as gid FROM {$FACTORY['TABLE']} LEFT JOIN {$GROUP['TABLE']} ON {$FACTORY['ID']}={$GROUP['FACTORYID']} WHERE {$FACTORY['COMPANYID']}={$companyID} GROUP BY {$GROUP['ID']};";
+			$sqlTmp = "SELECT {$FACTORY['NAME']} as fName, {$FACTORY['ID']} as fid, {$GROUP['NAME']} as gName, {$GROUP['ID']} as gid FROM {$FACTORY['TABLE']} LEFT JOIN {$GROUP['TABLE']} ON {$FACTORY['ID']}={$GROUP['FACTORYID']} WHERE {$FACTORY['COMPANYID']}={$companyID} GROUP BY {$GROUP['ID']};";
 			$isSuccess = isDoSQLCmd( $sqlTmp, $szDBAPIName, $aryResultAry );
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
-			}else{
+				$errorCode = $nCategoryID.$errorCode;
+			}/*else{
 				$aryResultAry = $aryResultAry[0];
+			}*/
+		break;
+	//sys_command
+		case "DeleteAllOldCmdByWid":
+			if( empty($_SESSION['companyInfo']['oldWid']) == true ){
+				break;
+			}
+
+			foreach( $_SESSION['companyInfo']['oldWid'] as $key => $value ){
+				$result = array();
+				GetDBData( "DeleteOldCmdByWid", 0, array("oldUniID"=>$value), $result );
+				GetDBData( "DeleteOldCNCVerByWid", 0, array("oldUniID"=>$value), $result );
+			}
+		break;
+		case "DeleteOldCmdByWid":
+			//$nCNCID = $nCategoryID;
+
+			$sqlTmp = "DELETE FROM {$CNCCOMMAND['TABLE']} WHERE {$CNCCOMMAND['WID']}='{$aryParam['oldUniID']}'";
+			DoNonQueryComd( $sqlTmp, $szDBAPIName );
+			$aryResultAry = $sqlTmp;
+		break;
+		case "DeleteOldCNCVerByWid":
+			$sqlTmp = "DELETE FROM {$CNCVARIABLE['TABLE']} WHERE {$CNCVARIABLE['WID']}='{$aryParam['oldUniID']}'";
+			DoNonQueryComd( $sqlTmp, $szDBAPIName );
+			$aryResultAry = $sqlTmp;
+		break;
+		case "Command":
+			$nCNCID = $nCategoryID;
+
+			$sqlTmp = "INSERT INTO {$CNCCOMMAND['TABLE']} ( {$CNCCOMMAND['WID']}, {$CNCCOMMAND['CNCID']}, {$CNCCOMMAND['COMMAND']}, {$CNCCOMMAND['PARAMETER1']}, {$CNCCOMMAND['PARAMETER2']}, {$CNCCOMMAND['WEBTIME']} ) VALUES ( '{$aryParam['uniID']}', '{$nCNCID}', '{$aryParam['command']}', '{$aryParam['cmdParam'][0]}', '{$aryParam['cmdParam'][1]}', '{$aryParam['webTime']}' )";
+			DoNonQueryComd( $sqlTmp, $szDBAPIName );
+			//$aryResultAry = $sqlTmp;
+		break;
+		case "GetCNCVar":
+			$nCNCID = $nCategoryID;
+
+			$sqlTmp = "SELECT {$CNCVARIABLE['NO']} as no, {$CNCVARIABLE['VALUE']} as value, {$CNCVARIABLE['AGENTTIME']} as agent_time FROM {$CNCVARIABLE['TABLE']} WHERE {$CNCVARIABLE['CNCID']}='{$nCNCID}' AND {$CNCVARIABLE['WID']}='{$aryParam['uniID']}' AND {$CNCVARIABLE['TYPE']}='{$aryParam['type']}' AND ({$CNCVARIABLE['NO']} >= {$aryParam['start']}) AND ({$CNCVARIABLE['NO']} <= {$aryParam['end']})";
+			$isSuccess = isDoSQLCmd( $sqlTmp, $szDBAPIName, $aryResultAry );
+
+			if( $isSuccess == false ){
+				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}
 		break;
 	//factory
@@ -52,6 +95,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['name'];
 			}
@@ -65,6 +109,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['fTotalCNC'];
 			}
@@ -143,6 +188,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}
 		break;
 
@@ -171,6 +217,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}
 		break;
 
@@ -182,6 +229,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}elseif( $aryResultAry[0]['expected_work_time'] <= 0){
 				$aryResultAry = 0;
 				$errorCode = $szDBAPIName.$ErrorCode['Empty'];
@@ -189,7 +237,6 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 				$aryResultAry = $aryResultAry[0]['expected_work_time'];
 			}
 		break;
-		
 	//group
 		case "Group_fID":
 			$nGID = $nCategoryID;
@@ -199,6 +246,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['ServerBusy'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['fID'];
 			}
@@ -212,6 +260,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['ServerBusy'];
+				$errorCode = $nCategoryID.$errorCode;
 			}
 		break;
 
@@ -228,6 +277,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['ServerBusy'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['gName'];
 			}
@@ -241,6 +291,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['gTotalCNC'];
 			}
@@ -324,6 +375,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}
 		break;
 		
@@ -351,6 +403,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['expected_work_time'];
 			}
@@ -360,14 +413,14 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 			$nGID = $nCategoryID;
 
 			//sql to get cnc list from {$FACTORY['TABLE']}
-			$sqlTmp = "SELECT {$CNC['ALL']} FROM {$GROUP['TABLE']} LEFT JOIN {$CNC['TABLE']} ON {$CNC['GROUPID']}={$GROUP['ID']} WHERE {$GROUP['ID']}={$nGID}";
+			$sqlTmp = "SELECT {$CNC['ID']} as cnc_id FROM {$GROUP['TABLE']} LEFT JOIN {$CNC['TABLE']} ON {$CNC['GROUPID']}={$GROUP['ID']} WHERE {$GROUP['ID']}={$nGID}";
 			$isSuccess = isDoSQLCmd( $sqlTmp, $szDBAPIName, $aryResultAry );
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}
 		break;
-
 	//cnc related
 		//cnc table
 		case "cncID":
@@ -382,6 +435,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['IP'];
 			}
@@ -394,6 +448,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['Machine'];
 			}
@@ -406,6 +461,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['MachineType'];
 			}
@@ -418,6 +474,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['Version'];
 			}
@@ -430,6 +487,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['SerialNo'];
 			}
@@ -443,6 +501,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['nGID'];
 			}
@@ -455,6 +514,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['name'];
 			}
@@ -467,6 +527,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = base64_encode( $aryResultAry[0]['img'] );
 			}
@@ -493,6 +554,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['Status'];
 			}
@@ -506,6 +568,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['mode'];
 			}
@@ -519,6 +582,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['alarm'];
 			}
@@ -532,6 +596,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['emg'];
 			}
@@ -561,6 +626,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['main_prog'];
 			}
@@ -574,6 +640,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['cruProg'];
 			}
@@ -588,6 +655,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['powerOnTime'];
 			}
@@ -601,6 +669,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['cycleTime'];
 			}
@@ -614,6 +683,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['totalCycleTime'];
 			}
@@ -627,6 +697,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['partCount'];
 			}
@@ -640,6 +711,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['requirePartCount'];
 			}
@@ -653,6 +725,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['totalCount'];
 			}
@@ -667,6 +740,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				//means cncLastWorkTime have no data, need to explore record file
+				$errorCode = $nCategoryID.$errorCode;
 				$aryTmparyResult = array();
 				$nTmpErrorCode = GetDBData( "cncWorkFile", $nCncID, array(), $aryTmparyResult );
 				if( $nTmpErrorCode !== $ErrorCode['Success'] ){
@@ -704,6 +778,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}elseif( $aryResultAry[0]['workfile'] === "" ){
 				$aryResultAry = "";
 				$errorCode = $szDBAPIName.$ErrorCode['Empty'];
@@ -721,6 +796,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['tmieStatus'];
 			}
@@ -734,6 +810,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['timeStart'];
 			}
@@ -747,6 +824,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['timeExpire'];
 			}
@@ -760,6 +838,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['timeRemain'];
 			}
@@ -773,6 +852,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['timeCurrent'];
 			}
@@ -786,6 +866,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}elseif( $aryResultAry[0]['TimeOfOpening'] == 0 ){
 				$aryResultAry = 0;
 				$errorCode = $szDBAPIName.$ErrorCode['ZeroData'];
@@ -802,6 +883,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['RestDay'];
 			}
@@ -815,6 +897,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$tmpProcess = $aryResultAry[0]['cncProcess'];
 				if( $tmpProcess > 100 ){
@@ -837,6 +920,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['update_time'];
 			}
@@ -855,6 +939,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0];
 			}
@@ -963,6 +1048,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}
 		break;
 
@@ -973,6 +1059,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry = $aryResultAry[0]['alarm_history'];
 			}
@@ -1014,6 +1101,7 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}else{
 				$aryResultAry['Record'] = $aryResultAry[0];
 			}
@@ -1027,12 +1115,34 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
 			}elseif( $aryResultAry[0]['expected_work_time'] <= 0 ){
 				$aryResultAry = 0;
 				$errorCode = $szDBAPIName.$ErrorCode['ZeroData'];
 			}else{
 				$aryResultAry = $aryResultAry[0]['expected_work_time'];
 			}
+		break;
+	//layout
+		case "GetDefaultLayout":
+			$sqlTmp = "SELECT {$SYSDEFAULTLAYOUT['FILE']} as file FROM {$SYSDEFAULTLAYOUT['TABLE']} WHERE {$SYSDEFAULTLAYOUT['DEVICE']}='{$aryParam['device']}'";
+			$isSuccess = isDoSQLCmd( $sqlTmp, $szDBAPIName, $aryResultAry );
+
+			if( $isSuccess == false ){
+				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
+			}
+		break;
+		case "GetMyLayout":
+			$nCID = $nCategoryID;
+			$sqlTmp = "SELECT {$COMPANYLAYOUT['ALL']} FROM {$COMPANYLAYOUT['TABLE']} WHERE {$COMPANYLAYOUT['COMPANYID']}={$nCID} AND {$COMPANYLAYOUT['LAYOUTDEVICE']}='{$aryParam['device']}'";
+			$isSuccess = isDoSQLCmd( $sqlTmp, $szDBAPIName, $aryResultAry );
+		break;
+		case "saveLayout":
+			$nCID = $nCategoryID;
+			$sqlTmp = "INSERT INTO {$COMPANYLAYOUT['TABLE']} ( {$COMPANYLAYOUT['COMPANYID']}, {$COMPANYLAYOUT['LAYOUTDEVICE']}, {$COMPANYLAYOUT['LAYOUTNAME']}, {$COMPANYLAYOUT['LAYOUTFILE']}, {$COMPANYLAYOUT['UPDATETIME']}) VALUES ( '{$nCID}', '{$aryParam['device']}', '{$aryParam['layoutName']}', '{$aryParam['layoutFile']}', CURRENT_TIMESTAMP )";
+			$aryResultAry = $sqlTmp;
+			DoNonQueryComd( $sqlTmp, $szDBAPIName );
 		break;
 	}
 
