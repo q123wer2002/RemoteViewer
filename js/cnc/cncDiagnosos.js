@@ -203,7 +203,7 @@ SyntecRemoteWeb.controller('cncDiagnosis',['$scope','$http', '$interval','$timeo
 		param.push($scope.diagnosisCmd['Start']);
 		param.push($scope.diagnosisCmd['End']);
 
-		var commandObj = {"method":"DiagnosisCommand", "cncID":$scope.cncID, "command":$scope.diagnosisCmd['Command'], "param":param };
+		var commandObj = {"method":"Command", "cncID":$scope.cncID, "command":$scope.diagnosisCmd['Command'], "param":param };
         //console.log(commandObj);
 		$http({
 			method:'POST',
@@ -236,7 +236,7 @@ SyntecRemoteWeb.controller('cncDiagnosis',['$scope','$http', '$interval','$timeo
 
 		$scope.diagnosisCmd['isGettingData'] = true;
 
-		var commandObj = {"method":"UpdatingDiagnosisData", "cncID":$scope.cncID, "commandParam":$scope.diagnosisCmd };
+		var commandObj = {"method":"GetDiagnosisData", "cncID":$scope.cncID, "commandParam":$scope.diagnosisCmd };
         //console.log(commandObj);
 		$http({
 			method:'POST',

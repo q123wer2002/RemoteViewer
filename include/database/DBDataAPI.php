@@ -105,6 +105,23 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 				$aryResultAry = $aryResultAry[0];
 			}
 		break;
+		case "UploadNcFile":
+			$nCNCID = $nCategoryID;
+			$sqlTmp = "INSERT INTO {$CNCNCFILES['TABLE']} ( {$CNCNCFILES['CNCID']}, {$CNCNCFILES['NAME']}, {$CNCNCFILES['FILE']}, {$CNCNCFILES['FILEUPLOADTIME']} ) VALUES ( '{$nCNCID}', '{$aryParam['name']}', '{$aryParam['file']}', '{$aryParam['upload_time']}')";
+			DoNonQueryComd( $sqlTmp, $szDBAPIName );
+		break;
+		case "DownloadNcFile":
+			$nCNCID = $nCategoryID;
+			$sqlTmp = "SELECT {$CNCNCFILES['NAME']} as name, {$CNCNCFILES['FILE']} as file, {$CNCNCFILES['FILEUPLOADTIME']} as upload_time FROM {$CNCNCFILES['TABLE']} WHERE {$CNCNCFILES['CNCID']}='{$nCNCID}' AND {$CNCNCFILES['NAME']}='{$aryParam['fileName']}'";
+			$isSuccess = isDoSQLCmd( $sqlTmp, $szDBAPIName, $aryResultAry );
+
+			if( $isSuccess == false ){
+				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
+			}else{
+				$aryResultAry = $aryResultAry[0];
+			}
+		break;
 	//factory
 		case "fID":
 			$nFID = $nCategoryID;

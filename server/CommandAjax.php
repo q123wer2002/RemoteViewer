@@ -12,7 +12,7 @@ if( isset($_POST) && isset($_POST['method']) ){
 $method = $post['method'];
 
 switch($method){
-	case "DiagnosisCommand":
+	case "Command":
 
 		$uniID = GetUniID();
 		$timeObj = new DateTime();
@@ -37,8 +37,7 @@ switch($method){
 
 		print_r( json_encode($result) );
 	break;
-
-	case "UpdatingDiagnosisData":
+	case "GetDiagnosisData":
 
 		$diagType = GetDiagnosisIndex( $post['commandParam']['Command'] );
 		$param = array(
@@ -59,21 +58,7 @@ switch($method){
 
 		print_r( json_encode($result) );
 	break;
-
-	case "FileTransCommand":
-		$uniID = GetUniID();
-		$timeObj = new DateTime();
-		$currenttime = $timeObj->format('Y-m-d H:i:s');
-
-		/*$param = array(
-			"uniID"		=>	$uniID,
-			"command"	=>	$post['command']['Command'],
-			"webTime"	=>	$currenttime,
-		);
-
-		$nCNCID = $post['cncID'];
-		$result = array();
-		$nErrorCode = GetDBData('Command', $nCNCID, $param, $result );*/
+	case "GetNcFileList":
 
 		$nCNCID = $post['cncID'];
 		$result = array();
@@ -82,6 +67,48 @@ switch($method){
 		$result = array(
 			"result"=> "success", 
 			"data"	=> $result,
+		);
+
+		print_r( json_encode($result) );
+	break;
+	case "UploadFile":
+		$timeObj = new DateTime();
+		$currenttime = $timeObj->format('Y-m-d H:i:s');
+
+		$param = array(
+			"name"			=>	$post['file']['name'],
+			"file"			=>	$post['file']['file'],
+			"upload_time"	=>	$currenttime,
+		);
+
+		$nCNCID = $post['cncID'];
+		$result = array();
+		$nErrorCode = GetDBData('UploadNcFile', $nCNCID, $param, $result );
+
+
+		$result = array(
+			"result"=> "success",
+			"data" => $param,
+		);
+
+		print_r( json_encode($result) );
+	break;
+	case "DownloadFile":
+		$timeObj = new DateTime();
+		$currenttime = $timeObj->format('Y-m-d H:i:s');
+
+		$param = array(
+			"fileName"	=>	$post['fileName'],
+		);
+
+		$nCNCID = $post['cncID'];
+		$fileAry = array();
+		$nErrorCode = GetDBData('DownloadNcFile', $nCNCID, $param, $fileAry );
+
+
+		$result = array(
+			"result"=> "success",
+			"data" => $fileAry,
 		);
 
 		print_r( json_encode($result) );
