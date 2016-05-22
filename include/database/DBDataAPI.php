@@ -70,6 +70,17 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 			DoNonQueryComd( $sqlTmp, $szDBAPIName );
 			//$aryResultAry = $sqlTmp;
 		break;
+		case "GetCommandResult":
+			$sqlTmp = "SELECT {$CNCCOMMANDRESULT['PARAMETER1']} as param1, {$CNCCOMMANDRESULT['PARAMETER2']} as param2, {$CNCCOMMANDRESULT['AGENTTIME']} as agent_time FROM {$CNCCOMMANDRESULT['TABLE']} WHERE {$CNCCOMMANDRESULT['WID']}='{$aryParam['uniID']}'";
+			$isSuccess = isDoSQLCmd( $sqlTmp, $szDBAPIName, $aryResultAry );
+
+			if( $isSuccess == false ){
+				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
+			}else{
+				$aryResultAry = $aryResultAry[0];
+			}
+		break;
 		case "GetCNCVar":
 			$nCNCID = $nCategoryID;
 
@@ -79,6 +90,19 @@ function GetDBData( $szDBAPIName, $nCategoryID, $aryParam , &$aryResultAry )
 			if( $isSuccess == false ){
 				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
 				$errorCode = $nCategoryID.$errorCode;
+			}
+		break;
+		case "GetCNCNcFileList":
+			$nCNCID = $nCategoryID;
+
+			$sqlTmp = "SELECT {$CNCNCDIR['NCNAMELIST']} as name, {$CNCNCDIR['NCSIZELIST']} as size, {$CNCNCDIR['NCDATELIST']} as date FROM {$CNCNCDIR['TABLE']} WHERE {$CNCNCDIR['CNCID']}='{$nCNCID}'";
+			$isSuccess = isDoSQLCmd( $sqlTmp, $szDBAPIName, $aryResultAry );
+
+			if( $isSuccess == false ){
+				$errorCode = $szDBAPIName.$ErrorCode['NoData'];
+				$errorCode = $nCategoryID.$errorCode;
+			}else{
+				$aryResultAry = $aryResultAry[0];
 			}
 		break;
 	//factory

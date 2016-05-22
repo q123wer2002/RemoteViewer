@@ -165,6 +165,15 @@
 		"WEBTIME"		=> "cnc_command.web_time",
 	);
 
+	$CNCCOMMANDRESULT = array(
+		"TABLE"			=> "cnc_command_result",
+		"ALL"			=> "cnc_command_result.*",
+		"WID"			=> "cnc_command_result.wid",
+		"PARAMETER1"	=> "cnc_command_result.parameter_1",
+		"PARAMETER2"	=> "cnc_command_result.parameter_2",
+		"AGENTTIME"		=> "cnc_command_result.agent_time",
+	);
+
 	$CNCVARIABLE = array(
 		"TABLE"			=> "cnc_variable",
 		"ALL"			=> "cnc_variable.*",
@@ -176,22 +185,23 @@
 		"AGENTTIME"		=> "cnc_variable.agent_time",
 	);
 
-	$CNCFILEUPLOAD = array(
-		"TABLE"			=> "cnc_file_upload",
-		"ALL"			=> "cnc_file_upload.*",
-		"WID"			=> "cnc_file_upload.wid",
-		"STATUS"		=> "cnc_file_upload.status",
-		"PROGRESS"		=> "cnc_file_upload.progress",
-		"AGENTTIME"		=> "cnc_file_upload.agent_time",
+	$CNCNCDIR = array(
+		"TABLE"			=> "cnc_nc_dir",
+		"ALL"			=> "cnc_nc_dir.*",
+		"CNCID"			=> "cnc_nc_dir.cnc_id",
+		"NCNAMELIST"	=> "cnc_nc_dir.ncfile_name_list",
+		"NCSIZELIST"	=> "cnc_nc_dir.ncfile_size_list",
+		"NCDATELIST"	=> "cnc_nc_dir.ncfile_date_list",
+		"AGENTTIME"		=> "cnc_nc_dir.agent_time",
 	);
 
-	$CNCFILEDOWNLOAD = array(
-		"TABLE"			=> "cnc_file_download",
-		"ALL"			=> "cnc_file_download.*",
-		"WID"			=> "cnc_file_download.wid",
-		"STATUS"		=> "cnc_file_download.status",
-		"PROGRESS"		=> "cnc_file_download.progress",
-		"AGENTTIME"		=> "cnc_file_download.agent_time",
+	$CNCNCFILES = array(
+		"TABLE"			=> "cnc_ncfiles",
+		"ALL"			=> "cnc_ncfiles.*",
+		"CNCID"			=> "cnc_ncfiles.cnc_id",
+		"NAME"			=> "cnc_ncfiles.name",
+		"FILE"			=> "cnc_ncfiles.file",
+		"FILEUPLOADTIME"=> "cnc_ncfiles.file_upload_time",
 	);
 	
 ?>

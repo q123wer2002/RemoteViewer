@@ -9,16 +9,18 @@
 		<span class="UnitChose" ng-repeat="(key, value) in FileUnits" title="{{value.name}}" ng-style="{'background':value.bgColor, 'color':value.fontColor}" ng-click="setFileParam(key)">{{value.name}}</span>
 	</div>
 
-	<div class="fileTransDiv">
+	<div class="fileTransDiv" ng-show="curtFileUnit == 'NcFile' ">
 		<h3>{{FileUnits[curtFileUnit]['name']}}</h3>
-		<p style="margin-left:120px;">{{FileUnits[curtFileUnit]['name']}}列表，共{{fileList.length}}個檔案</p>
-		<div class="cncFilesDiv">
-			<ul>
-				<a href="javascript:;" title="{{file.name}}" ng-repeat="file in fileList" ng-focus="SelectFile(file)"><li ng-style="SelectFileStyle(file)">{{file.name}}</li></a>
-			</ul>
+		<div>
+			<p style="margin-left:120px;">{{FileUnits[curtFileUnit]['name']}}列表，共{{fileList.length}}個檔案</p>
+			<div class="cncFilesDiv">
+				<ul>
+					<a href="javascript:;" title="{{file.name}}" ng-repeat="file in fileList" ng-focus="SelectFile(file)"><li ng-style="SelectFileStyle(file)">{{file.name}}</li></a>
+				</ul>
+			</div>
 		</div>
 		<div class="fileTransBtnDiv">
-			<p style="position:absolute;width:150px;">目前選擇 {{fileTransCmd['SelectedFile'].name}} 檔案</p>
+			<p style="position:absolute;width:150px;">目前選擇 {{fileTransCmd['SelectedFile'].name}}<br>{{fileTransCmd['SelectedFile'].size}}<br>{{fileTransCmd['SelectedFile'].date}}</p>
 			<input type="file" id="fileupload" accept="{{FileUnits[curtFileUnit]['acceptFile']}}" style="display:none;" onchange="angular.element(this).scope().UploadFile(this.files)" />
 			<ul class="btnListUi">
 				<a href="javascript:;" title="更新列表" ng-click="GetFileList()"><li>更新列表</li></a>

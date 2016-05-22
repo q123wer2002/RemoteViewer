@@ -212,7 +212,7 @@ SyntecRemoteWeb.controller('cncDiagnosis',['$scope','$http', '$interval','$timeo
 			headers: {'Content-type': 'application/x-www-form-urlencoded'},
 		}).
 		success(function(json){
-			console.log( json );
+			//console.log( json );
 			if( json.result == "error" ){
 				//console.log( json );
 			}
@@ -245,7 +245,7 @@ SyntecRemoteWeb.controller('cncDiagnosis',['$scope','$http', '$interval','$timeo
 			headers: {'Content-type': 'application/x-www-form-urlencoded'},
 		}).
 		success(function(json){
-			console.log( json );
+			//console.log( json );
 			if( json.result == "error" ){
 				//console.log( json );
 			}

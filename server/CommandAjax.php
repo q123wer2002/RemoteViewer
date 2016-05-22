@@ -59,6 +59,33 @@ switch($method){
 
 		print_r( json_encode($result) );
 	break;
+
+	case "FileTransCommand":
+		$uniID = GetUniID();
+		$timeObj = new DateTime();
+		$currenttime = $timeObj->format('Y-m-d H:i:s');
+
+		/*$param = array(
+			"uniID"		=>	$uniID,
+			"command"	=>	$post['command']['Command'],
+			"webTime"	=>	$currenttime,
+		);
+
+		$nCNCID = $post['cncID'];
+		$result = array();
+		$nErrorCode = GetDBData('Command', $nCNCID, $param, $result );*/
+
+		$nCNCID = $post['cncID'];
+		$result = array();
+		$nErrorCode = GetDBData('GetCNCNcFileList', $nCNCID, array(), $result );
+
+		$result = array(
+			"result"=> "success", 
+			"data"	=> $result,
+		);
+
+		print_r( json_encode($result) );
+	break;
 }
 
 function GetDiagnosisIndex( $command )

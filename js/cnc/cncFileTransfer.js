@@ -14,17 +14,7 @@ SyntecRemoteWeb.controller('cncFileTransfer',['$scope','$http', '$interval','$ti
 		Macro		: { "name":"Macro檔", "bgColor":"#ffffff", "fontColor":"#62000F", "acceptFile":"" },
 	};
 
-	$scope.fileList = [
-		{"name":"file1", "file":""},
-		{"name":"file2", "file":""},
-		{"name":"file3", "file":""},
-		{"name":"file4", "file":""},
-		{"name":"file5", "file":""},
-		{"name":"file6", "file":""},
-		{"name":"file7", "file":""},
-		{"name":"file8", "file":""},
-		{"name":"file9", "file":""},
-	];
+	$scope.fileList = [];
 
 	$scope.fileTransCmd = {
 		"uniID"			: "",
@@ -47,9 +37,9 @@ SyntecRemoteWeb.controller('cncFileTransfer',['$scope','$http', '$interval','$ti
 		$scope.fileTransCmd['uniID'] = "";
 		$scope.fileTransCmd['Command'] = szCommand;
 		$scope.fileTransCmd['SelectedFile'] = {};
-		$scope.fileTransCmd['isGettingData'] = "";
+		$scope.fileTransCmd['isGettingData'] = false;
 
-		//DoCommand();
+		DoCommand();
 	}
 	$scope.SelectFile = function( file )
 	{
@@ -112,11 +102,11 @@ SyntecRemoteWeb.controller('cncFileTransfer',['$scope','$http', '$interval','$ti
 			if( json.result == "error" ){
 				//console.log( json );
 			}
-
+			MappingNcFileList( json.data );
 
 			//get new uniID
-			$scope.fileTransCmd['uniID'] = json.data.uniID;
-			$scope.fileTransCmd['isGettingData'] = false;
+			//$scope.fileTransCmd['uniID'] = json.data.uniID;
+			//$scope.fileTransCmd['isGettingData'] = false;
 
 		}).
 		error(function(json){
@@ -124,9 +114,22 @@ SyntecRemoteWeb.controller('cncFileTransfer',['$scope','$http', '$interval','$ti
 		});
 	}
 
-	MappingFile= function( data )
+	MappingNcFileList = function( fileList )
 	{
+		if( typeof fileList == "undefinded" ){
+			return;
+		}
 
+		var fileDate = fileList['date'].split(";");
+		var fileName = fileList['name'].split(";");
+		var fileSize = fileList['size'].split(";");
+
+
+		$scope.fileList = [];
+		for( var i=0; i<fileName.length; i++ ){
+			var fileObj = {"name":fileName[i], "size":fileSize[i], "date":fileDate[i]};
+			$scope.fileList.push(fileObj);
+		}
 	}
 
 

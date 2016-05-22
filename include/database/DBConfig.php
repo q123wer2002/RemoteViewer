@@ -3,7 +3,7 @@
 //120.27.139.74
 $dbHost = "localhost";
 $dbUser = "root";
-$dbPass = "";
+$dbPass = "1234";
 $dbData = "synteccloud";
 //syntecclient
 //testdb

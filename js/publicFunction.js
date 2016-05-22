@@ -340,7 +340,7 @@ isErrorCode = function( data )
 				break;
 			//fileTransfer
 				case "NcFile":
-					return;
+					return "Get_nc_file_list";
 				break;
 				case "Ladder":
 					return;
