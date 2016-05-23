@@ -56,9 +56,9 @@ SyntecRemoteWeb.controller('cncControl',['$scope','$http', '$interval','$timeout
 		RestDay		:	{"name":"保固剩餘天數", "data":""},
 	};
 	$scope.cncProfiles = {
-		//HisOOE		:	{"name":"稼動率", "icon":"images/cncs/OOE.png", "width":80, "left":"", "bgColor":"#111d6d", "isShow":false, "Interval":""},
-		//HisAlarm	:	{"name":"警報", "icon":"images/cncs/alarm.png", "width":70, "left":"", "bgColor":"#FF4545", "isShow":false, "Interval":""},
-		//HisRecord	:	{"name":"加工記錄", "icon":"images/cncs/record.png", "width":90, "left":"", "bgColor":"#16BA03", "isShow":false, "Interval":""},
+		HisOOE		:	{"name":"稼動率", "icon":"images/cncs/OOE.png", "width":80, "left":"", "bgColor":"#111d6d", "isShow":false, "Interval":""},
+		HisAlarm	:	{"name":"警報", "icon":"images/cncs/alarm.png", "width":70, "left":"", "bgColor":"#FF4545", "isShow":false, "Interval":""},
+		HisRecord	:	{"name":"加工記錄", "icon":"images/cncs/record.png", "width":90, "left":"", "bgColor":"#16BA03", "isShow":false, "Interval":""},
 		Diagnosis	:	{"name":"診斷資訊", "icon":"images/cncs/diagnosis.png", "width":95, "left":"", "bgColor":"#FF781B", "isShow":false, "Interval":""},
 		FileTransfer:	{"name":"檔案上下載", "icon":"images/cncs/transfer.png", "width":105, "left":"", "bgColor":"#62000F", "isShow":false, "Interval":""},
 	};
