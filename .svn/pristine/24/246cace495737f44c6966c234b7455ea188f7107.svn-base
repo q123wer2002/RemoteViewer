@@ -12,7 +12,7 @@ if( isset($_POST) && isset($_POST['method']) ){
 $method = $post['method'];
 
 switch($method){
-	case "Command":
+	case "DiagnosisCommand":
 
 		$uniID = GetUniID();
 		$timeObj = new DateTime();
@@ -37,7 +37,8 @@ switch($method){
 
 		print_r( json_encode($result) );
 	break;
-	case "GetDiagnosisData":
+
+	case "UpdatingDiagnosisData":
 
 		$diagType = GetDiagnosisIndex( $post['commandParam']['Command'] );
 		$param = array(
@@ -54,61 +55,6 @@ switch($method){
 		$result = array(
 			"result"=> "success", 
 			"data"	=> $aryDiagData,
-		);
-
-		print_r( json_encode($result) );
-	break;
-	case "GetNcFileList":
-
-		$nCNCID = $post['cncID'];
-		$result = array();
-		$nErrorCode = GetDBData('GetCNCNcFileList', $nCNCID, array(), $result );
-
-		$result = array(
-			"result"=> "success", 
-			"data"	=> $result,
-		);
-
-		print_r( json_encode($result) );
-	break;
-	case "UploadFile":
-		$timeObj = new DateTime();
-		$currenttime = $timeObj->format('Y-m-d H:i:s');
-
-		$param = array(
-			"name"			=>	$post['file']['name'],
-			"file"			=>	$post['file']['file'],
-			"upload_time"	=>	$currenttime,
-		);
-
-		$nCNCID = $post['cncID'];
-		$result = array();
-		$nErrorCode = GetDBData('UploadNcFile', $nCNCID, $param, $result );
-
-
-		$result = array(
-			"result"=> "success",
-			"data" => $param,
-		);
-
-		print_r( json_encode($result) );
-	break;
-	case "DownloadFile":
-		$timeObj = new DateTime();
-		$currenttime = $timeObj->format('Y-m-d H:i:s');
-
-		$param = array(
-			"fileName"	=>	$post['fileName'],
-		);
-
-		$nCNCID = $post['cncID'];
-		$fileAry = array();
-		$nErrorCode = GetDBData('DownloadNcFile', $nCNCID, $param, $fileAry );
-
-
-		$result = array(
-			"result"=> "success",
-			"data" => $fileAry,
 		);
 
 		print_r( json_encode($result) );
