@@ -1,0 +1,79 @@
+SyntecRemoteWeb.controller('cncOffset',['$scope','$http', '$interval','$timeout', function SyntecRemote($scope,$http,$interval,$timeout){
+
+	$scope.cncProfiles['Offset']['Interval'] = $interval(function(){
+	},1000);
+
+	var LatheTitle = ["刀號", "磨耗X", "磨耗Y", "磨耗Z", "刀長X", "刀長Y", "刀長Z", "刀尖半徑", "刀尖磨耗", "刀尖方向" ];
+	var MillTitle = ["刀號", "刀長幾何", "刀長磨耗", "刀徑幾何", "刀徑磨耗"];
+	$scope.OffsetTitles;
+
+	$scope.OffsetData = [
+		{"no":1, "DX":20.5, "DY":20.1, "DZ":30.5, "RX":50, "isEdit":false},
+		{"no":2, "DX":20.5, "DY":20.1, "DZ":30.5, "RX":50, "isEdit":false},
+	];
+	$scope.OffsetCmd = {
+		"uniID"			: "",
+		"Command"		: "",
+		"Param"			: [],
+		"SelectedNo"	: {},
+		"isGettingData"	: false,
+	};
+
+	$scope.hint = "";
+	$scope.initOffset = function()
+	{
+		if( $scope.cncInfos['MachineType']['data'] == "Mill" ){
+			$scope.OffsetTitles = MillTitle;
+		}else{
+			$scope.OffsetTitles = LatheTitle;
+		}
+	}
+	$scope.Edit = function( offsetObj )
+	{
+		offsetObj.isEdit = true;
+		$scope.hint = "正在編輯第" + offsetObj.no + "把刀";
+	}
+	$scope.Save = function( offsetObj )
+	{
+		//end edit
+		offsetObj.isEdit = false;
+		
+		//select tool
+		$scope.OffsetCmd['SelectedNo'] = offsetObj;
+
+		//show to viewer
+		$scope.hint = "儲存第" + offsetObj.no + "把刀設定";
+	}
+
+	DoCommand = function()
+	{
+
+	}
+	MappingOffsetData = function( cncOffsetData )
+	{
+		if( $scope.cncInfos['MachineType']['data'] == "Mill" ){
+			MillOffsetDataMapping( cncOffsetData );
+		}else{
+			LatheOffsetDataMapping( cncOffsetData );
+		}
+	}
+	MillOffsetDataMapping = function( cncOffsetData )
+	{	
+		$scope.OffsetData = [];
+		for( var i=0; i<cncOffsetData.length; i++ ){
+			//{"no":2, "DX":20.5, "DY":20.1, "DZ":30.5, "RX":50, "isEdit":false},
+			var millObj = {"no":cncOffsetData[i].no, "DX":cncOffsetData[i].DX, "DY":cncOffsetData[i].DY, "DZ":cncOffsetData[i].DZ, "RX":cncOffsetData[i].RX, "isEdit":false};
+			$scope.OffsetData.push( millObj );
+		}
+	}
+	LatheOffsetDataMapping = function( cncOffsetData )
+	{
+		$scope.OffsetData = [];
+		for( var i=0; i<cncOffsetData.length; i++ ){
+			//{"no":2, "DX":20.5, "DY":20.1, "DZ":30.5, "RX":50, "isEdit":false},
+			var latheObj = {"no":cncOffsetData[i].no, "DX":cncOffsetData[i].DX, "DY":cncOffsetData[i].DY, "DZ":cncOffsetData[i].DZ, "RX":cncOffsetData[i].RX, "RY":cncOffsetData[i].RY, "RZ":cncOffsetData[i].RZ, "KR":cncOffsetData[i].KR, "KD":cncOffsetData[i].KD, "KF":cncOffsetData[i].KF, "isEdit":false};
+			$scope.OffsetData.push( latheObj );
+		}
+	}
+
+}]);

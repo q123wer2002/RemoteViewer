@@ -1,7 +1,7 @@
 <?php
 //$dbHost = "10.10.80.159";
 //120.27.139.74
-$dbHost = "localhost";
+$dbHost = "120.27.139.74";
 $dbUser = "root";
 $dbPass = "";
 $dbData = "synteccloud";

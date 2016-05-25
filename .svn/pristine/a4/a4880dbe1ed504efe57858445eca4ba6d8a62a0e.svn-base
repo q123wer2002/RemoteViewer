@@ -1,0 +1,87 @@
+
+
+<div class="offsetDiv" ng-controller="cncOffset">
+	<input type="hidden" ng-init="initOffset()">
+
+	<hint style="left:0;;top:-30px;">絕對輸入 -- 雙點擊即可編輯，按Enter完成編輯</hint>
+	<hint style="right:30px;bottom:-30px;">{{hint}}</hint>
+	
+	<div style="width:100%;height:330px;overflow:auto;margin:auto;">
+		<table class="offsetTable">
+			<tr style="background:#7F7F7F;color:#fff;">
+				<td ng-repeat="title in OffsetTitles">{{title}}</td>
+			</tr>
+			<!-- Lathe Table -->
+			<tr ng-repeat="data in OffsetData" ng-dblclick="Edit(data)" ng-show="cncInfos['MachineType']['data'] == 'Lathe'">
+				<td>
+					<span>{{data.no}}</span>
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.DX}}</span>
+					<input ng-model="data.DX" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.DY}}</span>
+					<input ng-model="data.DY" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.DZ}}</span>
+					<input ng-model="data.DZ" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.RX}}</span>
+					<input ng-model="data.RX" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.RY}}</span>
+					<input ng-model="data.RY" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.RZ}}</span>
+					<input ng-model="data.RZ" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.KR}}</span>
+					<input ng-model="data.KR" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.KD}}</span>
+					<input ng-model="data.KD" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.KF}}</span>
+					<input ng-model="data.KF" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<!-- <td>
+					<span class="btnSave" ng-show="data.isEdit" ng-click="Save(data)">修改</span>
+				</td>-->
+			</tr>
+			<!-- Mill table -->
+			<tr ng-repeat="data in OffsetData" ng-dblclick="Edit(data)" ng-show="cncInfos['MachineType']['data'] == 'Mill'">
+				<td>
+					<span>{{data.no}}</span>
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.DX}}</span>
+					<input ng-model="data.DX" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.DY}}</span>
+					<input ng-model="data.DY" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.DZ}}</span>
+					<input ng-model="data.DZ" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<td>
+					<span ng-hide="data.isEdit">{{data.RX}}</span>
+					<input ng-model="data.RX" ng-show="data.isEdit" ng-enter="Save(data)" />
+				</td>
+				<!-- <td>
+					<span class="btnSave" ng-show="data.isEdit" ng-click="Save(data)">修改</span>
+				</td>-->
+			</tr>
+		</table>
+	</div>
+
+</div>
