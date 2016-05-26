@@ -113,7 +113,7 @@ SyntecRemoteWeb.controller('SyntecLayoutSet',['$scope','$http', '$interval',func
 				$scope.curtLayout[szDevice][viewType][showObj[0]][showObj[1]].push(componentObj.DBschema);
 				$scope.curtLayout[szDevice][viewType][showObj[0]][showObj[1]].push(componentObj.prefixName);
 				
-				ResizeViewSpace( $scope.curtLayout[szDevice][viewType][showObj[0]] );
+				//ResizeViewSpace( $scope.curtLayout[szDevice][viewType][showObj[0]] );
 			}
 		}
 	}
@@ -127,7 +127,7 @@ SyntecRemoteWeb.controller('SyntecLayoutSet',['$scope','$http', '$interval',func
 				var showObj = $scope.selectedPosition.split(",");
 				$scope.curtLayout[szDevice][viewType][showObj[0]][showObj[1]] = [];
 				
-				ResizeViewSpace( $scope.curtLayout[szDevice][viewType][showObj[0]] );
+				//ResizeViewSpace( $scope.curtLayout[szDevice][viewType][showObj[0]] );
 			}
 		}
 	}
@@ -154,7 +154,7 @@ SyntecRemoteWeb.controller('SyntecLayoutSet',['$scope','$http', '$interval',func
 		if( viewType == "listView" && typeof comObj[0] == "undefined" ){
 			return "#AAFFC3";
 		}
-			
+
 		var nCountObj = Object.keys(comObj).length;
 
 		if( nCountObj == 0 ){
@@ -195,12 +195,14 @@ SyntecRemoteWeb.controller('SyntecLayoutSet',['$scope','$http', '$interval',func
 		//not 4 components, but occupy 4 space
 		if( nSpace == 4 && nComponentNum != 3 ){
 			while( nComponentNum < 3 ){
+
 				nComponentNum ++;
+
 				if( typeof componentObj[componentNameAry[nComponentNum]] == "undefined" ){
 					break;
 				}
 
-				if( componentObj[componentNameAry[nComponentNum]].length == 0 ){
+				if( typeof componentObj[componentNameAry[nComponentNum]] == "object" ){
 					delete componentObj[componentNameAry[nComponentNum]];
 				}
 			}

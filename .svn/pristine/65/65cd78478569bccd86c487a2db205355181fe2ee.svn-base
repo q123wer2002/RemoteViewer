@@ -113,7 +113,7 @@ SyntecRemoteWeb.controller('SyntecDashboard',['$scope','$http', '$interval', '$t
 			}
 
 			if( viewObj[lastIndex] === 'dateAgentTime' ){
-				return changeDateToTime( data );
+				return changeDateToTime( cnc['data'][data] );
 			}
 
 			if( viewObj[lastIndex].includes('szStatus') == true ){
