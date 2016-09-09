@@ -77,9 +77,9 @@ define( [
 			}
 			$scope.fnCheckAuthorityOrCancel = function( objAuthority )
 			{
-				if( fnIsCheckAuthority(szMode,szType,szKey,szValue) == false ){
+				if( fnIsCheckAuthority(objAuthority) == false ){
 					//add this authority
-					fnAddAuthority(szMode,szType,szKey,szValue);
+					fnAddAuthority(objAuthority);
 					return;
 				}
 
@@ -106,13 +106,18 @@ define( [
 					delete $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey];
 				}
 			}
-			fnAddAuthority = function(szMode,szType,szKey,szValue)
+			fnAddAuthority = function(objAuthority)
 			{
+				var szType = objAuthority.TYPE;
+				var szMode = objAuthority.MODE;
+				var szData = objAuthority.DATA;
 				//page add
 				if( szType == "PAGE" ){
-					$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType].push(szKey);
+					$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType].push(szData);
 					return;
 				}
+
+				var szParent = objAuthority.PARENT;
 
 				//feature add
 				if( typeof $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey] == "undefined" ){
@@ -120,7 +125,7 @@ define( [
 					$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey] = [];
 				}
 
-				if( typeof szValue == "undefined" ){
+				if( szParent == null ){
 					//add all feature
 					for( var itemKey in $scope.objAuthorityList[szMode][szType][szKey] ){
 						$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey].push(itemKey);						
@@ -188,7 +193,6 @@ define( [
 			}
 			fnGetCurrentChildNum = function( objAuthority )
 			{
-				var nChild = 0;
 				var szType = objAuthority.TYPE;
 				if( szType == "PAGE" ){
 					return -1;
@@ -200,24 +204,21 @@ define( [
 
 				//level one
 				if( szParent == null ){
-					for( var key in $scope.objAuthorityList[szMode][szType][szData] ){
-						nChild += Object.keys($scope.objAuthorityList[szMode][szType][szData][key]).length;
-						nChild++;
-					}
-
-					return nChild;
+					return $scope.objNewAuthorityTemp[szMode][szType][szData].length;
 				}
 
 				//level two
 				if( typeof $scope.objAuthorityList[szMode][szType][szParent] != "undefined" ){
+					var nChild = 0;
 					for( var key in $scope.objAuthorityList[szMode][szType][szParent][szData] ){
-						nChild += Object.keys($scope.objAuthorityList[szMode][szParent][szData]).length;
+						if( $scope.objNewAuthorityTemp[szMode][szType][szData].indexOf(key) != -1 ){
+							nChild++;
+						}
 					}
-
 					return nChild;
 				}
 
-				return nChild;
+				return 0;
 			}
 			$scope.fnCheckAuthorityStyle = function( objAuthority )
 			{
@@ -228,30 +229,22 @@ define( [
 				var szType = objAuthority,TYPE;
 				if( szType == "PAGE" ){
 					//full
-					return {"height":"9px","top":"1px","background":"#000"};	
+					return {"height":"9px","top":"1px","background":"#000"};
 				}
 
 				var szParent = objAuthority.PARENT;
 				var szData = objAuthority.DATA;
 
 				//level one
-				if( szParent == null ){
-					var nDefaultChild = fnGetDefaultChildNum(objAuthority);
-					var nCurrentChild = $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey].length;
-					if( nCurrentChild < nDefaultChild ){
-						//half
-						return {"height":"3px","top":"4px","background":"#000"};
-					}
+				var nDefaultChild = fnGetDefaultChildNum(objAuthority);
+				var nCurrentChild = fnGetCurrentChildNum(objAuthority);
 
-					//full
-					return {"height":"9px","top":"1px","background":"#000"};
+				if( nCurrentChild < nDefaultChild ){
+					//half
+					return {"height":"3px","top":"4px","background":"#000"};
 				}
 
-				//level two
-				if( typeof $scope.objAuthorityList[szMode][szType][szParent] != "undefined" ){
-					var nDefaultChild = fnGetDefaultChildNum(objAuthority);
-					
-				}
+				return {"height":"9px","top":"1px","background":"#000"};
 			}
 
 			//save
