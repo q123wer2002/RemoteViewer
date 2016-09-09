@@ -1,0 +1,36 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/mobile/factoryList.css">
+
+<div class="facGopBigDiv" ng-controller="SyntecDashboard">
+	<!-- the show list -->
+	<input type="hidden" ng-init="InitData()">
+
+	<ul class="statusListView">
+		<li ng-repeat="status in ENUM_Status" ng-style="{'background':status.color}">
+			{{status.name}}
+		</li>
+	</ul>
+
+	<div class="factoryListView" ng-repeat="f in factories">
+
+		<h3 style="text-align: left;position: absolute;top: -5vw;background: #ffffff;padding: 0 1vw 2vw 2vw;">{{f.factoryName}}</h3>
+		<ul class="factoryList">
+			<div ng-repeat="g in f.groups" title="{{g.groupName}}">
+				<li class="groupLI">
+					<h4 class="groupName" ng-if="g.groupName != null">{{g.groupName}}</h4>
+					<span class="gTotalCNC">{{g.cncs.length}}台</span>
+
+					<div class="fEachStatus">
+						<ul class="gStatusBar">
+							<li ng-repeat="data in g.gStatusOfCnc" ng-if="data.num != 0" ng-style="{'background':cncBGColor(data)}">{{cncStatusName(data.cncStatus)}}<br>{{data.cncName}}<br>{{data.cncMainProg}}</li>
+						</ul>
+					</div>
+					<h2 class="gOOE" ng-if="g.gOOE !== ''">{{g.gOOE | round}}%</h2>
+					<h2 class="gOOE" ng-if="g.gOOE === ''">　</h2>
+				</li>
+			</div>
+		</ul>
+	
+	</div>
+
+</div>

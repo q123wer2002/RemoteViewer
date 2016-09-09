@@ -1,0 +1,25 @@
+<!-- load specific js and css -->
+
+<div class="LogInPage" ng-controller="SyntecAccount">
+	<div class="limitWebView">
+		<div class="mainLogo"><img src="images/Syntec.png"></div>
+
+		<div class="inputDiv">
+			<input class="inputType" type="text" placeholder="帳號" ng-model="user.account" ng-Enter="fnLogin()">
+		</div>
+		<div class="inputDiv">
+			<input class="inputType" type="password" placeholder="密碼" ng-model="user.password" ng-Enter="fnLogin()">
+		</div>
+
+		<!-- <select ng-model="userMode" style="margin-top: 50px;">
+			<option value="">---模式選擇---</option>
+			<option value="1">經營者模式</option>
+			<option value="2">廠長模式</option>
+		</select> -->
+		
+		<div class="SubmitDiv">
+			<span class="szError">{{errorMsg}}</span>
+			<a href="javascript:;" class="buttonType" ng-click="fnLogin()">登入</a>
+		</div>
+	</div>
+</div>

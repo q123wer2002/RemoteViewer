@@ -1,0 +1,118 @@
+<link rel="stylesheet" type="text/css" href="css/web/layoutSetting.css">
+
+
+<div class="settingBigDiv limitWebView" ng-controller="SyntecLayoutSet">
+	<!-- <a href="javascript:history.back();" title="返回" class="backLink">
+		<span class="back_icon"></span>
+		<span style="position: absolute;width: 150px;left: 32px;top: 0;font-size: 20px;">返回設定頁面</span>
+	</a> -->
+	<input type="hidden" ng-init="InitLayoutSetting()">
+
+	<div class="layoutListLeftDiv" ng-style="{'background':tagObjectAry[curtTag].color}" >
+		<a href="javascript:;" class="layoutTag"
+		ng-repeat="(tagKey, tagValue) in tagObjectAry" 
+		title="{{tagValue.tagName}}"
+		ng-click="ShowLayoutItem(tagKey, tagValue, false)" 
+		ng-style="{'top':tagValue.top, 'background':tagValue.color}">{{GetTagName(tagKey,tagValue)}}</a>
+		
+		<div ng-show="tagObjectAry['myLayout'].isShow">
+			<h2>我的樣式表</h2>
+			<ul class="myLayoutList">
+				<a href="javascript:;" ng-repeat="layout in myLayoutList" ng-click="ViewMyLayout(layout)"><li>{{layout['name']}}</li></a>
+			</ul>
+		</div>
+
+		<div ng-show="tagObjectAry['viewFunList'].isShow">
+			<h2>功能列表</h2>
+			<p>雙點擊即可編輯</p>
+			<a href="javasscript:;" class="funListSelectorIcon" title="大圖式" ng-click="ViewFunList('bigView')"><span id="squareicon"></span></a>
+			<a href="javasscript:;" class="funListSelectorIcon" title="列表" ng-click="ViewFunList('listView')"><span id="listicon"></span></a>
+			<h4>{{ShowViewHint(isBigView)}}</h4>
+			<hint style="font-size:12px;margin-top:10px;" ng-show="selectedPosition != ''">目前元件：{{ShowSelectedComValue(isBigView)}}</hint>
+
+			<a href="javascript:;" title="移除元素" ng-show="selectedPosition != ''" ng-click="RemoveComponent(isBigView)"><span class="deleteIcon"></span></a>
+
+			<ul class="FunListItemDiv myLayoutList">
+				<li ng-repeat="com in canUseComponentList" ng-click="SetComponentToSelected(isBigView, com)" ng-dblclick="TriggerRenameMode(com)">
+					<!-- view mode -->
+					<span ng-style="StyleOfComponentInList(com)">{{com.name}}</span>
+					<span ng-if="com.nickname.length != 0 && com.isRenameMode == false" style="float:left;margin:10px 0px 0px 25px;color:#000;border-bottom: 1px solid #000;">{{com.nickname}}</span>
+					<span style="position:absolute;right:10px;font-size:12px;bottom:7px;" ng-show="isBigView">{{com.big_view_size}}</span>
+
+					<!-- rename mode -->
+					<span class="hintText" ng-if="GetIsRenameType(com)">{{com.name}}</span>
+					<input class="inputRename" ng-if="GetIsRenameType(com)" ng-model="com.nickname" ng-enter="TriggerRenameMode(com)">
+				</li>
+			</ul>
+		</div>
+
+		<div ng-show="tagObjectAry['myCuzComponent'].isShow">
+			<h2>客製元件</h2>
+			<p>雙點擊即可編輯</p>
+			<a href="javasscript:;" class="funListSelectorIcon" title="大圖式" ng-click="ViewFunList('bigView')"><span id="squareicon"></span></a>
+			<a href="javasscript:;" class="funListSelectorIcon" title="列表" ng-click="ViewFunList('listView')"><span id="listicon"></span></a>
+			<h4>{{ShowViewHint(isBigView)}}</h4>
+			<hint style="font-size:12px;margin-top:10px;" ng-show="selectedPosition != ''">目前元件：{{ShowSelectedComValue(isBigView)}}</hint>
+
+			<a href="javascript:;" title="移除元素" ng-show="selectedPosition != ''" ng-click="RemoveComponent(isBigView)"><span class="deleteIcon"></span></a>
+
+			<ul class="myCustomCom myLayoutList">
+				<li ng-repeat="com in myCuzComponent" ng-click="SetComponentToSelected(isBigView, com)" ng-dblclick="TriggerRenameMode(com)">
+					<!-- view mode -->
+					<span ng-style="StyleOfComponentInList(com)">{{com.name}}</span>
+					<span ng-if="com.nickname.length != 0 && com.isRenameMode == false" style="float:left;margin:10px 0px 0px 25px;color:#000;border-bottom: 1px solid #000;">{{com.nickname}}</span>
+					<span style="position:absolute;right:10px;font-size:12px;bottom:7px;" ng-show="isBigView">{{com.big_view_size}}</span>
+
+					<!-- rename mode -->
+					<span class="hintText" ng-if="GetIsRenameType(com)">{{com.name}}</span>
+					<input class="inputRename" ng-if="GetIsRenameType(com)" ng-model="com.nickname" ng-enter="TriggerRenameMode(com)">
+				</li>
+			</ul>
+		</div>
+
+	</div>
+
+	<div class="layoutSettingDiv">
+		<div style="text-align:right;">
+			<h1><input class="layoutTitle" ng-model="curtLayout['name']" placeholder="輸入樣版名稱"></h1>
+			<hint style="color:#888888;">直接點擊方塊，可以進行編輯 <span style="font-size:16px;color:red;">沒字表示沒有設定</span></hint>
+		</div>
+		<div class="listViewDiv layoutViewDiv">
+			<h3 style="float:right;margin-top:30px;">列表樣版</h3>
+			<ul class="listViewItems">
+				<li ng-repeat="(key, value) in curtLayout['web']['listView']" ng-style="StyleOfEmptyListViewComponet('listView', value)" ng-click="SetViewComponent('listView', key)">
+					<span ng-if="value['nickname'].length == 0">{{value['name']}}</span>
+
+					<div ng-if="value['nickname'].length != 0">
+						<span style="position:absolute;left:0px;top:-15px;">{{value['name']}}</span>
+						<span>{{value['nickname']}}</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="bigViewDiv layoutViewDiv">
+			<h3 style="float:right;margin-top:30px;">大圖示樣版</h3>
+			<div class="bigVIewItems">
+				<div class="innerItems">
+					<ul class="topItems itemsCube" ng-repeat="(viewKey,viewObj) in curtLayout['web']['bigView']">
+						<li ng-repeat="(key,value) in viewObj" ng-style=objCubeStyle(value) ng-click="SetViewComponent('bigView', (viewKey+','+key))">
+							<span class="objNametitle" ng-if="value['nickname'].length == 0">{{value['name']}}</span>
+
+							<div ng-if="value['nickname'].length != 0">
+								<span style="position:absolute;left:0px;top:-15px;">{{value['name']}}</span>
+								<span class="objNametitle">{{value['nickname']}}</span>
+							</div>
+
+							<span class="objSizeDetail">{{value['big_view_size']}}</span>
+						</li>
+						<li ng-if="isEmptyCom('bigView', viewObj)"></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<span class="errorMsg">{{errorMsg}}</span>
+		<a href="javascript:;" class="deleteLayoutBtn" ng-click="DeleteLayout()" ng-show="isCanDelete">刪除樣版</a>
+		<a href="javascript:;" class="saveLayoutBtn" ng-click="SaveLayoutIntoDB()">儲存樣版</a>
+	</div>
+</div>

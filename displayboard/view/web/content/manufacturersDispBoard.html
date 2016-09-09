@@ -1,0 +1,99 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/manufacturersDispBoard.css">
+
+<div id="dispBoardDiv" ng-controller="SyntecManuDispBoard">
+	
+	<input type="hidden" ng-init="fnInitData()">
+
+	<div class="topDiv">
+		<!--Logo Column-->
+		<div class="leftCol">
+			<a href="javascript:window.open('#/', '_self');" title="回監控首頁" >
+				<div class="logo" id="logoFrame" ng-init="fnShowComapnyLogo()">
+					<img ng-src="{{szCompanyLogoUrl}}" />
+				</div>
+			</a>
+		</div>
+		<!--System message Colum-->
+		<div Class="rightCol">
+			<ul class = "topList">
+				<li>
+					<span class="timeSapn">
+						<p class="date">{{clock | date:"EEEE"}}</p>
+						<p class="time">{{clock | date:"HH: mm: ss"}}</p>
+					</span>
+				</li>
+				<li>
+					<div class="fullScreen" ng-click="toggleFullScreen()" ng-style="fullScrIcon()"></div>
+				</li>
+				<li>
+					<div class="Back" type="button" name="submit" ng-click="fnGoMainPage()"></div>
+				</li>
+			</ul>
+		</div>
+		<!--Custom Colum-->	
+		<div class="midCol">
+			<div class="customCol" ng-style="{'width':customColWidth()}" ng-repeat="cuzData in customCulData">
+				<div ng-if="cuzData.type=='plaintext'">
+					<p class="Title">{{cuzData.title}}</p>
+					<p class="Value" ng-style="fnTopCuzStyle(cuzData.content)">{{cuzData.content}}</p>
+				</div>
+				<div ng-if="cuzData.type=='cnc_data'">
+					<p class="Title">{{ (cuzData['nickname'].length == 0) ? cuzData['name'] : cuzData['nickname'] }}</p>
+					<p class="Value" ng-style="fnTopCuzStyle(ShowCustomCulData(cuzData))">{{ShowCustomCulData(cuzData)}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--CNC Message-->
+	<div class="ContentDiv">
+		<h1 class="groupName" ng-style="{'opacity':ncontentAlpha}"><label ng-repeat="g in displayGroups">{{g}}</label></h1>
+		<div class="groupListDiv">
+			<div class="listViewDiv">
+				<div class="listViewTitles">
+					<div class="listViewItems" ng-repeat="(key, value) in listViewTitle" ng-style="fnLayoutStyle()">
+						<span ng-if="value['nickname'].length == 0">{{value['name']}}</span>
+						<span ng-if="value['nickname'].length != 0">{{value['nickname']}}</span>
+					</div>
+				</div>
+				<!-- ng-style="{'background':fnCNCStatusColorStyle(cnc.cncStatus)}"  -->
+				<div class="cncDIv" ng-repeat="cnc in displayCncs" ng-style="{'background':fnCNCStatusColorStyle(cnc.cncStatus)}">
+					<div class="listViewItems" ng-style="fnSetCNCRowStyle($index)">
+						<div class="statusBar" ng-style="{'background':fnCNCStatusColorStyle(cnc.cncStatus)} "></div>
+						<div class="item" ng-repeat="(key, value) in SelectLayout('listView')" ng-style="fnSetCNCRowItemStyle()">
+							<dashboard-data
+								cnc="{{cnc['nCNCID']}}"
+								data="ShowHTMLObj(cnc,value)"
+								type="value"
+								mode="DISPLAYBOARD"
+							></dashboard-data>
+							<img class="imgItem" ng-src="{{ShowIMGSrc(cnc,value)}}" ng-if="value['viewer_data_name']=='filePic'" />
+						</div>
+						<div class="processBar">
+							<div class="progess" ng-style="{'background':fnCNCStatusColorStyle(cnc.cncStatus)}"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--dots navigatio-->
+	<div class="dotNavDiv">
+		<ul>
+			<li ng-repeat="i in getNumberArry(nTotalPageCount) track by $index" ng-style="setDotStyle($index)" ng-if="nTotalPageCount > 1"><a href="#"></a></li>
+		</ul>
+	</div>
+	<!--footer-->
+	<div class="bottomDiv">
+		<ul>
+			<li>
+				<marquee class="marquee">{{customMarquee}}</marquee>
+			</li>
+			<li>
+				<div class="fixMessage"></div>
+			</li>
+		</ul>
+	</div>
+
+</div>

@@ -1,0 +1,97 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/dashboard.css">
+
+<div id="allDiv" style="margin-top:80px;">
+	<input type="hidden" ng-init="InitData()">
+
+	<div class="topDiv">
+		<div class="selectViewDiv">
+			<span class="selectTitle">顯示方式</span>
+			<ul>
+				<li ng-click="ChangeViewType(ENUMViewType['bigView'])" ng-style="ViewTypeBGColor(ENUMViewType['bigView'])" title="大圖示"><span class="icon" id="bigView_icon"></span></li>
+				<li ng-click="ChangeViewType(ENUMViewType['listView'])" ng-style="ViewTypeBGColor(ENUMViewType['listView'])" title="列表"><span class='icon' id="list_icon"></span></li>
+			</ul>
+			<span class="selectTitle">樣版選擇</span>
+			<ul class="layoutUl">
+				<li ng-repeat="layout in layoutList" ng-style="ViewLayouyBGColor(layout)" ng-click="SetLayout( $index, layout)">{{layout['name']}}</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="factoryDiv" ng-repeat="f in factories">
+		<div class="factoryName">
+			<h1>{{f.factoryName}}</h1>
+		</div>
+
+		<div class="viewIPCam">
+			<a href="#/IPCamStreaming/{{f.fid}}"  title="觀看IP CAMERA">
+				<div id="ipcam_icon"></div>
+			</a>
+		</div>
+
+		<div class="groupListDiv" ng-style="AutoResizeWidth(f)" ng-repeat="g in f.groups">
+			<h3 class="groupName">{{g.groupName}}</h3>
+			<a href="javascript:;" class="exploreExcel" title="全部匯出加工紀錄" ng-click="exportExcelAll(g)" ng-if="FindGroupCNCs(g.cncs).length != 0">
+				<span id="iconExcel">X</span>
+				<span>全部匯出加工紀錄 &nbsp</span>
+				<hr style="border:1px solid #1E7145;margin-top:5px;">
+			</a>
+			<div class="statisticDiv"></div>
+			
+			<div class="bigViewDiv" ng-if="viewType == ENUMViewType['bigView']">
+				<div class="cncBigViewUl">
+					<a href="#/cnc/{{cnc['nCNCID']}}" ng-repeat="cnc in FindGroupCNCs(g.cncs)">
+					<div class="bigVIewItems">
+						<div class="headerColor" ng-style="{'background':fnCNCStatusColorStyle(cnc.cncStatus)}">{{fnCNCStatusName(cnc.cncStatus)}}</div>
+						<div class="innerItems">
+							<ul class="itemsCube" ng-repeat="(viewKey,viewObj) in SelectLayout('bigView')">
+								<li ng-repeat="(key,value) in viewObj" ng-style=objCubeStyle(value) ng-show="isShow(cnc,value)">
+									<!-- title -->
+									<span class="bigViewTitle" ng-if="value['viewer_data_name'] != 'filePic' && value['nickname'].length == 0">{{value['name']}}</span>
+									<span class="bigViewTitle" ng-if="value['viewer_data_name'] != 'filePic' && value['nickname'].length != 0">{{value['nickname']}}</span>
+									<!-- end title -->
+									<dashboard-data 
+										style="font-size:15px;color:#000000;font-weight:300;"
+										cnc="{{cnc['nCNCID']}}"
+										data="ShowHTMLObj(cnc,value)"
+										type="value"
+										mode="DASHBOARD"
+									></dashboard-data>
+									<img ng-src="{{ShowIMGSrc(cnc,value)}}" ng-if="value['viewer_data_name']=='filePic'" style="max-width:100%;max-height:100%;" />
+								</li>
+							</ul>
+						</div>
+					</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="listViewDiv" ng-if="viewType == ENUMViewType['listView']">
+				<ul class="listViewItems" style="background:#000000;color:#ffffff;height:35px;">
+					<li ng-repeat="(key, value) in listViewTitle" style="line-height: 35px;height:35px">
+						<span ng-if="value['nickname'].length == 0">{{value['name']}}</span>
+						<span ng-if="value['nickname'].length != 0">{{value['nickname']}}</span>
+					</li>
+				</ul>
+
+				<a href="#/cnc/{{cnc['nCNCID']}}" title="{{cnc['nCNCID']}}" ng-repeat="cnc in FindGroupCNCs(g.cncs)">
+					<ul class="listViewItems" ng-style="{'background':fnCNCStatusColorStyle(cnc.cncStatus)}">
+						<li ng-repeat="(key, value) in SelectLayout('listView')">
+							<dashboard-data
+								style="color:#000000;" 
+								cnc="{{cnc['nCNCID']}}"
+								data="ShowHTMLObj(cnc,value)"
+								type="value"
+								mode="DASHBOARD"
+							></dashboard-data>
+							<img ng-src="{{ShowIMGSrc(cnc,value)}}" ng-if="value['viewer_data_name']=='filePic'" style="margin-top:3px;max-width:100%;max-height:35px;" />
+						</li>
+					</ul>
+				</a>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="bottomDiv"></div>
+</div>

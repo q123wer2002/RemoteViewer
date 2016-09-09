@@ -1,0 +1,248 @@
+body{
+	background:#ffffff;
+}
+/* topDiv */
+	.topDiv{
+		width: 100%;
+		height: 60px;
+	}
+	.topDiv .selectViewDiv{
+		text-align: center;
+		margin:auto;
+		line-height: 50px;
+		position: relative;
+	}
+	.topDiv .selectViewDiv .selectTitle{
+		font-size: 14px;
+		margin-left: 30px;
+		color: #7F7F7F;
+	}
+	.topDiv .selectViewDiv ul{
+		list-style: none;
+		display: inline-block;
+	}
+	.topDiv .selectViewDiv ul li{
+		display: inline-block;
+		width: 28px;
+		height: 28px;
+		margin-right: 10px;
+		padding: 4px;
+		line-height: 20px;
+	}
+	.topDiv .selectViewDiv ul li:hover{
+		cursor: pointer !important;
+		/*background: #F9F9F9 !important;*/
+		/*border-bottom-color:#eeeeee !important;*/
+	}
+	.topDiv .icon{
+		display: inline-block;
+		width: 26px;
+		height: 26px;
+		background-repeat: no-repeat;
+		background-size: 26px auto;
+	}
+	.topDiv #bigView_icon{
+		background-image:url(../../images/squareIcon.png);
+	}
+	.topDiv #list_icon{
+		background-image:url(../../images/listIcon.png);
+	}
+	.topDiv .selectViewDiv .layoutUl li{
+		width: auto;
+		padding: 2px 10px;
+		line-height: 30px;
+	}
+/* MainDataDiv */
+	.factoryDiv{
+		position: relative;
+		padding: 40px 0px 40px 0px;
+	}
+
+	.factoryDiv .factoryName{
+		margin-left: 200px;
+		display: inline-block;
+	}
+
+	.factoryDiv #display_icon:hover{
+		opacity: 0.8;
+		height: 35px;
+	}
+
+	.factoryDiv .viewIPCam{
+		display: inline-block;
+		width: 35px;
+		height: 35px;
+		margin-left: 10px;
+	}
+
+	.factoryDiv #ipcam_icon{
+		display: inline-block;
+		background-repeat: no-repeat;
+		width: 30px;
+		height: 30px;
+		background-size: 30px auto;
+		opacity: 0.5;
+		margin-left: 10px;
+		background-image: url(../../images/ipcam_icon.png);
+	}
+
+	.factoryDiv #ipcam_icon:hover{
+		opacity: 0.8;
+		height: 35px;
+	}
+
+	.factoryDiv .viewIPCam{
+		display: inline-block;
+		width: 35px;
+		height: 35px;
+		margin-left: 10px;
+	}
+
+	.factoryDiv #ipcam_icon{
+		display: inline-block;
+		background-repeat: no-repeat;
+		width: 30px;
+		height: 30px;
+		background-size: 30px auto;
+		opacity: 0.5;
+		margin-left: 10px;
+		background-image: url(../../images/ipcam_icon.png);
+	}
+
+	.factoryDiv #ipcam_icon:hover{
+		opacity: 0.8;
+		height: 35px;
+	}
+
+	.groupListDiv{
+		height:auto;
+		max-height:700px;
+		/*height:730px;*/
+		border-bottom:1px solid rgba(0,0,0,0.5);
+		margin-bottom: 50px;
+		position: relative;
+		overflow: auto;
+		/*display: inline-block;*/
+	}
+	.groupListDiv .groupName{
+		position: relative;
+		height: 40px;
+		line-height: 40px;
+		margin-left: 20px;
+		/*left: 10px;
+		top: 0px;*/
+		background: #ffffff;
+	}
+	.groupListDiv .exploreExcel{
+		position:absolute;
+		top:7px;
+		right:30px;
+		color:#000000;
+	}
+	.groupListDiv #iconExcel{
+		font-weight:900;
+		padding:4px 6px 5px 6px;
+		border:2px solid #1E7145;
+		color:#ffffff;
+		background:#1E7145;
+	}
+	.groupListDiv .exploreExcel:hover #iconExcel{
+		color:#1E7145;
+		background:#ffffff;
+	}
+	.groupListDiv .statisticDiv{
+		width: 100%;
+		height: 50px;
+		border-bottom: 1px solid rgba(0,0,0,0.6);
+		display: none;
+	}
+	/* big view */
+		.groupListDiv .cncBigViewUl{
+			list-style: none;
+		}
+		.groupListDiv .cncBigViewUl .headerColor{
+			width: 100%;
+			height: 25px;
+			text-align: center;
+			color: #000000;
+			line-height: 25px;
+			font-weight: 700;
+			font-size: 15px;
+		}
+		.groupListDiv .cncBigViewUl .bigVIewItems{
+			display: inline-block;
+			width: 22%;
+			height: auto;
+			margin: 10px;
+			border:1px solid rgba(0,0,0,0.5);
+		}
+		.groupListDiv .cncBigViewUl .bigVIewItems .innerItems{
+			float: left;
+			width: auto;
+			height: auto;
+			padding: 1px 5px 15px 10px;
+		}
+		.groupListDiv .bigVIewItems .itemsCube{
+			float: left;
+			list-style: none;
+			width: 100%;
+			height: auto;
+			margin: auto;
+		}
+		.groupListDiv .bigVIewItems .itemsCube li{
+			/*display: inline-block;*/
+			float: left;
+			position: relative;
+			margin-left:2.5%;
+			margin-top:15px;
+			/*border:1px solid #000;*/
+			text-align: center;
+			font-size: 100%;
+			height: 40px;
+			line-height: 40px;
+			white-space:nowrap;
+			max-width: 100px;
+			min-width: 70px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+		.groupListDiv .bigVIewItems .itemsCube li .bigViewTitle{
+			color:#888888;
+			position:absolute;
+			left:0px;
+			top:-15px;
+			font-size:13px;
+			max-width:100px;
+			min-width:70px;
+			display:inline-block;
+			overflow:hidden;
+			text-overflow:ellipsis;
+		}
+	/* list view */
+		.groupListDiv .listViewDiv .listViewItems{
+			width: 100%;
+			height: 50px;
+			list-style: none;
+		}
+		.groupListDiv .listViewDiv .listViewItems li{
+			width: 9%;
+			height: 41px;
+			margin-left: 5.5px;
+			display: inline-block;
+			float: left;
+			text-align: center;
+			line-height: 50px;
+			font-size: 13px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+/* bottomDiv */
+	.bottomDiv{
+		background: rgba(255,255,255,0.9);
+		width: 100%;
+		height: 45px;
+		position: fixed;
+		bottom: 0;
+		/*border-top: 1px solid rgba(0,0,0,0.7);*/
+		text-align: center;
+	}

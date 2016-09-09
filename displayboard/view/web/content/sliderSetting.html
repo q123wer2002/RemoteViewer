@@ -1,0 +1,157 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/settingCSS.css">
+
+<div class="limitWebView settingBigDiv" ng-controller="SyntecSliderSet">
+
+	<input type="hidden" ng-init="SelectFactory()" />
+
+	<a href="javascript:;" ng-click="ExitFactory()" title="返回" class="backLink">
+		<span class="backReverse next_icon"></span>
+		<span style="font-size:20px">返回</span>
+	</a>
+
+	<div ng-if="factoryID != -1">
+		
+		<input type="hidden" ng-init="ShowSliderPage('VIEWER')">
+
+		<div class="sliderMenu">
+			<a href="javascript:;" 
+			ng-repeat="(pageKey, pageValue) in sliderPages" 
+			ng-click="ShowSliderPage(pageKey)" 
+			ng-style="pageValue.style">{{pageValue.name}}</a>
+		</div>
+
+		<div class="sliderSettingDiv" ng-if="sliderPages['VIEWER'].isSelected">
+			<!-- show the slider view -->
+			<h2>播放模式示意圖</h2>
+			<div class="sliderVisial">
+				<div id="realMonitorView" ng-style="StyleOfRealMonitorView()">
+					<div id="header">
+						<div id="logoImg"></div>
+						<div class="TopCustomerArea" 
+							ng-repeat="cuzArea in sliderSetting['customer_area']" 
+							ng-style="cuzArea.style" 
+							ng-click="AddCustomerArea(cuzArea, $index)"
+							ng-switch on="cuzArea.type">
+							<!-- no customer data -->
+							<img src="images/add.png" width="20px" style="margin-top:10px;"  ng-switch-default>
+							<!-- show setting data -->
+							<span ng-switch-when="cnc_data">
+								<span class="cuzArea_title">CNC_{{cuzArea.cnc_id}}</span>
+								<span class="cuzArea_content">{{(cuzArea.nickname.length == 0) ? cuzArea.name : cuzArea.nickname}}</span>
+							</span>
+							<span ng-switch-when="plaintext">
+								<span class="cuzArea_title">{{cuzArea.title}}</span>
+								<span class="cuzArea_content">{{cuzArea.content}}</span>
+							</span>
+						</div>
+						<div id="currentTime">{{clock|date:'medium'}}</div>
+					</div>
+					<div id="body">
+						<div id="bodyGroupName">
+							<div style="width:270px;height:20px;margin-top:5px;background:#C3C3C3;"></div>
+						</div>
+						<div id="bodyGroupItem">
+							<div style="width:100%;height:30px;background:#000;">
+								<div viewlist-model=""></div>
+							</div>
+							<ul style="list-style:none;" viewlist-data number="10"></ul>
+						</div>
+					</div><!-- need more type -->
+					<div id="footer" title="雙點擊編輯" ng-dblclick="EditMarquee()">
+						<marquee ng-if="isEditOfMarquee() == false">{{marquee.text}}</marquee>
+						<input type="text" ng-model="marquee.text" ng-if="isEditOfMarquee() == true" ng-enter="SaveMarquee()"/>
+					</div>	
+				</div>
+			</div>
+
+			<div class="SelectCustomerComponent">
+				<!-- close button -->
+				<a href="javascript:;" title="關閉" style="position:absolute;right:16px;top:16px;color:#fff" ng-click="CloseCustomerArea(data)">
+					<span>關閉</span>
+					<span id="btnCloseSelectCustomer"></span>
+				</a>
+				<h2 style="margin-top:50px;">客製區域編輯</h2>
+				<p style="font-size:10px;">正在編輯第{{selectedArea['INDEX']+1}}個區域</p>
+
+				<div class="SelectionOfComponent">
+					<span class="titleOfSelection">元件種類</span>
+					<select id="selectSection" class="contentOfSection"
+					ng-model="tmpData['TYPE']"
+					ng-change="SelectDataType(tmpData['TYPE'])">
+						<option value=""> -- </option>
+						<option value="cnc_data">控制器資料</option>
+						<option value="plaintext">純文字</option>
+					</select>
+				</div>
+				<!-- plaintext area -->
+					<div ng-show="tmpData['TYPE']=='plaintext'">
+						<div class="SelectionOfComponent">
+							<span class="titleOfSelection">標題</span>
+							<input class="contentOfSection" type="text" 
+							ng-model="tmpData['TEXT']['TITLE']" 
+							ng-change="PlaintextEditing(tmpData['TEXT'])">
+						</div>
+						<div class="SelectionOfComponent">
+							<span class="titleOfSelection">內容</span>
+							<input class="contentOfSection" type="text" 
+							ng-model="tmpData['TEXT']['CONTENT']"
+							ng-change="PlaintextEditing(tmpData['TEXT'])">
+						</div>
+					</div>
+				<!-- cnc data area -->
+					<div ng-show="tmpData['TYPE']=='cnc_data'">
+						<div class="SelectionOfComponent">
+							<span class="titleOfSelection">選擇機台(名稱)</span>
+							<ul id="selectCNCArea" class="contentOfSection">
+								<li 
+								ng-repeat="cnc in CNCDataCustomer['cnc_list']" 
+								ng-click="SetCNC(cnc)" 
+								ng-style="StyleOfSelectedCNC(cnc)">{{cnc.name}}</li>
+							</ul>
+						</div>
+						<div class="SelectionOfComponent">
+							<span class="titleOfSelection">選擇資料種類</span>
+							<select id="selectSection" class="contentOfSection"
+							ng-model="tmpData['CNC']['FUN_TYPE']"
+							ng-change="SelectCNCFunType(tmpData['CNC']['FUN_TYPE'])">
+								<option value=""> -- </option>
+								<option value="use_component">功能元件</option>
+								<option value="my_customer_component">客製元件</option>
+							</select>
+							<ul id="selectCNCFunctionArea" class="contentOfSection">
+								<li 
+								ng-repeat="function in CNCDataCustomer[tmpData['CNC']['FUN_TYPE']]"
+								ng-click="SetCNCFunction(function)"
+								ng-style="StyleOfSelectedFunction(function)">
+									<span ng-if="function.nickname.length == 0">{{function.name}}</span>
+									<span ng-if="function.nickname.length != 0">
+										<span class="showNameTiny">{{function.name}}</span>
+										<span>{{function.nickname}}</span>
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				<div id="btnSaveCustomerArea" ng-if="selectedArea['DATA']['type'].length != 0" ng-click="SaveCustomerArea()">儲存變更</div>
+			</div>
+		</div>
+
+		<div class="sliderSettingDiv" ng-if="sliderPages['SLIDERSETTING'].isSelected">
+			<!-- show the slider view -->
+			<div id="settingJumpSecondDiv">
+				<h3>設定撥放模式跳轉秒數</h3>
+				<input type="number" id="setSecondCul" ng-model="sliderSetting['jump_second']" ng-change="SaveJumpSecond()" min="1" />秒
+			</div>
+
+			<!-- show the playing slider -->
+			<div id="settingJumpSecondDiv">
+				<h3>選擇播放樣版</h3>
+				<select ng-model="sliderSetting['layout_index']" ng-change="SaveJumpSecond()">
+					<option ng-repeat="dashboard in aryDashboard" value="{{$index}}">{{dashboard.name}}</option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+</div>

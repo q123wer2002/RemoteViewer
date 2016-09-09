@@ -1,0 +1,140 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/settingCSS.css">
+
+
+<div class="limitWebView settingBigDiv" ng-controller="SyntecSetting">
+	<input type="hidden" ng-init="viewDevice = 'web'">
+	<input type="hidden" ng-init="initSettingData()">
+	
+	<a href="javascript:history.back();" title="返回" class="backLink">
+		<span class="backReverse next_icon"></span>
+		<span style="font-size:20px">返回</span>
+	</a>
+	
+	<div class="menuBar">
+		<ul class="menuBarUl">
+			<a href="javascript:;" ng-repeat="menu in settingMenu" ng-click="ShowMenu(menu)"><li ng-style="menu.style">{{menu.name}}</li></a>
+		</ul>
+		<ul class="subMenu" ng-show="settingMenu['factoryInfo'].isShow">
+			<li style="font-size:12px;color:#888888">公司選擇</li>
+			<a href="javascript:;"  ng-repeat="f in factoryInfo" ng-click="SlectFactory(f)" ng-style="f.style"><li>{{f.name}}</li></a>
+		</ul>
+	</div>
+
+	<div class="settingDiv" ng-show="settingMenu['factoryInfo'].isShow" id="factoryInfoDiv">
+		<div class="factoryCard">
+			<p id="setTimeTitle" ng-style="StyleOfShiftTitle()">
+				<span ng-if="isEmptyShiftTime() == true">設定班別</span>
+				<span ng-if="isEmptyShiftTime() == false">尚未設定</span>
+			</p>
+
+			<div title="天稼動率計算方式" id="ooeInfo">
+				<h4 style="position: absolute;left: -70px;top: 7px">稼動率=</h4>
+				<h5 style="border-bottom: 1px solid rgba(0,0,0,0.8);">實際每日加工時間</h5>
+				<h5 style="">預設該廠每日工時</h5>
+			</div>
+
+			<!-- TODO:let picture show -->
+			<!-- <img src="data:image/PNG;base64,<?php echo base64_encode($_SESSION['RemoteViewer']['companyInfo']['img']); ?>" width="30px"> -->
+			<div class="fDetails">
+				<p>{{selectedFactory.address}}</p>
+				<p>{{selectedFactory.tel}}</p>
+			</div>
+
+			<div class="ooeSettingDiv">
+				<div class="ooeTimeSetDiv">
+					<table border="1" style="width:60%;border-collapse: collapse;text-align: center;border:1px solid #000;">
+						<tr style="color:#fff;background:#000;">
+							<td>班別名稱</td>
+							<td>開始時間</td>
+							<td>結束時間</td>
+						</tr>
+						<tr ng-repeat="shift in defaultShift">
+							<td style="border-right:1px solid #000;">{{shift.Name}}</td>
+							<td style="border-right:1px solid #000;"><input type="time" ng-model="shift.StartTime" ></td>
+							<td style="border-right:1px solid #000;"><input type="time" ng-model="shift.EndTime" ></td>
+						</tr>
+					</table>
+					<a href="javascript:;" ng-click="DBSaveSchedule()" id="btnSaveShiftTime">儲存班時間</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="shiftSchedule">
+			<h2>{{selectedFactory.name}} - 班別行事曆</h2>
+
+			<ul class="scheduleWeek">
+				<li ng-repeat="wu in WeekUnits">{{wu}}</li>
+			</ul>
+			
+			<ul class="scheduleDays">
+				<div ng-repeat="month in ShowMoreMonth(15)">
+					<br>
+					<p class="DateTag">{{GetYearMonth(month)}}</p>
+					<li ng-repeat="nullday in GetNullDays(month)"></li>
+					<a href="javascript:;" title="新增班表" ng-repeat="day in GetDays(month)" ng-click="ShowSchedule(month,day)"><li class="scheduleDay" ng-style="StyleOfShiftEachDay(month,day)">{{day}}</li></a>
+				</div>
+			</ul>
+
+			<div class="DayScheduleDiv">
+				<h4>排班表</h4>
+				<p class="DateTag" style="margin-top:3px;">
+					<span ng-show="selectedYMD['Year'] != ''">{{selectedYMD['Year']}}年{{selectedYMD['Month']}}月{{selectedYMD['Day']}}日 {{GetSelectedDay()}}</span>
+					<span ng-show="selectedYMD['Year'] == ''">選擇日期</span>
+				</p>
+
+				<ul class="myShiftSchedule">
+					<li ng-repeat="shift in defaultShift" ng-show="selectedYMD['Year'] != ''" ng-if="shift['During'] != null">
+						<span class="myShiftName">{{shift.Name}}</span>
+						<span class="myShiftTime">{{GetShiftTime(shift)}}</span>
+						<span class="myShiftDuring">歷時{{shift.During | round}}小時</span>
+						<span class="myShiftStaff" ng-show="!isCanEdit">{{GetShiftStaff($index)}}</span>
+						<span class="myShiftStaff" ng-show="isCanEdit">
+							<input id="shiftStaff" type="text" ng-model="defaultStaff[$index]" placeholder="操作員">
+						</span>
+					</li>
+				</ul>
+
+				<div class="AddShiftDiv" ng-show="selectedYMD['Year'] != ''">
+					<div id="btnAddSchedule" title="新增班別" ng-click="ChangeEditStatus()">
+						<span ng-show="!isCanEdit">編輯操作者</span>
+						<span ng-show="isCanEdit">儲存</span>
+					</div>
+					<!-- <input id="shiftName" type="text" ng-model="newSchedule.Name" placeholder="班別名稱">
+					<input id="shiftStaff" type="text" ng-model="newSchedule.Staff" placeholder="操作員">
+					<div id="shiftStart">
+						<input type="time" ng-model="newSchedule.StartTime" >
+						<hint>開始時間</hint>
+					</div> - 
+					<div id="shiftEnd">
+						<input type="time" ng-model="newSchedule.EndTime" >
+						<hint>結束時間</hint>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="settingDiv" id="userInfoDiv" ng-show="settingMenu['companyInfo'].isShow">
+		<h3>公司資訊</h3>
+		<img src="images/usericon.png" width="80px">
+		<div class="infoDiv">
+			<table border="2" style="width:90%;border-collapse: collapse;margin: 35px auto 0px auto;font-size: 15px;">
+				<tr class="infoRow" ng-repeat="(userKey, value) in userInfo" style="bor">
+					<td style="text-align: right;white-space: nowrap;">{{value.name}}</td>
+					<td style="text-align: left;">
+						<input class="infoInput" style="background:#D7D7D7;" type="password" ng-model="value.data" ng-if="userKey == 'newPassword'" ng-enter="changePwd(value.data)" placeholder="請輸入新密碼">
+						<p class="infoInput" type="text" ng-if="userKey != 'newPassword'">{{value.data}}</p>
+					</td>
+				</tr>
+			</table>
+			<p style="color:red;font-size: 15px;" ng-show="userInfo['newPassword'].data.length != 0">下次登入請用新密碼</p>
+			<p style="color:red;font-size: 15px;">{{errorMsg}}</p>
+			<div style="margin-top: 30px;" ng-show="userInfo['newPassword'].data.length != 0">
+				<a href="javascript:;" class="button" title="更改密碼" ng-click="changePwd(userInfo['newPassword'].data)" ng-show="">更改密碼</a>
+			</div>
+		</div>
+	</div>
+
+
+</div>

@@ -1,0 +1,52 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/settingCSS.css">
+<div class="limitWebView settingBigDiv" ng-controller="SyntecIPCamSet">
+    
+    <input type="hidden" ng-init="Initialization()">
+
+    <a href="javascript:history.back();" title="返回" class="backLink">
+        <span class="backReverse next_icon"></span>
+        <span style="font-size:20px">返回</span>
+    </a>
+
+    <div class="selectFactory" ng-if="factoryID == -1">
+		<h2>選擇工廠</h2>
+		<ul id="factoryUl">
+			<li title="進入此工廠設定" ng-repeat="f in factories" ng-click="fnSelectFactory(f)">{{f.factory_name}}</li>
+		</ul>
+	</div>
+    
+    <div id="IpcamRegisterSettingDiv" class="settingDiv" ng-if="factoryID != -1">
+        <input type="hidden" ng-init="InitializeGroupList()">
+
+        <label style="font-size:18px;width:80px;">選擇群組</label>
+        <select class="groupSelect" ng-model="objSelectedGroup" ng-change="fnSelectGroup(objSelectedGroup)" ng-options="g.group_name for g in groupList"></select>
+
+        <form ng-submit="fnAddIPcam()" style="margin-top:10px;margin-bottom:40px;">
+            <input type="text" class="ipcamName" placeholder="攝影機名稱" ng-model="ipcam.name" />
+            <input type="text" class="ipcamRTSP" placeholder="rtsp://ipcam_name/stream..." ng-model="ipcam.rtsp_url" />
+            <input type="submit" class="ipcamSubmit" value="註冊" />
+        </form>
+
+        <span style="font-size:25px; font-family:Monospace;font-style:oblique;font-weight:bold;width:80px;">IP CAMERA 列表</span>
+        <ul class="ipcamlistUl">
+            <li ng-repeat="cameras in ipcamList" style="margin-top:15px;margin-bottom:15px;list-style-type:none;">
+                <!--Saved ipcam in DB-->
+                <form ng-hide="cameras.isEditing">
+                    <!--<span class="ipcamName_S">{{cameras.ipcam_name}}</span>-->
+                    <!--<span class="ipcamRTSP_S">{{cameras.ipcam_rtspurl}}</span>-->
+                    <input type="text" class="ipcamName_S" value="{{cameras.name}}" readonly="1" />
+                    <input type="text" class="ipcamRTSP_S" value="{{cameras.rtsp_url}}" readonly="1" />
+                    <input type="button" class="ipcamModify" ng-click="fnEditCamera(cameras)" value="修改" />
+                    <input type="button" class="ipcamDelete" ng-click="fnRemoveCamera(cameras)" value="刪除" />
+                </form>
+                <!--Edit ipcam in DB-->
+                <form ng-show="cameras.isEditing">
+                    <input ng-model="cameras.name" type="text" class="ipcamName_E" />
+                    <input ng-model="cameras.rtsp_url" type="text" class="ipcamRTSP_E" />
+                    <input type="submit" class="ipcamUpdate" value="確認" ng-click="fnSaveCamera(cameras)" />
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>

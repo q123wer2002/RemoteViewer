@@ -1,0 +1,145 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/authoritySetting.css">
+
+<div class="limitWebView settingBigDiv">
+	<strong>最高權限者 | {{fnShowUserName()}}</strong>
+
+	<div class="menuBar">
+		<input type="hidden" ng-init="ShowContent(objAuthorityMenu['TEMPLATE'])">
+
+		<ul class="menuBarUl">
+			<a href="javascript:;" ng-repeat="menu in objAuthorityMenu" ng-click="ShowContent(menu)">
+				<li ng-style="menu.style">{{menu.name}}</li>
+			</a>
+		</ul>
+	</div>
+
+	<!-- user related -->
+	<div ng-show="objAuthorityMenu['USERACCOUNT']['isShow'] == true">
+		<!-- user manager div -->
+		<div class="AddUserDiv">
+			<hint style="font-size:12px;color:#888888;position:absolute;top:-20px;left:0px;">HINT：先新增權限樣板，再新增使用者</hint>
+			<input type="text" class="addUserCol" placeholder="登入帳號" ng-model="objNewUser.account">
+			<input type="text" class="addUserCol" placeholder="登入密碼" ng-model="objNewUser.password">
+			<select class="templateSelect" ng-model="objNewUser.authorityTmp">
+				<option>第一個樣版</option>
+				<option>第二個樣版</option>
+			</select>
+			<div class="btnAddUser" ng-click="fnAddNewUser()">新增子帳號</div>
+		</div>
+
+		<!-- user list -->
+		<hint style="font-size:12px;color:#888888;">HINT：雙點擊可進行編輯</hint>
+		<div class="userListDiv">
+			<table class="userlistTable">
+				<tr style="background: #205081;color:#EFF7FF;height:40px;table-layout: fixed;">
+					<td style="width:5%;">啟用</td>
+					<td style="width:25%;">帳號</td>
+					<td style="width:25%;">密碼</td>
+					<td style="width:25%;">樣板名稱</td>
+					<td style="width:20%;">操作</td>
+				</tr>
+				<tr ng-repeat="user in aryUserList" ng-if="aryUserList.length != 0">
+					<td ng-click="user.isEnable = !user.isEnable">
+						<input type="checkbox" class="ckboxUserEnable" ng-model="user.isEnable" />
+					</td>
+					<td ng-dblclick="user.isEdit=true" ng-enter="user.isEdit=false">
+						<span ng-if="user.isEdit == false">{{user.account}}</span>
+						<input ng-if="user.isEdit == true" type="text" class="inputCol" ng-model="user.account" />
+					</td>
+					<td ng-dblclick="user.isEdit=true" ng-enter="user.isEdit=false">
+						<span ng-if="user.isEdit == false">{{user.password}}</span>
+						<input ng-if="user.isEdit == true" type="text" class="inputCol" ng-model="user.password" />
+					</td>
+					<td ng-dblclick="user.isEdit=true" ng-enter="user.isEdit=false">
+						<span ng-if="user.isEdit == false">{{user.authorityTmp}}</span>
+						<select ng-if="user.isEdit == true">
+							<option></option>
+						</select>
+					</td>
+					<td class="btnDeleteUser" ng-click="fnDeleteUser($index)">
+						<a href="javascript:;">刪除</a>
+					</td>
+				</tr>
+				<tr ng-if="aryUserList.length == 0">
+					<td colspan="5">目前沒有子帳號</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<!-- authority related -->
+	<div ng-show="objAuthorityMenu['TEMPLATE']['isShow'] == true">
+		<table class="authorityListTable">
+			<tr style="background: #205081;color:#EFF7FF;height:30px;table-layout: fixed;text-align:center;">
+				<td style="width:25%;">樣版名稱</td>
+				<td style="width:75%;">
+					<div style="width:200px;margin:auto;">
+						<p style="border-bottom:1px solid #fff;">觀看裝置</p>
+						<p>可使用權限</p>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td style="text-align:center;">
+					<input type="text" class="inputCol" ng-model="objNewAuthorityTemp['TEMPLATE_NAME']"  placeholder="請輸入樣版名稱" />
+				</td>
+				<td>
+					<div class="deviceAuthorityDiv" ng-repeat="(szKeyMode,objValueMode) in objAuthorityList">
+						<!-- WEB, DISPLATBOARD, MOBILE.. -->
+						<h3>{{fnTranslateItem(szKeyMode)}}</h3>
+						<!-- PAGE:CNC, SHIFTSETTING, LOGOSETTING.. -->
+						<div class="authorityTypeDiv">
+							<span class="AuthorityHint">頁面</span>
+							<ul ng-repeat="(szTitle,objValue) in objValueMode['PAGE']">
+								<li ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'PAGE',DATA:szTitle})">
+									<label>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'PAGE',DATA:szTitle})"></span></span>
+										{{fnTranslateItem(szTitle)}}
+									</label>
+								</li>
+							</ul>
+						</div>
+						<!-- CNCFEATURE  -->
+						<div class="authorityTypeDiv" ng-if="objValueMode['CNCFEATURE'] != null">
+							<span class="AuthorityHint">控制器功能</span>
+							<ul ng-repeat="(szKeyFeature, objValueFeature) in objValueMode['CNCFEATURE']">
+								<!-- FEATURE_TITLE:OOE,ALARM,RECORD.. -->
+								<li ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyFeature,PARENT:null})">
+									<label>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyFeature,PARENT:null})"></span></span>
+										{{fnTranslateItem(szKeyFeature)}}
+									</label>
+								</li>
+								<!-- FEATURE:DAYOOE, CURTALM.. -->
+								<li class="featureItems" ng-repeat="(szTitle,objValue) in objValueFeature">
+									<label ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szTitle,PARENT:szKeyFeature})">
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szTitle,PARENT:szKeyFeature})"></span></span>
+										{{fnTranslateItem(szTitle)}}
+									</label>
+									<label ng-repeat="(szKeyValue,objSubvalue) in objValue" ng-if="Object.keys(objValue).length != 0" ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyValue,PARENT:szTitle})">
+										<br>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyValue,PARENT:szTitle})"></span></span>
+										{{fnTranslateItem(szKeyValue)}}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- save -->
+					<span id="logOfSaving">{{szLogOfAuthority}}</span>
+					<a href="javascript:;" id="btnSaveAuthority" ng-click="fnSaveAuthority()">儲存權限樣板</a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align:center;padding:5px 0px;">
+					<a href="javascript:;">
+						<span id="addIcon"></span>
+						<span style="margin-top:-15px;">新增權限</span>
+					</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	
+</div>

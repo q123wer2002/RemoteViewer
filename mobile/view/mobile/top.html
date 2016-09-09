@@ -1,0 +1,30 @@
+
+<!-- /mp-menu -->
+<div class="headerMenuBar">
+	<input type="hidden" ng-init="fnIsLogin()">
+	
+	<div id="showLeft" class="menu" title="選單" ng-click="fnShowLeftMenu()"></div>
+	<div class="logo" ng-click="fnOpenLink('#/MOBILE')"></div>
+
+	<div id="logout" title="登出" ng-click="fnLogout()"></div>
+
+</div>
+
+<div class="bgBlack" ng-style="{'display':bgBlackDisplay}" ng-click="fnHideLeftMenu()"></div>
+
+<div class="leftScrollBar" ng-style="{'left':leftMenuleftPx}">
+	<div class="leftTopBanner">
+		<div id="userPhoto" ng-init="fnShowComapnyLogo()">
+			<img ng-src="{{szCompanyLogoUrl}}" width="90%" style="margin-top: 1vw;">
+		</div>
+	</div>
+	<ul class="leftItems">
+		<a href="javascript:;" ng-click="fnOpenLink('../MOBILE/#/userSetting')">
+			<li>
+				<span class="lefticon" id="setting"></span>
+				<span class="lefttext">設定</span>
+			</li>
+		</a>
+	</ul>
+	<p id="webVersion">{{szViewerVersion}}</p>
+</div>

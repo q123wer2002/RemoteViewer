@@ -1,0 +1,26 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/settingCSS.css">
+
+<div class="limitWebView settingBigDiv" ng-controller="SyntecLogoSet">
+	<a href="javascript:history.back();" title="返回" class="backLink">
+		<span class="backReverse next_icon"></span>
+		<span style="font-size:20px">返回</span>
+	</a>
+	
+	<div class="menuBar">
+		<ul class="menuBarUl">
+			<a href="javascript:;" ng-repeat="menu in settingMenu" ng-init="ShowMenu(menu)"><li ng-style="menu.style">{{menu.name}}</li></a>
+		</ul>
+	</div>
+
+	<div class="settingDiv" ng-show="settingMenu['companyLogo'].isShow">
+		<h2>LOGO示意圖 (長寬比 10:3) </h2>
+		<div class="logoFrame" ng-style="fnLogoFrameStyle()">
+			<img id="companySmallLogo" ng-src="{{szCompanyLogoUrl}}">
+		</div>
+
+		<input type="file" id="fileupload" accept="image/*" style="display:none;" onchange="angular.element(this).scope().fnUploadImg(this.files)">
+
+		<a href="javascript:;" class="chooseFile" ng-click="fnSelectedImg()">選擇檔案</a>
+	</div>
+</div>

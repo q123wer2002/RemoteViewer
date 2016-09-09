@@ -1,0 +1,60 @@
+<!-- load specific css/js only for this page -->
+
+<link rel="stylesheet" type="text/css" href="css/mobile/settingCSS.css">
+
+<div class="limitWebView settingBigDiv" ng-controller="SyntecSetting">
+	<input type="hidden" ng-init="initSettingData()">
+	
+	<a href="javascript:history.back();" title="返回" class="backLink">
+		<span class="back_icon"></span>
+		<span style="position: absolute;font-size: 5vw;">返回</span>
+	</a>
+	
+	<h3 style="text-align: center;margin-bottom: 2vw;">設定</h3>
+	
+	<div class="settingDiv">
+
+		<div class="settingSubTitle">
+			<img src="images/usericon.png" width="50vw">
+			<h4>使用者資訊</h4>
+		</div>
+
+		<div class="infoDiv">
+			<table border="2" style="width:90%;border-collapse: collapse;margin: 50px auto 0px auto;">
+				<tr class="infoRow" ng-repeat="(userKey, value) in userInfo">
+					<td style="text-align: right;padding-right: 5vw;font-size: 4vw;white-space: nowrap;">{{value.name}}</td>
+					<td style="text-align: left;">
+						<input class="infoInput" style="background:#eeeeee;border-radius: 0;" type="password" ng-model="value.data" placeholder="" ng-if="userKey == 'newPassword'" ng-enter="changePwd(value.data)" placeholder="新密碼">
+						<p class="infoInput" type="text" placeholder="" ng-if="userKey != 'newPassword'">{{value.data}}</p>
+					</td>
+				</tr>
+			</table>
+			<p style="color:red;font-size: 4vw;text-align: center;margin-top: 2vw;" ng-show="userInfo['newPassword'].data.length != 0">下次登入請用新密碼</p>
+			<p style="color:red;font-size: 4vw;text-align: center;margin-top: 2vw;">{{errorMsg}}</p>
+			<div style="margin-top: 5vw;margin-bottom: 5vw;text-align: center;">
+				<a href="javascript:;" class="button" title="更改密碼" ng-show="userInfo['newPassword'].data.length != 0" ng-click="changePwd(userInfo['newPassword'].data)">更改密碼</a>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="settingDiv">
+
+		<div class="settingSubTitle">
+			<img src="{{szCompanyLogoUrl}}" width="50vw">
+			<h4>工廠資訊</h4>
+		</div>
+
+		<div class="infoDiv" style="margin-top: 17vw;">
+			<div class="factoryCard" ng-repeat="f in factoryInfo">
+				<img src="images/IconBlue.ico" title="工廠圖片" width="35vw" height="35vw">
+				<h3 title="工廠名稱" style="float:right;font-size: 5vw;">{{f.name}}</h3>
+				<div class="fDetails">
+					<p>{{f.address}}</p>
+					<p>{{f.tel}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

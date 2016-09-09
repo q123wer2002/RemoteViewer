@@ -1,0 +1,68 @@
+
+<div class="headerMenuBar">
+	<a href="javascript:;" ng-click="fnOpenLink('../WEB')" title="回監控首頁" >
+		<div class="logo" id="logoFrame" ng-init="fnShowComapnyLogo()">
+			<img ng-src="{{szCompanyLogoUrl}}" />
+		</div>
+	</a>
+	
+	<!-- <div class="searchBar searchBarColor">
+		<div id="searchIcon"></div>
+		<input type="text" placeholder="搜尋" class="searchBarColor" ng-focus="linkToSearchPage()" ng-blur="isSearch = false" ng-model="searchText" ng-enter="search()">
+		<a href="javascript:;" title="搜尋" ng-show="isSearch || searchText.length != 0">搜尋</a>
+	</div> -->
+
+	<a href="javascript:;" class="topList link" title="登出" ng-click="fnLogout()">
+		<span class="iconFunction" id="logout"></span>
+	</a>
+
+	<div class="topList link settingMenu" title="設定">
+		<span class="iconFunction" id="setting"></span>
+		<ul class="settingMenuUl">
+			<a href="javascript:;" ng-click="fnOpenLink('../WEB/#/layoutSetting')" title="客製首頁"><li>客製首頁</li></a>
+			<a href="javascript:;" ng-click="fnOpenLink('../WEB/#/shiftSetting')" title="班別設定"><li>班別設定</li></a>
+			<a href="javascript:;" ng-click="fnOpenLink('../WEB/#/logoSetting')" title="客製公司Logo"><li>客製公司Logo</li></a>
+			<a href="javascript:;" ng-click="fnOpenLink('../WEB/#/IPCamRegister')" title="註冊IP Camera"><li>註冊IP Camera</li>
+			</a>
+			<a href="javascript:;" ng-click="fnOpenLink('../WEB/#/AuthorityManagement')" title="帳號權限管理"><li>帳號權限管理</li>
+			</a>
+		</ul>
+	</div>
+
+	<span class="topList" title="使用者">
+		<p>使用者</p>{{fnShowUserName()}}
+	</span>
+	
+	<span class="topList">
+		<p>版本</p>{{szViewerVersion}}
+	</span>
+
+	<!-- test area -->
+	<a href="http://120.27.139.74/RemoteViewerTest/#/" class="topList" title="目前正式版" ng-if="isTestWebSite() == false">
+		<span><p>切換</p>測試版</span>
+	</a>
+
+	<a href="http://120.27.139.74" class="topList" title="目前測試版" ng-if="isTestWebSite() == true">
+		<input type="hidden" ng-init="initTestTrigger(<?php echo $_SESSION['RemoteViewer']['user']['firstEnter']; ?>)">
+		<span><p>切換</p>正式版</span>
+	</a>
+
+	<div class="header_title_show topList" ng-show="isTestWebSite() == true" ng-click="isShowUpdatingDetail=true">
+		<p>查看更新</p>
+		<h3>Beta 測試站</h3>
+	</div>
+
+	<div class="showMeUpdatingDetail" ng-style="StyleOfUpdatingDetail()">
+		<div class="updatingBox">
+			<div id="updatingTitle">
+				<span>更新項目</span>
+				<a href="javascript:;" style="position:absolute;right:10px;color:red;font-size:12px;margin-right:50px;" ng-click="isShowUpdatingDetail=false">關閉</a>
+			</div>
+			<ul id="updatingNote">
+				<li ng-repeat="note in updatingNote">{{note}}</li>
+			</ul>
+		</div>
+	</div>
+	<!-- -->
+
+</div>

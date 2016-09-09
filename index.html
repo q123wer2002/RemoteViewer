@@ -1,0 +1,32 @@
+<!DOCTYPE>
+<html>
+
+<head>
+	<!-- meta html -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="SHORTCUT ICON" href="images/IconBlue.ico">
+
+	<title>RemoteViewer</title>
+
+	<!-- use require js to load all js and kick start angualr-->
+	<script src="shared/script/lib/require.js" data-main="main.js" ></script>
+
+	<!-- import css -->
+	<link rel="stylesheet" type="text/css" href="web/css/web/layout.css">
+
+	<!-- css -->
+	<style>
+		body{
+			width: 100%;
+			text-align: center;
+		}
+	</style>
+
+</head>
+
+<body ng-controller="MainController">
+	<div ng-view></div>
+</body>
+
+</html>

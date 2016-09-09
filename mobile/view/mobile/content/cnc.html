@@ -1,0 +1,56 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/mobile/cnc.css">
+	
+
+<div ng-controller="cncControl">
+
+	<input type="hidden" ng-init="InitCNCPage();">
+
+	<div class="groupTopBar">
+		<div class="cncTopBar">
+			<a class="leftTop" title="{{factoryName}}"><span>{{ShowCncData('szFactoryName')}}</span></a>
+			<a class="leftTop" title="{{groupName}}"><span>{{ShowCncData('szGroupName')}}</span></a>
+		</div>
+
+		<div class="rightTop">
+			<span class="leftTop" style="color:#205081;font-size: 4vw;">{{ShowCncData('szName')}}</span>
+			<span class="updatetime">更新時間：{{ShowCncData('dateAgentTime')}}</span>
+	    </div>
+		
+		<span style="padding: 3vw;color:#ffffff;" ng-style="{'background':fnCNCStatusColorStyle(ShowCncData('cncStatus'))}">{{fnCNCStatusName( ShowCncData('cncStatus'), 'cht')}}</span>
+
+	</div>
+
+	<div class="cncMid2Bar">
+		<div class="imgDiv"><img src="{{ShowCncData('filePic')}}"></div>
+		<div class="cncDetailDiv">
+			<ul class="CNCDetailUl">
+				<li ng-repeat="(infoKey,infoValue) in objCncInfos">
+					<span class="cncTitle">{{infoValue}}：</span>
+					<span class="cncData">{{ShowCncData('cncInfo', infoKey)}}</span>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="cncHisDetailDiv">
+		<div class="dataShow" ng-include="showDataHtml"></div>
+	</div>
+
+	<ul class="TabHisData">
+		<input type="hidden" ng-init="fnInitCncDataForMobile()">
+		<a href="javascript:;" title="{{hisData.name}}" ng-repeat="(hisName,hisData) in cncFunctions" ng-click="tabHisClick(hisName,hisData)" ng-if="hisData.isShow">
+			<li>
+				<span class="tabIcon" ng-style="{'background-image':'url({{hisData.icon}})'}"></span>
+				<span class="tabName">{{hisData.name}}</span>
+			</li>
+		</a>
+		<a href="javascript:;" title="IPCAM">
+			<li>
+				<span class="tabIcon" style="background-image:url(images/cncs/Live.png);"></span>
+				<span class="tabName">OFFLINE</span>
+			</li>
+		</a>
+	</ul>
+
+</div>

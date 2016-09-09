@@ -1,0 +1,749 @@
+/* cncPage */
+	.backDiv{
+		position: fixed;
+		height: 100%;
+		top: 0;
+		left: 0;
+		text-align: center;
+	}
+	.backDiv:hover{
+    	cursor: pointer;
+	}
+	.backDiv img{
+		opacity:0.5;
+		width: 150px;
+		margin-top: 300px;
+	}
+	.cncTopBar{
+		margin-top: 70px;
+		width: 100%;
+		height: 70px;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+	}
+	.topTitle{
+		position: relative;
+	}
+	.subtitle{
+		position: absolute;
+		left: 0;
+		top: -15px;
+		font-size: 9px;
+		color: #888;
+	}
+	.cncTopBar ul li{
+		list-style: none;
+		font-size: 18px;
+		color: #888888;
+		line-height: 70px;
+	}
+	.cncTopBar ul li span{
+		font-weight: 700;
+	}
+	#indexUrl:hover{
+		border-bottom: 1px solid #000;
+	}
+	.leftTop{
+		position: absolute;
+		left: 16px;
+	}
+	.rightTop{
+		float: right;
+	}
+
+	.cncMidBar{
+		position:absolute;
+		width: 40%;
+		min-width: 300px;
+		height: 70px;
+		text-align: center;
+		font-size: 20px;
+		top: 0;
+		right: 0;
+		border-bottom: 2px solid #000;
+	}
+	.cncMidBar .statusName{
+		color:#fff;
+		line-height: 70px;
+	}
+	.cncMidBar .updatetime{
+		position: absolute;
+		font-size: 9px;
+		bottom: -19px;
+		right: 0px;
+		color:#000;
+	}
+
+	.cncMid2Bar{
+		width: 100%;
+		height: auto;
+		margin:auto;
+		margin-top: 30px;
+		text-align: center;
+		position: relative;
+	}
+	.cncMid2Bar .cncDetailPic{
+		width: 150px;
+		height: 150px;
+		float: left;
+		margin-right: 10px;
+	}
+	.cncMid2Bar .cncImg{
+		/*display: inline-block;*/
+		max-width: 100%;
+		max-height: 100%;
+		float: right;
+	}
+	.cncMid2Bar .cncDetailDiv{
+		width: auto;
+		margin-left: 20%;
+		text-align: left;
+		position: relative;
+	}
+	.cncMid2Bar .cncDetailDiv .CNCDetailTable{
+		border-collapse: collapse;
+		text-align: center;
+		border:1px solid #000;
+	}
+	.cncMid2Bar .cncDetailDiv .CNCDetailTable span{
+		font-size: 15px;
+	}
+	.cncMid2Bar .cncDetailDiv .CNCDetailTable .cncTitle{
+		color: #000;
+		padding: 3px 20px;
+		border:none;
+		border-right:1px solid rgba(0,0,0,0.2);
+	}
+	.cncMid2Bar .cncDetailDiv .CNCDetailTable .cncData{
+		padding: 3px 20px;
+		border:none;
+	}
+	.cncMid2Bar .menuDiv{
+		width: 100%;
+		position: relative;
+		overflow: hidden;
+	}
+	.cncMid2Bar .menuDiv .functionGroupDiv{
+		display: inline-block;
+		position: relative;
+		border-bottom: 2px solid #fff;
+	}
+	.cncMid2Bar .menuDiv .functionGroupColor{
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 30px;
+	}
+
+	.cncHisDetailDiv .TabHisData{
+		list-style: none;
+		border-bottom: 1px solid rgba(0,0,0,0.1);
+		position: relative;
+	}
+	.cncHisDetailDiv .TabHisData a{
+		color: #000000;
+	}
+	.cncHisDetailDiv .TabHisData .FGID_1{
+		display: inline-block;
+		text-align: center;
+		font-size: 15px;
+		padding: 7px 10px;
+		position: relative;
+		left: 0px;
+	}
+	.cncHisDetailDiv .TabHisData .FGID_2{
+		display: inline-block;
+		text-align: center;
+		font-size: 15px;
+		padding: 7px 10px;
+		position: relative;
+		left: 150px;
+	}
+	.cncHisDetailDiv .TabHisData .FGID_3{
+		display: inline-block;
+		text-align: center;
+		font-size: 15px;
+		padding: 7px 10px;
+		position: relative;
+		left: 300px;
+	}
+	.cncHisDetailDiv .TabHisData .tabName{
+		margin: 0px 10px;
+		display: block;
+	}
+	.cncHisDetailDiv .tabIcon{
+		width: 20px;
+		height: 20px;
+		background-size: 20px auto;
+		margin: auto;
+		display: block;
+	}
+	.cncHisDetailDiv .TabHisData .scrollBar{
+		height: 3px;
+		position: absolute;
+		bottom: -2px;
+		background:#111d6d;
+		width: 100%;
+		left: 0px;
+	}
+
+	.cncHisDetailDiv .dataShow{
+		background: #ffffff;
+		width: 100%;
+		min-height: 400px;
+		padding:16px;
+		margin: 10px 0px 20px 0px;
+		position: relative;
+		border-bottom: 1px solid #000;
+	}
+	.writeProtectedDiv{
+		position: fixed;
+		width: 40%;
+		height: 200px;
+		background: #fff;
+		left: 30%;
+		top: 300px;
+		text-align: center;
+		border:1px solid #000;
+		z-index: 10;
+	}
+	.black_BG{
+		position: fixed;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,0.7);
+	}
+/* special page */
+/*OOE*/
+	.OOEDIv{
+		width: 100%;
+		height: 350px;
+		position: relative;
+	}
+	.choseOOEUnitDiv{
+
+	}
+	.choseOOEUnitDiv .UnitChose{
+		cursor: pointer;
+		font-size: 12px;
+		margin: 0px 10px;
+		padding: 5px 7px;
+		border:1px solid #111d6d;
+		border-radius: 3px;
+	}
+	.choseOOEUnitDiv .UnitChose:hover{
+		background: #111d6d !important;
+		color: #ffffff !important;
+	}
+	#DAYOOEDiv{
+		display: none;
+	}
+	.OOEChart{
+		width: 924px;
+		height: 330px;
+		margin-top: 7px;
+		position: relative;
+		float:right;
+	}
+	.OOEDIv .shiftSelectDiv{
+		position: absolute;
+		margin-top: 10px;
+		width: 95px;
+		text-align: center;
+	}
+	.OOEDIv .shiftSelectDiv .shiftUni{
+		margin-top: 20px;
+		color:#888888;
+	}
+	.OOEDIv .shiftSelectDiv .shiftUni:hover p{
+		color:#000;
+	}
+	.OOEDIv .shiftSelectDiv .shiftUni a{
+		padding:4px 8px;
+		background:#fff;
+		font-size: 14px;
+		border:1px solid #000;
+		border-radius: 3px;
+		color:#111d6d;
+	}
+	.OOEDIv .shiftSelectDiv .shiftUni a:hover{
+		background:#000 !important;
+		color: #fff !important;
+	}
+	.OOEDIv .shiftSelectDiv .shiftUni p{
+		font-size: 9px;
+		margin-top: 10px;
+	}
+	.OOEDIv .arrowDiv{
+		width: 150px;
+		height: 30px;
+		margin: auto;
+		position: relative;
+	}
+	.OOEDIv .arrowDiv a{
+		display: inline-block;
+		color: #888888;
+	}
+	.OOEDIv .arrowDiv a:hover span{
+		text-decoration: underline;
+	}
+	.OOEDIv .arrowDiv span{
+		font-size: 9px;
+	}
+
+	.OOEDIv .arrowDiv .arrowIcon{
+		background: url(../../images/arrow.png);
+		width: 20px;
+		height: 20px;
+		background-size: 20px auto;
+		display: block;
+		margin-left: 17px;
+	}
+	.OOEDIv .arrowDiv #leftArrow{
+		float: left;
+	}
+	.OOEDIv .arrowDiv #leftArrow .arrowIcon{
+		-ms-transform: rotate(180deg); /* IE 9 */
+	    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+	    transform: rotate(180deg);
+	}
+	.OOEDIv .arrowDiv #rightArrow{
+		float: right;
+	}
+	.OOEDIv #avgOOEShow{
+		margin-top: 60px;
+		font-family: 'Poiret One', cursive;
+		font-weight: 900;
+		font-size: 100px;
+		color:#111d6d;
+	}
+	.OOEDIv #explainAVGHisOOE{
+		border:1px solid #111d6d;
+		width: 500px;
+		height: 100px;
+		margin: 30px auto;
+		border-radius: 3px;
+		color:#111d6d;	
+		background: #eeeeee;
+	}
+/*Alarm*/
+	.choseAlmUnitDiv .UnitChose{
+		cursor: pointer;
+		font-size: 12px;
+		margin: 0px 10px;
+		padding: 5px 7px;
+		border:1px solid #FF4545;
+		border-radius: 3px;
+	}
+	.choseAlmUnitDiv .UnitChose:hover{
+		background: #FF4545 !important;
+		color: #ffffff !important;
+	}
+	.unitAlmDiv{
+		width: 90%;
+		height: 330px;
+		margin-top: 7px;
+		position: relative;
+		padding: 16px 5%;
+		overflow-y:auto;
+	}
+	/* current alarm*/
+		.unitAlmDiv ul{
+			width: 450px;
+			height: 100%;
+			margin: auto;
+			list-style: none;
+			overflow-y : auto;
+			text-align: center;
+		}
+		.unitAlmDiv ul li{
+			position: relative;
+			width: 400px;
+			margin: auto;
+			text-align: left;
+			margin: 20px 0px;
+		}
+		.unitAlmDiv ul li:hover .almInfo{
+			background: #CFCFCF;
+		}
+		.unitAlmDiv ul li *{
+			display: inline-block;
+		}
+		.unitAlmDiv ul li .content{
+			color:red;
+			font-size: 25px;
+			font-weight: 700;
+		}
+		.unitAlmDiv ul li .almInfo{
+			height: auto;
+			padding: 7px;
+			border: 1px solid rgba(0,0,0,0.4);
+			border-radius: 3px;
+			text-align: center;
+			margin-right: 15px;
+		}
+		.unitAlmDiv ul li .almInfo p{
+			display: block;
+			font-size: 15px;
+		}
+		.timestamp{
+			color: #888888;
+			font-size: 9px;
+			position: absolute;
+			bottom: -10px;
+			right: 0;
+		}
+	/* history alarm*/
+		.unitAlmDiv table, th, td {
+		   border: 1px solid rgba(0,0,0,0.2);
+		}
+		.unitAlmDiv tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+	/* analyze alarm */
+		.unitAlmDiv .almChart{
+			display: inline-block;
+			width: 45%;
+			height: 300px;
+			margin: 0px 2%;
+		}
+		.unitAlmDiv #quote{
+			font-size: 18px;
+			color: #000000;
+			text-align: center;
+		}
+/*Record*/
+	.choseRecodUnitDiv .UnitChose{
+		cursor: pointer;
+		font-size: 12px;
+		margin: 0px 10px;
+		padding: 5px 7px;
+		border:1px solid #16BA03;
+		border-radius: 3px;
+	}
+	.choseRecodUnitDiv .UnitChose:hover{
+		background: #16BA03 !important;
+		color: #ffffff !important;
+	}
+	.unitRecodDiv{
+		width: 90%;
+		height: 330px;
+		margin-top: 7px;
+		position: relative;
+		padding: 16px 5%;
+		overflow-y:auto;
+	}
+	.unitRecodDiv .recordOverview{
+		width:500px;
+		height: 100%;
+		margin: auto;
+		text-align: center;
+		position: relative;
+	}
+	.unitRecodDiv .recordOverview .processBar{
+		width: 450px;
+		height: 35px;
+		margin: 50px auto 70px auto;
+		border:1px solid #16BA03;
+		border-radius: 5px;
+		position: relative;
+	}
+	.unitRecodDiv .recordOverview .processBar .process{
+		width: 0px;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		background: #16BA03;
+		text-align: center;
+		color: #ffffff;
+	}
+	.unitRecodDiv .recordOverview .recordDetail{
+		width: 480px;
+		margin: auto;
+		text-align: left;
+	}
+	.unitRecodDiv .recordOverview .recordDetail table{
+		font-size: 15px;
+	}
+	.unitRecodDiv tr:nth-child(even) {
+		background-color: #f2f2f2;
+	}
+	.recordDiv .btnExcel{
+		position:absolute;
+		top:15px;
+		right:50px;
+		color:#000000;
+		border-bottom:2px solid #1E7145;
+	}
+	.recordDiv #iconExcel{
+		font-weight:900;
+		padding:4px 8px;
+		border:2px solid #1E7145;
+		color:#ffffff;
+		background:#1E7145;
+	}
+	.recordDiv .btnExcel:hover #iconExcel{
+		color:#1E7145;
+		background:#ffffff;
+	}
+/*Diagnosis*/
+	.choseDiagnosisUnitDiv .UnitChose{
+		cursor: pointer;
+		font-size: 12px;
+		margin: 0px 10px;
+		padding: 5px 7px;
+		border:1px solid #FF6800;
+		border-radius: 3px;
+	}
+	.choseDiagnosisUnitDiv .UnitChose:hover{
+		background: #FF6800 !important;
+		color: #ffffff !important;
+	}
+	.showBitDiv{
+		width: 90%;
+		height: 330px;
+		margin-top: 7px;
+		position: relative;
+		padding: 16px 5%;
+	}
+	.showBitDiv .inputNo{
+		position: absolute;
+		top: 10px;
+		left: 500px;
+		background:#eeeeee;
+	}
+	.showBitDiv .inputNo .inputDiagNo{
+		background:#eeeeee;
+		padding: 5px 10px;
+		border-radius: 3px;
+		font-size:15px;
+	}
+	.showBitDiv .bitTitle{
+		font-size: 30px;
+		font-weight: 700;
+	}
+	.showBitDiv .bitTable{
+		 width:100%;
+		 border-collapse: collapse;
+		 text-align: center;
+	}
+	.showBitDiv .ParamDiv{
+		width: 100%;
+		display: inline-block;
+		margin-left: 4%;
+	}
+	.showBitDiv .ParamTable{
+		width: 90%;
+		border-collapse: collapse;
+		text-align: center;
+	}
+	.showBitDiv table, th, td{
+		border: 1px solid rgba(0,0,0,0.2);
+	}
+	.showBitDiv tr:nth-child(odd) {
+		background-color: #FEF0E6;
+	}
+	.showBitDiv table{
+		table-layout: fixed;
+    	width: 100px;
+	}
+	.showBitDiv .updatingTime{
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		font-size: 13px;
+		color: #888888;
+	}
+	.showBitDiv .arrowDiv{
+		position: absolute;
+		bottom: 35px;
+		left: 470px;
+		width: 80px;
+	}
+	.showBitDiv .arrowIcon{
+		background: url(../../images/arrow.png);
+		width: 25px;
+		height: 25px;
+		background-size: 25px auto;
+		display: inline-block;
+		position: absolute;
+		right: 0px;
+	}
+	.showBitDiv #preIcon{
+		-ms-transform: rotate(180deg); /* IE 9 */
+	    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+	    transform: rotate(180deg);
+	    left: 0px;
+	}
+/*FileTransfer*/
+	.choseFileTransUnitDiv .UnitChose{
+		cursor: pointer;
+		font-size: 12px;
+		margin: 0px 10px;
+		padding: 5px 7px;
+		border:1px solid #62000F;
+		border-radius: 3px;
+	}
+	.choseFileTransUnitDiv .UnitChose:hover{
+		background: #62000F !important;
+		color: #ffffff !important;
+	}
+	.fileTransDiv{
+		width: 90%;
+		height: 330px;
+		margin-top: 7px;
+		position: relative;
+		padding: 16px 5%;
+	}
+	.fileTransDiv .cncFilesTable{
+		margin-left: 30px;
+		background: #eeeeee;
+		width:630px;
+		border-collapse: collapse;
+		text-align: center;
+	}
+	.fileTransDiv .cncFilesTable tr{
+		border-bottom: 1px solid rgba(0,0,0,0.3);
+		padding: 15px 0px;
+		background: #ffffff;
+	}
+	.fileTransDiv .cncFilesTable tr:hover{
+		background: #BDBDBD;
+	}
+	.cncFilesTable tr:nth-child(even) {
+		background-color: #FFEAED;
+	}
+	.fileTransDiv .fileTransBtnDiv{
+		position: absolute;
+		top: 60px;
+		right: 130px;
+		text-align: left;
+	}
+	.fileTransDiv .fileTransBtnDiv .btnListUi{
+		list-style: none;
+		margin-top: 70px;
+		width: 100px;
+	}
+	.fileTransDiv .fileTransBtnDiv .btnListUi a{
+		color: #62000F;
+	}
+	.fileTransDiv .fileTransBtnDiv .btnListUi li{
+		padding:7px 5px;
+		background: #ffffff;
+		text-align: center;
+		margin-top: 12px; 
+		border-radius: 3px;
+		border:1px solid #62000F;
+	}
+	.fileTransDiv .fileTransBtnDiv .btnListUi li:hover{
+		background: #BDBDBD;
+	}
+	.fileTransferDiv .infoBG{
+		background:rgba(98,0,15,0.7);
+		position: absolute;
+		width: 100%;
+		height: 50px;
+		z-index: 12;
+		bottom: 0;
+		left: 0;
+		text-align: center;
+		color: #000000;
+		line-height: 50px;
+		font-weight: 700;
+	}
+/*Offset*/
+	.offsetDiv{
+		width: 90%;
+		height: 330px;
+		margin-top: 25px;
+		padding: 0px 5%;
+	}
+	.offsetDiv .hint{
+		position:absolute;
+		color:red;
+		font-size: 15px;
+	}
+	.offsetDiv .inputNo{
+		position: absolute;
+		top: 10px;
+		left: 500px;
+		background:#eeeeee;
+	}
+	.offsetDiv .inputNo .inputDiagNo{
+		background:#eeeeee;
+		padding: 5px 10px;
+		border-radius: 3px;
+		font-size:15px;
+	}
+	.offsetDiv .offsetTable{
+		width:100%;
+		border-collapse: collapse;
+		text-align: center;
+	}
+	.offsetDiv .offsetTable tr:hover{
+		background: #888888;
+	}
+	.offsetDiv table, th, td{
+		border: 1px solid rgba(0,0,0,0.2);
+	}
+	.offsetDiv tr:nth-child(even) {
+		background-color: #F2F2F2;
+	}
+	.offsetDiv table{
+		table-layout: fixed;
+		width: 100px;
+	}
+	.offsetTable span{
+		width: 100%;
+		font-size: 15px;
+	}
+	.offsetTable input{
+		width: 100%;
+		height: 100%;
+		font-size: 15px;
+		text-align: left;
+	}
+	.offsetTable .btnSave{
+		cursor: pointer;
+		background: red;
+		width: 100%;
+		color: #fff;
+		box-shadow: 1px 1px 3px #000;
+	}
+	.offsetDiv .infoBG{
+		background:rgba(127, 127, 127,0.7);
+		position: absolute;
+		width: 100%;
+		height: 50px;
+		z-index: 12;
+		bottom: 0;
+		left: 0;
+		text-align: center;
+		color: #000000;
+		line-height: 50px;
+		font-weight: 700;
+	}
+	.offsetDiv .arrowDiv{
+		position: absolute;
+		bottom: 35px;
+		left: 420px;
+		width: 80px;
+	}
+	.offsetDiv .arrowIcon{
+		background: url(../../images/arrow.png);
+		width: 25px;
+		height: 25px;
+		background-size: 25px auto;
+		display: inline-block;
+		position: absolute;
+		right: 0px;
+	}
+	.offsetDiv #preIcon{
+		-ms-transform: rotate(180deg); /* IE 9 */
+	    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+	    transform: rotate(180deg);
+	    left: 0px;
+	}

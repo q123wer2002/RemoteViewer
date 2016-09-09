@@ -1,0 +1,77 @@
+body{
+	background:#ffffff;
+}
+	.settingBigDiv{
+		width: 1100px;
+		height: auto;
+		margin-top: 80px;
+	}
+	.selectFactory{
+		width: 100%;
+		height: auto;
+	}
+	.selectFactory #factoryUl{
+		list-style: none;
+		margin-top: 15px;
+	}
+	.selectFactory #factoryUl li{
+		width: 250px;
+		height: 350px;
+		text-align: center;
+		color: #A0A0A0;
+		background: #282828;
+		font-weight: 700;
+		border: 1px solid #000000;
+		display: inline-block;
+		margin: 10px;
+		position: relative;
+	}
+	.selectFactory #factoryUl li .factoryView{
+		width: 100%;
+		height: 250px;
+		position: relative;
+		background-image: url(../../images/b.jpg);
+		background-size: auto 100%;
+		-webkit-filter: blur(5px); /* Chrome, Safari, Opera */
+    	filter: blur(5px);
+	}
+	.selectFactory #factoryUl li .blackPlayShadow{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 250px;
+		background:rgba(0,0,0,0.3);
+		display: block;
+		color:#ffffff;
+	}
+	.selectFactory #factoryUl li .blackPlayShadow:hover{
+		display: block;
+		cursor: pointer;
+	}
+	.selectFactory #factoryUl li .blackPlayShadow h2{
+		position: absolute;
+		right: 12px;
+		bottom: 12px;
+		color: #ffffff;
+	}
+	.selectFactory #factoryUl li a{
+		padding:5px;
+		color: #ffffff;
+	}
+	.selectFactory #factoryUl li a:hover{
+		text-decoration: underline;
+	}
+	#play_icon{
+		display: inline-block;
+		background-repeat: no-repeat;
+		width: 55px;
+		height: 55px;
+		background-size: 55px auto;
+		background-image: url(../../images/play.png);
+	}
+	.selectFactory #factoryUl li .blackPlayShadow:hover #play_icon{
+		width: 60px;
+		height: 60px;
+		background-size: 60px auto;
+	}

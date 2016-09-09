@@ -1,0 +1,25 @@
+<!-- load specific css/js only for this page -->
+<link href="../shared/server/vxgplayer_1.8.8/vxgplayer-1.8.8.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/web/IPCamStreaming.css">
+<script src="../shared/server/vxgplayer_1.8.8/vxgplayer-1.8.8.min.js"></script>
+
+<!-- load script -->
+
+
+<div class="limitWebView settingBigDiv" ng-controller="SyntecIPCamStream">
+    <input type="hidden" ng-init="InitializeGroupList()">
+
+    <ul>
+        <li ng-repeat="g in groupList" style="list-style-type:none;" ng-show="g.isShow">
+            <input type="hidden" ng-init="fnInitGetIPCamInfo(g.group_id)" />
+
+            <div class="streamGroupName">{{g.group_name}}</div>
+
+            <!--"IE, firefox, ..." rtsp streaming-->
+            <ul id="dynamicallyVlcPlayers{{g.group_id}}" class="dynamicallyVlcPlayers" ng-show="is_chrome == 0"></ul>
+
+            <!--"chrome" rtsp streaming-->
+            <ul id="dynamicallyVxgPlayers{{g.group_id}}" class="dynamicallyVxgPlayers" ng-show="is_chrome == 1"></ul>
+        </li>
+    </ul>
+</div>

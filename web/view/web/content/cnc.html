@@ -1,0 +1,103 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/cnc.css">
+	
+
+<div class="limitWebView">
+
+	<input type="hidden" ng-init="InitCNCPage();">
+
+	<div class="backDiv" ng-style=AutoFixBackWidth(); ng-mouseover="isShowBackIcon=true" ng-mouseleave="isShowBackIcon=false" title="返回" onclick="javascript:window.open('#/', '_self');">
+		<img src="images/back_icon.png" ng-show="isShowBackIcon" />
+	</div>
+
+	<div class="cncTopBar">
+		<ul  class="leftTop" style="margin-top:30px;">
+			<a href="#/" title="{{ShowCncData('szFactoryName')}}" style="color:#000;font-weight: 700;" id="indexUrl" ng-right-click="ShowDebugDoor();">
+				<span class="topTitle"><span class="subtitle">工廠</span>{{ShowCncData('szFactoryName')}}</span>
+			</a>
+			  > <span class="topTitle"><span class="subtitle">群組</span>{{ShowCncData('szGroupName')}}</span>
+			  > <span class="topTitle"><span class="subtitle">控制器</span>{{ShowCncData('szName')}}</span>
+		</ul>
+		<!-- <a href="" class="rightTop" title="IPCAM"><span>{{cnc.groupIPCAM}}</span></a> -->
+	</div>
+
+	<div class="cncMidBar" ng-style="{'background':fnCNCStatusColorStyle( ShowCncData('cncStatus') )}" ng-right-click="ShowDebugDoor()">
+		<span class="statusName">{{fnCNCStatusName( ShowCncData('cncStatus'), 'cht')}}</span>
+		<span class="updatetime">更新時間：{{ShowCncData('dateAgentTime')}}</span>
+	</div>
+
+	<div class="cncMid2Bar">
+		<div class="cncDetailDiv">
+			<div class="cncDetailPic">
+				<img ng-src="{{ShowCncData('filePic')}}" class="cncImg">
+			</div>
+			<table border="0" class="CNCDetailTable">
+				<tr>
+					<td colspan="2" style="background:#000;color:#fff;padding:4px;">基本訊息</td>
+				</tr>
+				<tr ng-repeat="(infoKey,infoValue) in objCncInfos">
+					<td class="cncTitle">{{infoValue}}</td>
+					<td class="cncData">{{ShowCncData('cncInfo', infoKey)}}</td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- function group -->
+		<div class="menuDiv">
+			<span style="display:block;font-size:12px;position:absolute;">功能分類</span>
+			<div class="functionGroupDiv" ng-repeat="FG in cncFunctionGroups" ng-style="{'width':FG.width,'height':FG.height}">
+				<div class="functionGroupColor" ng-style="StyleOfSelectedGroup(FG)"><span>{{FG.name}}</span></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="cncHisDetailDiv">
+		<ul class="TabHisData">
+			<a href="javascript:;" title="{{profileData.name}}" ng-repeat="(profileName,profileData) in cncFunctions" ng-click="tabHisClick(profileName,profileData)" ng-if="profileData.isShow">
+				<li class="FGID_1" ng-if="profileData.FGID==1">
+					<span class="tabIcon" ng-style="{'background-image':'url({{profileData.icon}})'}"></span>
+					<span class="tabName">{{profileData.name}}</span>
+				</li>
+				<li class="FGID_2" ng-if="profileData.FGID==2">
+					<span class="tabIcon" ng-style="{'background-image':'url({{profileData.icon}})'}"></span>
+					<span class="tabName">{{profileData.name}}</span>
+				</li>
+				<li class="FGID_3" ng-if="profileData.FGID==3">
+					<span class="tabIcon" ng-style="{'background-image':'url({{profileData.icon}})'}"></span>
+					<span class="tabName">{{profileData.name}}</span>
+				</li>
+			</a>
+			<div class="scrollBar" ng-style="{'width':scrollBarWith, 'left':scrollBarLeft, 'background':scrollBarBG}"></div>
+		</ul>
+
+		<div class="dataShow" ng-include="showDataHtml"></div>
+	</div>
+
+	<div class="AgnetDebugDoor" ng-show="isOpenDebugDoor">
+		<a href="javascript:;" style="position:absolute;top:20px;right:20px;" ng-click="CloseDoor()">關閉</a>
+
+		<h2 style="color:#ffffff;" ng-show="!isEnterDoor">請輸入終極密碼</h2>
+		<h2 style="color:#ffffff;" ng-show="isEnterDoor">Agent DEBUG 模式</h2>
+		
+		<input type="password" ng-model="szDebugDoor" placeholder="終極密碼" ng-change="checkEnterDebug()" ng-show="!isEnterDoor" style="font-size:18px;padding:7px 10px;margin-top:20px;">
+
+		<div ng-show="isEnterDoor">
+			<a href="javascript:;" class="btnDebug" ng-click="DoCommand('DEBUGON')">DEBUG_ON 開啟</a>
+			<a href="javascript:;" class="btnDebug" ng-click="DoCommand('DEBUGOFF')">DEBUG_OFF 關閉</a>
+			<a href="javascript:;" class="btnDebug" ng-click="DoCommand('DEBUGUPLOAD')">DEBUG_DOWNLOAD 下載</a>
+		</div>
+	</div>
+
+	<!-- write protected -->
+	<div class="writeProtectedDiv" ng-show="$root.isShowAuthority">
+		<div style="height:50px;background:rgba(0,0,0,0.8);color:#fff;line-height:50px;">
+			<p>寫入保護</p>
+		</div>
+		
+		<a href="javascript:;" ng-click="$root.isShowAuthority=false;" style="position:absolute;right:20px;top:7px;color:#fff;font-size:10px;">關閉</a><br>
+
+		<input type="password" ng-model="writeProtectedPwd" ng-change="DoubleCheckPwd(writeProtectedPwd)" style="background:#fff;padding:1% 5%;width:70%;font-size:15px;border-bottom:1px solid #000;margin-top:30px;text-align:center;" placeholder="請輸入密碼" />
+	</div>
+	<div class="black_BG" ng-show="$root.isShowAuthority"></div>
+
+</div>

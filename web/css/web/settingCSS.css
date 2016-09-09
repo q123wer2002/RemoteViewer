@@ -1,0 +1,757 @@
+.settingBigDiv{
+	width: 1024px;
+	height: auto;
+	margin-top: 60px;
+	padding: 30px;
+}
+/* link */
+	.settingBigDiv .backLink{
+		position: absolute;
+		top: 25px;
+		color: #000000;
+		padding: 7px 10px;
+		border-bottom: 1px solid #000000;
+	}
+	.settingBigDiv .backLink:hover{
+		border-bottom: 5px solid #000000;
+	}
+	.settingBigDiv .backReverse{
+		-ms-transform: rotate(180deg); /* IE 9 */
+		-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+		transform: rotate(180deg);
+	}
+	.settingBigDiv .next_icon{
+		display: inline-block;
+		width: 18px;
+		height: 18px;
+		background: url(../../images/arrow.png);
+		background-repeat: no-repeat;
+		background-size: 18px auto;
+	}
+	.settingBigDiv .menuBar #userInfo:hover + .settingBigDiv #userInfoDiv{
+		display: block;
+	}
+	.settingBigDiv .customizedPage{
+		position: absolute;
+		top: 25px;
+		right: 100px;
+		color: #000000;
+		padding: 7px 10px;
+		border-bottom: 1px solid #000000;
+	}
+	.settingBigDiv .customizedPage:hover{
+		border-bottom: 5px solid #000000;
+	}
+/* menu */
+	.settingBigDiv .menuBar{
+		width: 700px;
+		margin: 50px auto 0px auto;
+	}
+	.settingBigDiv .menuBar .menuBarUl{
+		list-style: none;
+	}
+	.settingBigDiv .menuBar .menuBarUl li{
+		display: inline-block;
+		margin-right: 50px;
+		padding: 7px 10px;
+		border-bottom: 1px solid #ffffff;
+	}
+	.settingBigDiv .menuBar .menuBarUl li:hover{
+		border-bottom: 1px solid #000000;
+	}
+	.settingBigDiv .menuBar a{
+		color: #000000;
+	}
+	.settingBigDiv .menuBar .subMenu{
+		list-style: none;
+		margin-top: 10px;
+	}
+	.settingBigDiv .menuBar .subMenu li{
+		display: inline-block;
+		margin: 5px 10px;
+	}
+	.settingBigDiv .menuBar .subMenu a{
+		color: #000;
+	}
+/* setting Page */
+	.settingBigDiv .shiftSettingDiv{
+		width: 100%;
+		min-height: 300px;
+		margin: auto;
+		margin-top: 40px;
+		padding: 3px;
+		text-align: center;
+		overflow-x: hidden;
+		position: relative;
+		/*display: none;*/
+	}
+	.settingBigDiv #userInfoDiv{
+		border:1px solid #000000;
+		display: block;
+	}
+	.settingBigDiv #userInfoDiv .infoDiv{
+		margin-bottom: 50px;
+	}
+	.settingBigDiv #factoryInfoDiv{
+		margin-top: 0px;
+		text-align: left;
+	}
+	.settingBigDiv .shiftSettingDiv #ooeInfo{
+		width:150px;
+		height:40px;
+		position: relative;
+		text-align:center;
+		float:right;
+		margin-right: 50px;
+	}
+	.settingBigDiv .shiftSettingDiv h3{
+		margin-top: 15px;
+	}
+	.settingBigDiv .shiftSettingDiv .infoRow{
+		min-height:80px;
+		border-bottom: 2px solid rgba(0,0,0,0.5);
+	}
+	.settingBigDiv .shiftSettingDiv .infoRow .infoInput{
+		max-width: 700px;
+		min-height: 28px;
+		background: #0000;
+		margin: 5px 0px 5px 15px;
+		padding: 5px 10px;
+		border-left:1px solid rgba(0,0,0,0.3);
+	}
+	.settingBigDiv .shiftSettingDiv .factoryCard{
+		width: 90%;
+		height: 270px;
+		padding: 20px;
+		border:1px solid rgba(0,0,0,0.8);
+		position: relative;
+		margin-left: -90%;
+		z-index: 9;
+		position: absolute;
+		background: #ffffff;
+	}
+	.settingBigDiv .shiftSettingDiv .factoryCard:hover{
+		margin-left: 0;
+	}
+	.settingBigDiv .shiftSettingDiv .factoryCard .ooeSettingDiv{
+		width: 100%;
+		text-align: center;
+	}
+	.settingBigDiv .shiftSettingDiv .factoryCard .fDetails{
+		font-size: 15px;
+		display: inline-block;
+		margin-left: 10px;
+	}
+	.settingBigDiv .shiftSettingDiv .factoryCard .ooeSettingDiv .ooeTimeSetDiv{
+		margin-top: 15px;
+		font-size: 15px;
+	}
+	.settingBigDiv .shiftSettingDiv .factoryCard .ooeSettingDiv .ooeTimeSetDiv table{
+		margin: auto;
+		font-size: 15px;
+	}
+	.settingBigDiv .shiftSettingDiv .factoryCard .ooeSettingDiv .ooeTimeSetDiv table tr{
+		height: 50px;
+	}
+	#btnSaveShiftTime{
+		position: absolute;
+		right: 100px;
+		bottom: 35px;
+		background:red;
+		color: #fff;
+		padding:5px 7px;
+	}
+
+	.settingBigDiv .shiftSettingDiv .factoryCard #setTimeTitle{
+		position: absolute;
+		width: 30px;
+		height: 100%;
+		padding: 0px 10px;
+		text-align: center;
+		vertical-align: middle;
+		writing-mode: vertical-rl;
+		right: 0px;
+		top: 0;
+		line-height: 50px;
+		background: #000000;
+		color:#ffffff;
+	}
+	/* shiftSchedule */
+		.shiftSchedule{
+			width: 90%;
+			height: 680px;
+			margin-left: 10%;
+			margin-top: 20px;
+			text-align: center;
+			position: relative;
+		}
+		.shiftSchedule #scheduleMonth{
+			position: absolute;
+			right: 80px;
+			font-weight: 700;
+			font-size: 23px;
+		}
+		.shiftSchedule .scheduleWeek{
+			list-style: none;
+			padding: 12px 0px;
+			border-bottom: 1px solid #000000;
+			text-align: left;
+		}
+		.shiftSchedule .scheduleWeek li{
+			display: inline-block;
+			margin-left: 50px;
+			font-size: 20px;
+			font-weight: 700;
+			width:20px;
+			height: 20px;
+			line-height: 20px;
+			color: #888888;
+		}
+		.shiftSchedule .scheduleDays{
+			list-style: none;
+			margin: auto;
+			margin-left: 0px;
+			width: 550px;
+			text-align: left;
+			overflow: auto;
+			height: 560px;
+		}
+		.shiftSchedule .scheduleDays li{
+			display: inline-block;
+			font-size: 20px;
+			font-weight: 700;
+			width:25px;
+			height: 25px;
+			line-height: 20px;
+			margin-left: 45px;
+			margin-top: 25px;
+			text-align: center;
+			border-bottom:1px solid #ffffff;
+			color: #000000;
+		}
+		.shiftSchedule .scheduleDays .scheduleDay:hover{
+			border-bottom:1px solid #000000;
+		}
+		.DateTag{
+			background:#000000;
+			padding:5px 7px;
+			color: #ffffff;
+		}
+		.shiftSchedule .DayScheduleDiv{
+			width: 350px;
+			height: 500px;
+			border:1px solid #000000;
+			position: absolute;
+			top: 110px;
+			right: 0;
+			overflow-y: hidden;
+		}
+		/* myShiftSchedule */
+			.myShiftSchedule{
+				height:405px;
+				overflow-y: auto;
+				list-style: none;
+				padding-bottom: 10px;
+			}
+			.myShiftSchedule li{
+				width: 100%;
+				height: 60px;
+				border-bottom: 1px solid #000;
+				position: relative;
+			}
+			.myShiftSchedule .deleteDiv{
+				background: red;
+				width: 20px;
+				height: 50px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				text-align: center;
+				color: #fff;
+				font-size: 15px;
+				padding-top: 10px;
+			}
+			.myShiftSchedule .myShiftName{
+				float: left;
+				margin-left: 30px;
+				line-height: 40px;
+				font-size: 20px;
+			}
+			.myShiftSchedule .myShiftTime{
+				line-height: 60px;
+				font-size: 18px;
+				text-align: center;
+			}
+			.myShiftSchedule .myShiftDuring{
+				position: absolute;
+				right: 20px;
+				top: 10px;
+				color: #888888;
+			}
+			.myShiftSchedule .myShiftStaff{
+				float: right;
+				margin-top: 35px;
+				margin-right: 20px;
+				font-size: 15px;
+			}
+		/* add shift area */
+			.DayScheduleDiv .AddShiftDiv{
+				background:rgba(238,238,238,0.9);
+				position: absolute;
+				height: 130px;
+				width: 100%;
+				bottom: -90px;
+			}
+			#shiftName, #shiftStaff{
+				background:#eeeeee;
+				border-bottom: 1px solid #000;
+				font-size: 15px;
+				text-align: center;
+				width: 150px;
+			}
+			#shiftStart, #shiftEnd{
+				margin-top: 18px;
+				text-align: center;
+				width: 160px;
+				display: inline-block;
+				position: relative;
+			}
+			#shiftStart input, #shiftEnd input{
+				background: #eeeeee;
+				font-size: 15px;
+			}
+			hint{
+				font-size: 12px;
+				position: absolute;
+				bottom: -13px;
+				width: 50px;
+				left: 35px;
+				color: #888888;
+			}
+			.DayScheduleDiv .AddShiftDiv #btnAddSchedule{
+				display: inline-block;
+				font-size: 13px;
+				background: #000;
+				color: #fff;
+				width: 100%;
+				line-height: 40px;
+				height: 40px;
+			}
+			.DayScheduleDiv .AddShiftDiv #btnAddSchedule:hover{
+				cursor: pointer;
+				background: rgba(0,0,0,0.8) !important;
+			}
+/* slider setting page */
+	.backLink{
+		left: 0px;
+	}
+	.sliderMenu{
+		width: 100%;
+		height: 50px;
+		margin-left: 100px;
+		margin-top: 10px;
+	}
+	.sliderMenu a{
+		margin: 0px 20px;
+		color: #888;
+		padding: 0px 10px 7px 10px;
+		border-bottom: 2px solid #fff;
+	}
+	.sliderMenu a:hover{
+		color: #000 !important;
+		border-bottom: 2px solid #000 !important;
+	}
+	.selectFactory{
+		width: 100%;
+		height: auto;
+		margin-top: 70px;
+	}
+	.selectFactory #factoryUl{
+		list-style: none;
+		margin-top: 15px;
+	}
+	.selectFactory #factoryUl li{
+		width: 200px;
+		height: 200px;
+		border-radius: 3px;
+		line-height: 200px;
+		text-align: center;
+		color: #4DB6AC;
+		font-weight: 700;
+		border: 2px solid #4DB6AC;
+	}
+	.selectFactory #factoryUl li:hover{
+		cursor: pointer;
+		background: #4DB6AC;
+		color: #fff;
+	}
+	#btnChangeFactory{
+		float: right;
+		padding: 7px 10px;
+		border-radius: 2px;
+		background: #fff;
+		border: 1px solid #4DB6AC;
+		color: #4DB6AC;
+	}
+	#btnChangeFactory:hover{
+		background: #4DB6AC;
+		color: #fff;
+	}
+	.sliderSettingDiv .sliderVisial{
+		float: left;
+		width: 100%;
+		min-width: 800px;
+		height: 750px;
+		margin-top: 10px;
+	}
+	.sliderVisial #realMonitorView{
+		border: 2px solid #000;
+		margin: 20px auto 0px auto;
+		position: relative;
+	}
+	.sliderVisial #realMonitorView #header{
+		width: 100%;
+		height:7%;
+		min-height: 40px;
+		max-height: 50px;
+		background: rgba(0,0,0,0.7);
+	}
+	.sliderVisial #realMonitorView #header #logoImg{
+		width: 150px;
+		height: 40px;
+		background-image: url(../../images/syntec_white.png);
+		background-size: 100px auto;
+		background-repeat: no-repeat;
+		float: left;
+		margin: 8px 0px 0px 8px;
+	}
+	.sliderVisial #realMonitorView #header #currentTime{
+		float: right;
+		margin: 12px 12px 0px 0px;
+		color: #fff;	
+	}
+	.TopCustomerArea{
+		width:10px;
+		height:90%;
+		float: left;
+		display:inline-block;
+		font-size: 15px;
+		color: #000;
+		background: #4DB6AC;
+		margin-left:5px;
+		text-align: center;
+		border:1px solid #fff;
+		position: relative;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.TopCustomerArea:hover{
+		background: #8CDFD7 !important;
+		cursor: pointer !important;
+	}
+	.TopCustomerArea .cuzArea_title{
+		position: absolute;
+		left: 3px;
+		top: 0px;
+		font-size: 9px;
+	}
+	.TopCustomerArea .cuzArea_content{
+		position: absolute;
+		left: 10px;
+		bottom: 1px;
+		font-size: 15px;	
+	}
+	.sliderVisial #realMonitorView #body{
+		position: relative;
+		width: 100%;
+	}
+	.sliderVisial #realMonitorView #body #bodyGroupName{
+		width: 100%;
+		height: 40px;
+		float: left;
+	}
+	.sliderVisial #realMonitorView #body #bodyGroupItem{
+		width: 100%;
+		height: auto;
+		float: left;
+	}
+
+	.sliderVisial #realMonitorView #footer{
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height:7%;
+		min-height: 40px;
+		max-height: 50px;
+		line-height: 40px;
+		text-align: center;
+		background: #4DB6AC;
+	}
+	.sliderVisial #realMonitorView #footer:hover{
+		background: #8CDFD7;
+	}
+	.sliderVisial #realMonitorView #footer input{
+		width: 50%;
+		text-align: center;
+		padding:8px 15px 3px 15px;
+		border-bottom: 1px solid #000;
+	}
+
+	.SelectCustomerComponent{
+		width:400px;
+		height:100%;
+		margin-top: 70px;
+		position: fixed;
+		left: -100%;
+		top: 0;
+		background: rgba(77,182,172,1);
+		text-align: center;
+		overflow-y: auto;
+	}
+	#btnCloseSelectCustomer{
+		background: url('../../images/close.png');
+		width: 16px;
+		height: 16px;
+		display: inline-block;
+		background-repeat: no-repeat;
+		background-size: 16px auto;
+	}
+	.SelectCustomerComponent .SelectionOfComponent{
+		width: 87.5%;
+		min-height: 70px;
+		border-bottom: 1px solid rgba(0,0,0,0.2);
+		margin: auto;
+		text-align: left;
+	}
+	.SelectCustomerComponent .SelectionOfComponent .titleOfSelection{
+		font-size: 18px;
+		font-weight: 400;
+		margin-right: 20px;
+		line-height: 70px;
+	}
+	.SelectCustomerComponent .SelectionOfComponent .contentOfSection{
+
+	}
+	.SelectCustomerComponent .SelectionOfComponent #selectSection{
+		padding: 5px 7px;
+		border-radius: 3px;
+	}
+	.SelectCustomerComponent .SelectionOfComponent ul{
+		list-style: none;
+		display: inline-block;
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	.SelectCustomerComponent .SelectionOfComponent li{
+		display: inline-block;
+		border:1px solid rgba(0,0,0,0.3);
+		padding:7px;
+		margin-left: 7px;
+		margin-top: 7px;
+		font-size: 15px;
+		position: relative;
+	}
+	.SelectCustomerComponent .SelectionOfComponent li .showNameTiny{
+		position: absolute;
+		left: 0px;
+		top: -5px;
+		font-size: 10px;
+	}
+	.SelectCustomerComponent .SelectionOfComponent li:hover{
+		background: #fff !important;
+		cursor: pointer;
+	}
+	.SelectCustomerComponent .SelectionOfComponent input{
+		padding: 5px 10px;
+		text-align: center;
+		border-radius: 3px;
+	}
+	.SelectCustomerComponent #btnSaveCustomerArea{
+		padding: 7px 10px;
+		background: rgba(0,0,0,1);
+		color: #fff;
+		margin-bottom: 130px;
+	}
+	.SelectCustomerComponent #btnSaveCustomerArea:hover{
+		cursor: pointer;
+		background: rgba(0,0,0,0.7);
+	}
+
+	#settingJumpSecondDiv{
+		border-bottom: 2px solid #4DB6AC;
+		width: 100%;
+		text-align: center;
+		margin-top: 15px;
+		padding-bottom: 20px;
+	}
+	#settingJumpSecondDiv #setSecondCul{
+		width: 100px;
+		font-size: 15px;
+		padding: 7px 10px;
+		border-bottom: 1px solid #000;
+		text-align: center;
+	}
+/* logo setting page*/
+	.settingBigDiv .settingDiv{
+		width: 100%;
+		height: 500px;
+		margin: auto;
+		margin-top: 70px;
+	}
+
+	.settingBigDiv .settingDiv .logoFrame{
+		width: 450px;
+		height: 135px;
+		margin: auto;
+		text-align: center;
+		margin-bottom: 50px;
+		background: rgba(0,0,0,0.8);
+	}
+
+	.settingBigDiv .settingDiv .logoFrame #companySmallLogo{
+		max-width: 100%;
+		max-height: 100%;
+		max-width: 1024px;
+	}
+
+	.settingBigDiv .settingDiv .chooseFile {
+		position: relative;
+		background: #000000;
+		padding: 15px 17px;
+		border-radius: 2px;
+		color: #fff;
+
+	}
+	.settingBigDiv .settingDiv .chooseFile:hover{
+		background: #616161;
+	}
+/* ipcam register page */
+	.settingBigDiv #IpcamRegisterSettingDiv{
+		text-align: center;
+	}
+	
+	.settingBigDiv .settingDiv .groupSelect{
+		font-size: 20px;
+		font-family: monospace;
+		background: #616161;
+		color: #fff;
+	}
+
+	.settingBigDiv .settingDiv .ipcamlistUl{
+		margin-top: 5px;
+		margin-left: 150px;
+		text-align: center;
+		width: 780px;
+		border: 1px solid #8F5D00;
+		background: -webkit-radial-gradient(circle,#E8E8E8,#CFCFCF);
+		background: -o-radial-gradient(circle,#E8E8E8,#CFCFCF);
+		background: -moz-radial-gradient(circle,#E8E8E8,#CFCFCF);
+		background: radial-gradient(circle,#E8E8E8,#CFCFCF);
+	}
+
+	.settingBigDiv .settingDiv .ipcamName{
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: monospace;
+		width: 150px;
+		border-bottom: 1px solid #000000;
+	}
+	.settingBigDiv .settingDiv .ipcamRTSP{
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: monospace;
+		width: 400px;
+		border-bottom: 1px solid #000000;
+	}
+	.settingBigDiv .settingDiv .ipcamSubmit{
+		padding: 5px 5px 5px 5px;
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: Microsoft JhengHei;
+		border: 1px solid #9C9C9C;
+		background: #000000;
+		color: #fff;
+	}
+	.settingBigDiv .settingDiv .ipcamSubmit:hover{
+		border: 1px solid #000000;
+		background: #787878;
+	}
+
+	.settingBigDiv .settingDiv .ipcamName_S{
+		background: rgba(0,0,0,0);
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: monospace;
+		width: 150px;
+	}
+	.settingBigDiv .settingDiv .ipcamRTSP_S{
+		background: rgba(0,0,0,0);
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: monospace;
+		width: 400px;
+	}
+	.settingBigDiv .settingDiv .ipcamModify{
+		padding: 5px 5px 5px 5px;
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: Microsoft JhengHei;
+		border: 1px solid #000000;
+		background: #0000AD;
+		color: #fff;
+	}
+	.settingBigDiv .settingDiv .ipcamModify:hover{
+		padding: 5px 5px 5px 5px;
+		border: 1px solid #787878;
+		background: #7878FF;
+		color: #fff;
+	}
+	.settingBigDiv .settingDiv .ipcamDelete{
+		padding: 5px 5px 5px 5px;
+		margin-left: 20px;
+		margin-right: 20px;
+		font-size: 20px;
+		font-family: Microsoft JhengHei;
+		border: 1px solid #000000;
+		background: #00A300;
+		color: #fff;
+	}
+	.settingBigDiv .settingDiv .ipcamDelete:hover{
+		padding: 5px 5px 5px 5px;
+		border: 1px solid #787878;
+		background: #00F500;
+		color: #fff;
+	}
+
+	.settingBigDiv .settingDiv .ipcamName_E{
+		background: rgba(0,0,0,0);
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: monospace;
+		width: 150px;
+		color: #FF0000;
+		border-bottom: 1px solid #000000;
+	}
+	.settingBigDiv .settingDiv .ipcamRTSP_E{
+		background: rgba(0,0,0,0);
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: monospace;
+		width: 400px;
+		color: #FF0000;
+		border-bottom: 1px solid #000000;
+	}
+	.settingBigDiv .settingDiv .ipcamUpdate{
+		padding: 5px 5px 5px 5px;
+		margin-left: 20px;
+		font-size: 20px;
+		font-family: Microsoft JhengHei;
+		border: 1px solid #000000;
+		background: #FF0000;
+		color: #fff;
+	}
+	.settingBigDiv .settingDiv .ipcamUpdate:hover{
+		padding: 5px 5px 5px 5px;
+		border: 1px solid #FF0000;
+		background: #FFA600;
+	}

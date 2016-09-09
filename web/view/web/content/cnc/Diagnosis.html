@@ -1,0 +1,60 @@
+
+
+<div class="diagnosisDiv" ng-controller="cncDiagnosis">
+	
+	<input type="hidden" ng-init="initDiagnosis()">
+
+	<div class="choseDiagnosisUnitDiv">
+		<span style="font-size: 9px">顯示單位</span>
+		<span class="UnitChose" ng-repeat="(key, value) in diagUnits" title="{{value.name}}" ng-style="{'background':value.bgColor, 'color':value.fontColor}" ng-click="setDiagParam(key)">{{value.name}}</span>
+	</div>
+
+	<div class="showBitDiv" ng-show="fnIsShowPage(true)">
+		<div class="inputNo">
+			<input type="number" class="inputDiagNo" ng-model="nDiagNo" ng-change="FindSpecificNo()" placeholder="輸入診斷編號">
+		</div>
+		<h3 class="bitTitle">{{curtDiagUnit}}</h3>
+		
+		<table class="bitTable" border="1" ng-if="GetDiagnosisGroup() != 'ParamGroup'">
+			<tr ng-repeat="i in ShowDiagTens()">
+				<td ng-repeat="j in [-1,0,1,2,3,4,5,6,7,8,9]">
+					<div ng-style="StyleOfTitle(i,j)">{{ShowTitle(i,j)}}</div>
+					<div ng-style="SpecificNoStyle(i,j)">
+						<span ng-style="StyleOfIOCSAbit(i,j)">{{MappingDataIntoTable(i,j)}}</span>
+						<!-- <input type="number" ng-show="edit==true" ng-blur="EditDiagData(i,j);" ng-model="cloneData['value']"> -->
+					</div>
+				</td>
+			</tr>
+		</table>
+
+		<div class="ParamDiv" ng-if="GetDiagnosisGroup() == 'ParamGroup'">
+			<table class="ParamTable" border="1">
+				<tr ng-style="{'background':'#FF6800', 'width':'100%', 'color':'#000'}">
+					<td width="10%">編號</td>
+					<td>說明</td>
+					<td width="10%">值</td>
+				</tr>
+				<tr ng-repeat="param in GetParamSchema()" ng-style="StyleOfSelectedParam(param.index)">
+					<td>{{param['index']}}</td>
+					<td>{{param['context']}}</td>
+					<td>{{MappingDataIntoParam(param.index)}}</td>
+				</tr>
+			</table>
+		</div>
+
+		<span class="updatingTime">最後更新時間：{{diagnosisCmd['UpdateTime']}}</span>
+		
+		<div class="arrowDiv">
+			<a href="javascript:;" title="上一頁" ng-click="PrePage()" ng-show="isExistPrePage()">
+				<span class="arrowIcon" id="preIcon"></span>
+			</a>
+			
+			<a href="javascript:;" title="下一頁" ng-click="NextPage()" ng-show="isExistNextPage()">
+				<span class="arrowIcon"></span>
+			</a>
+		</div>
+	</div>
+
+	<div class="ErrorMsg" ng-show="fnIsShowPage(false)" ng-style="{'color':diagUnits[curtDiagUnit]['bgColor']}" ng-click="fnDownloadAgentFile()" >Agent_{{$root.szSupportVersion['API']}}_{{$root.szSupportVersion['AGENT']}}才可以支援</div>
+
+</div>

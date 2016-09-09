@@ -1,0 +1,31 @@
+<!-- load specific css/js only for this page -->
+<link rel="stylesheet" type="text/css" href="css/web/dashboard.css">
+
+<div class="limitWebView settingBigDiv" ng-controller="SyntecDashboard">
+
+	<input type="hidden" ng-init="Initialization()">
+
+	<hint>"滑鼠移至工廠上方"可點擊播放</hint>
+
+	<div class="selectFactory">
+		<h2>選擇工廠</h2>
+		<ul id="factoryUl">
+			<li ng-repeat="f in factories">
+				<div class="factoryView">
+				</div>
+				<div class="blackPlayShadow" ng-click="fnGoFactoryLink(f,'display')" title="播放工廠">
+					<div style="margin-top:80px;">
+						<span id="play_icon"></span>
+						<p>播放</p>
+					</div>
+					<h2>{{f.factory_name}}</h2>
+				</div>
+				<div style="margin-top:30px;">
+					<p>{{f.factory_name}}</p>
+					<a href="javascript:;" ng-click="fnGoFactoryLink(f,'setting')" title="設定工廠">設定</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+</div>

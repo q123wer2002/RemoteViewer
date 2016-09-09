@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<head>
+	<!-- meta html -->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="SHORTCUT ICON" href="images/IconBlue.ico">
+
+	<title>RemoteViewerBoard</title>
+
+	<!-- use require js to load all js and kick start angualr-->
+	<script src="../shared/script/lib/xml2json.js"></script>
+	<script src="../shared/script/lib/require.js" data-main="script/main.js" ></script>
+
+	<!-- import css -->
+	<link rel="stylesheet" type="text/css" href="css/web/layout.css">
+	
+	<link rel="stylesheet" type="text/css" href="css/font.css">
+</head>
+
+<body ng-controller="MainController">
+	<div class="top" ng-include="fnShowTOPHtml()"></div>
+	<div class="content">
+		<div ng-view></div>
+	</div>
+	<div class="footer"></div>
+</body>
+
+</html>
