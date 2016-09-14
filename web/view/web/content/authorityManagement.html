@@ -70,6 +70,7 @@
 
 	<!-- authority related -->
 	<div ng-show="objAuthorityMenu['TEMPLATE']['isShow'] == true">
+		<input type="hidden" ng-init="fnInitAuthority()" >
 		<table class="authorityListTable">
 			<tr style="background: #205081;color:#EFF7FF;height:30px;table-layout: fixed;text-align:center;">
 				<td style="width:25%;">樣版名稱</td>
@@ -80,7 +81,92 @@
 					</div>
 				</td>
 			</tr>
-			<tr>
+			<tr ng-repeat="auty in myAuthorityList">
+			<!-- READ AUTHORITY -->
+				<td style="text-align:center;" ng-if="auty.isEdit == false">
+					<h3>{{auty.TEMPLATE_NAME}}<h3>
+					<a href="javascript:;" id="btnEditAuthority" class="authority_button" ng-click="fnEditAuthority(auty)">編輯</a>
+					<a href="javascript:;" id="btnDelAuthority" class="authority_button" ng-click="fnDelAuthority(auty)">刪除</a>
+				</td>
+				<td ng-if="auty.isEdit == false">
+					<div class="deviceAuthorityDiv" ng-repeat="(szKeyMode,objValueMode) in auty.AUTHORITY">
+						<!-- WEB, DISPLATBOARD, MOBILE.. -->
+						<h3>{{fnTranslateItem(szKeyMode)}}</h3>
+						<!-- PAGE:CNC, SHIFTSETTING, LOGOSETTING.. -->
+						<div ng-style="auty.style">
+							<div class="authorityTypeDiv">
+								<span class="AuthorityHint">頁面</span>
+								<ul ng-repeat="szTitle in objValueMode['PAGE']">
+									<li>{{fnTranslateItem(szTitle)}}</li>
+								</ul>
+							</div>
+							<!-- CNCFEATURE  -->
+							<div class="authorityTypeDiv" ng-if="objValueMode['CNCFEATURE'] != null">
+								<span class="AuthorityHint">控制器功能</span>
+								<ul ng-repeat="(szKeyFeature, objValueFeature) in objValueMode['CNCFEATURE']">
+									<!-- FEATURE_TITLE:OOE,ALARM,RECORD.. -->
+									<li>{{fnTranslateItem(szKeyFeature)}}</li>
+									<!-- FEATURE:DAYOOE, CURTALM.. -->
+									<li class="featureItems" ng-repeat="szTitle in objValueFeature">{{fnTranslateItem(szTitle)}}
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<a href="javascript:;" id="btnExpendDetail" ng-click="fnChangeDetailStatus(auty)">{{auty.szDetailHint}}</a>
+				</td>
+			<!-- EDIT AUTHORITY -->
+				<td style="text-align:center;" ng-if="auty.isEdit == true">
+					<input type="text" class="inputCol" ng-model="auty.TEMPLATE_NAME"  placeholder="請輸入樣版名稱" />
+				</td>
+				<td ng-if="auty.isEdit == true">
+					<div class="deviceAuthorityDiv" ng-repeat="(szKeyMode,objValueMode) in objAuthorityList">
+						<!-- WEB, DISPLATBOARD, MOBILE.. -->
+						<h3>{{fnTranslateItem(szKeyMode)}}</h3>
+						<!-- PAGE:CNC, SHIFTSETTING, LOGOSETTING.. -->
+						<div class="authorityTypeDiv">
+							<span class="AuthorityHint">頁面</span>
+							<ul ng-repeat="(szTitle,objValue) in objValueMode['PAGE']">
+								<li ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'PAGE',DATA:szTitle},auty)">
+									<label>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'PAGE',DATA:szTitle},auty)"></span></span>
+										{{fnTranslateItem(szTitle)}}
+									</label>
+								</li>
+							</ul>
+						</div>
+						<!-- CNCFEATURE  -->
+						<div class="authorityTypeDiv" ng-if="fnIsShowCncFeatureList({MODE:szKeyMode},auty)">
+							<span class="AuthorityHint">控制器功能</span>
+							<ul ng-repeat="(szKeyFeature, objValueFeature) in objValueMode['CNCFEATURE']">
+								<!-- FEATURE_TITLE:OOE,ALARM,RECORD.. -->
+								<li ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyFeature,PARENT:null},auty)">
+									<label>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyFeature,PARENT:null},auty)"></span></span>
+										{{fnTranslateItem(szKeyFeature)}}
+									</label>
+								</li>
+								<!-- FEATURE:DAYOOE, CURTALM.. -->
+								<li class="featureItems" ng-repeat="(szTitle,objValue) in objValueFeature">
+									<label ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szTitle,PARENT:szKeyFeature},auty)">
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szTitle,PARENT:szKeyFeature},auty)"></span></span>
+										{{fnTranslateItem(szTitle)}}
+									</label>
+									<label ng-repeat="(szKeyValue,objSubvalue) in objValue" ng-if="Object.keys(objValue).length != 0" ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyValue,PARENT:szTitle,ROOT:szKeyFeature},auty)">
+										<br>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyValue,PARENT:szTitle,ROOT:szKeyFeature},auty)"></span></span>
+										{{fnTranslateItem(szKeyValue)}}
+									</label>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!-- save -->
+					<span id="logOfSaving">{{szLogOfAuthority}}</span>
+					<a href="javascript:;" id="btnSaveAuthority" ng-click="fnSaveAuthority(auty)">儲存權限樣板</a>
+				</td>
+			</tr>
+			<tr ng-if="isAddNewAuthority == true">
 				<td style="text-align:center;">
 					<input type="text" class="inputCol" ng-model="objNewAuthorityTemp['TEMPLATE_NAME']"  placeholder="請輸入樣版名稱" />
 				</td>
@@ -92,34 +178,34 @@
 						<div class="authorityTypeDiv">
 							<span class="AuthorityHint">頁面</span>
 							<ul ng-repeat="(szTitle,objValue) in objValueMode['PAGE']">
-								<li ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'PAGE',DATA:szTitle})">
+								<li ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'PAGE',DATA:szTitle},objNewAuthorityTemp)">
 									<label>
-										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'PAGE',DATA:szTitle})"></span></span>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'PAGE',DATA:szTitle},objNewAuthorityTemp)"></span></span>
 										{{fnTranslateItem(szTitle)}}
 									</label>
 								</li>
 							</ul>
 						</div>
 						<!-- CNCFEATURE  -->
-						<div class="authorityTypeDiv" ng-if="objValueMode['CNCFEATURE'] != null">
+						<div class="authorityTypeDiv" ng-if="fnIsShowCncFeatureList({MODE:szKeyMode},objNewAuthorityTemp)">
 							<span class="AuthorityHint">控制器功能</span>
 							<ul ng-repeat="(szKeyFeature, objValueFeature) in objValueMode['CNCFEATURE']">
 								<!-- FEATURE_TITLE:OOE,ALARM,RECORD.. -->
-								<li ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyFeature,PARENT:null})">
+								<li ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyFeature,PARENT:null},objNewAuthorityTemp)">
 									<label>
-										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyFeature,PARENT:null})"></span></span>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyFeature,PARENT:null},objNewAuthorityTemp)"></span></span>
 										{{fnTranslateItem(szKeyFeature)}}
 									</label>
 								</li>
 								<!-- FEATURE:DAYOOE, CURTALM.. -->
 								<li class="featureItems" ng-repeat="(szTitle,objValue) in objValueFeature">
-									<label ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szTitle,PARENT:szKeyFeature})">
-										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szTitle,PARENT:szKeyFeature})"></span></span>
+									<label ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szTitle,PARENT:szKeyFeature},objNewAuthorityTemp)">
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szTitle,PARENT:szKeyFeature},objNewAuthorityTemp)"></span></span>
 										{{fnTranslateItem(szTitle)}}
 									</label>
-									<label ng-repeat="(szKeyValue,objSubvalue) in objValue" ng-if="Object.keys(objValue).length != 0" ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyValue,PARENT:szTitle})">
+									<label ng-repeat="(szKeyValue,objSubvalue) in objValue" ng-if="Object.keys(objValue).length != 0" ng-click="fnCheckAuthorityOrCancel({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyValue,PARENT:szTitle,ROOT:szKeyFeature},objNewAuthorityTemp)">
 										<br>
-										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyValue,PARENT:szTitle})"></span></span>
+										<span class="authCheckbox"><span class="checkItem" ng-style="fnCheckAuthorityStyle({MODE:szKeyMode,TYPE:'CNCFEATURE',DATA:szKeyValue,PARENT:szTitle,ROOT:szKeyFeature},objNewAuthorityTemp)"></span></span>
 										{{fnTranslateItem(szKeyValue)}}
 									</label>
 								</li>
@@ -128,12 +214,12 @@
 					</div>
 					<!-- save -->
 					<span id="logOfSaving">{{szLogOfAuthority}}</span>
-					<a href="javascript:;" id="btnSaveAuthority" ng-click="fnSaveAuthority()">儲存權限樣板</a>
+					<a href="javascript:;" id="btnSaveAuthority" ng-click="fnSaveAuthority(objNewAuthorityTemp)">儲存權限樣板</a>
 				</td>
 			</tr>
-			<tr>
+			<tr ng-if="isAddNewAuthority == false">
 				<td colspan="2" style="text-align:center;padding:5px 0px;">
-					<a href="javascript:;">
+					<a href="javascript:;" ng-click="isAddNewAuthority=true;">
 						<span id="addIcon"></span>
 						<span style="margin-top:-15px;">新增權限</span>
 					</a>

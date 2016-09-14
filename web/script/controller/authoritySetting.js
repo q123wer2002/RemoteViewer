@@ -57,86 +57,135 @@ define( [
 					$scope.aryUserList.splice(nIndex,1);
 				}
 		//authority
-			$scope.style = {'display':'none'};
-			$scope.fnViewDetailAuthority = function()
+			$scope.isAddNewAuthority = false;
+			$scope.myAuthorityList = [];			
+			$scope.fnInitAuthority = function()
 			{
-				$scope.style = {'display':'bolck'};
-				
-			}
-			$scope.objAuthorityList = {
-				WEB : authorityMgr.fnGetAuthorityList("WEB"),
-				DISPLAYBOARD : authorityMgr.fnGetAuthorityList("DISPLAYBOARD"),
-				MOBILE : authorityMgr.fnGetAuthorityList("MOBILE"),
-			};
+				//init authority list
+				$scope.objAuthorityList = {
+					WEB : authorityMgr.fnGetAuthorityList("WEB"),
+					DISPLAYBOARD : authorityMgr.fnGetAuthorityList("DISPLAYBOARD"),
+					MOBILE : authorityMgr.fnGetAuthorityList("MOBILE"),
+				};
 
-			$scope.objNewAuthorityTemp = authorityMgr.fnNewAuthority();
+				//init new authority
+				$scope.objNewAuthorityTemp = authorityMgr.fnNewAuthority();
+
+				//init my authority list
+				$scope.myAuthorityList = authorityMgr.fnInitAuthority("EDIT");
+				for( var i=0; i<$scope.myAuthorityList.length; i++ ){
+					$scope.myAuthorityList[i]['isEdit'] = false;
+					$scope.myAuthorityList[i].szDetailHint = "展開細項";
+					$scope.myAuthorityList[i]['style'] = {'height':'0px','overflow':'hidden'};
+				}
+			}
 			$scope.fnTranslateItem = function(szKey)
 			{
 				//use feature translate function
 				return featureMgr.fnTranslate(szKey);
 			}
-			$scope.fnCheckAuthorityOrCancel = function( objAuthority )
+			$scope.fnCheckAuthorityOrCancel = function( objAuthority, objAuthorityBox )
 			{
-				if( fnIsCheckAuthority(objAuthority) == false ){
+				if( fnIsCheckAuthority(objAuthority,objAuthorityBox) == false ){
 					//add this authority
-					fnAddAuthority(objAuthority);
+					fnAddAuthority(objAuthority,objAuthorityBox);
 					return;
 				}
 
+				var szMode = objAuthority.MODE;
+				var szType = objAuthority.TYPE;
+				var szData = objAuthority.DATA;
 				//delete this authority
 				//page delete
 				if( szType == "PAGE" ){
-					var nIndexOfPage = $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType].indexOf(szKey);
-					$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType].splice(nIndexOfPage,1);
+					var nIndexOfPage = objAuthorityBox['AUTHORITY'][szMode][szType].indexOf(szData);
+					objAuthorityBox['AUTHORITY'][szMode][szType].splice(nIndexOfPage,1);
 					return;
 				}
+
+				var szParent = objAuthority.PARENT;
 
 				//feature
-				if( typeof szValue == "undefined" ){
+				if( szParent == null ){
 					//it's feature title
-					delete $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey];
+					delete objAuthorityBox['AUTHORITY'][szMode][szType][szData];
 					return;
 				}
 
-				var nIndexOfFeature = $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey].indexOf(szValue);
-				$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey].splice(nIndexOfFeature,1);
+				var szMyRoot = (typeof $scope.objAuthorityList[szMode][szType][szParent] != "undefined") ? objAuthority.PARENT : objAuthority.ROOT;;
+				
+				var nIndexOfFeature = objAuthorityBox['AUTHORITY'][szMode][szType][szMyRoot].indexOf(szData);
+				objAuthorityBox['AUTHORITY'][szMode][szType][szMyRoot].splice(nIndexOfFeature,1);
 
+				if( szParent == szMyRoot ){
+					for( var subKey in $scope.objAuthorityList[szMode][szType][szParent][szData] ){
+						var nIndexOfFeature = objAuthorityBox['AUTHORITY'][szMode][szType][szParent].indexOf(subKey);
+						if( nIndexOfFeature == -1 ){
+							continue;
+						}
+						objAuthorityBox['AUTHORITY'][szMode][szType][szParent].splice(nIndexOfFeature,1);
+					}
+				}
+				
 				//last feature is been delete
-				if( $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey].length == 0 ){
-					delete $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey];
+				if( objAuthorityBox['AUTHORITY'][szMode][szType][szMyRoot].length == 0 ){
+					delete objAuthorityBox['AUTHORITY'][szMode][szType][szMyRoot];
 				}
 			}
-			fnAddAuthority = function(objAuthority)
+			fnAddAuthority = function( objAuthority, objAuthorityBox )
 			{
 				var szType = objAuthority.TYPE;
 				var szMode = objAuthority.MODE;
 				var szData = objAuthority.DATA;
 				//page add
 				if( szType == "PAGE" ){
-					$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType].push(szData);
+					objAuthorityBox['AUTHORITY'][szMode][szType].push(szData);
 					return;
 				}
 
 				var szParent = objAuthority.PARENT;
 
-				//feature add
-				if( typeof $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey] == "undefined" ){
-					//create feature key object
-					$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey] = [];
-				}
-
+				//level one
 				if( szParent == null ){
+					if( typeof objAuthorityBox['AUTHORITY'][szMode][szType][szData] == "undefined" ){
+						//new array
+						objAuthorityBox['AUTHORITY'][szMode][szType][szData] = [];
+					}
+
 					//add all feature
-					for( var itemKey in $scope.objAuthorityList[szMode][szType][szKey] ){
-						$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey].push(itemKey);						
+					for( var itemKey in $scope.objAuthorityList[szMode][szType][szData] ){
+						//level three
+						if( Object.keys($scope.objAuthorityList[szMode][szType][szData][itemKey]).length != 0 ){
+							for( var subItemKey in $scope.objAuthorityList[szMode][szType][szData][itemKey] ){
+								objAuthorityBox['AUTHORITY'][szMode][szType][szData].push(subItemKey);
+							}	
+						}
+
+						objAuthorityBox['AUTHORITY'][szMode][szType][szData].push(itemKey);
 					}
 					return;
 				}
 
-				//add only one feature
-				$scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szKey].push(szValue);
+				var szMyRoot = (typeof $scope.objAuthorityList[szMode][szType][szParent] != "undefined") ? objAuthority.PARENT : objAuthority.ROOT;;
+
+				if( typeof objAuthorityBox['AUTHORITY'][szMode][szType][szMyRoot] == "undefined" ){
+					objAuthorityBox['AUTHORITY'][szMode][szType][szMyRoot] = [];
+				}
+
+				objAuthorityBox['AUTHORITY'][szMode][szType][szMyRoot].push(szData);
+
+				//add parent
+				if( szMyRoot != szParent ){
+					var nIndexOfFeature = objAuthorityBox['AUTHORITY'][szMode][szType][szMyRoot].indexOf(szParent);
+					if( nIndexOfFeature != -1 ){
+						return;
+					}
+
+					var tempObj = {MODE:szMode,TYPE:szType,DATA:szParent,PARENT:szMyRoot};
+					fnAddAuthority(tempObj,objAuthorityBox);
+				}			
 			}
-			fnIsCheckAuthority = function( objAuthority )
+			fnIsCheckAuthority = function( objAuthority, objAuthorityBox )
 			{
 				var szMode = objAuthority.MODE;
 				var szType = objAuthority.TYPE;
@@ -144,12 +193,12 @@ define( [
 				//page checkbox style
 				if( szType == "PAGE" ){
 					var szPageKey = objAuthority.DATA;
-					if( $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType].indexOf(szPageKey) != -1 ){
+					if( objAuthorityBox['AUTHORITY'][szMode][szType].indexOf(szPageKey) != -1 ){
 						return true;
 					}
 				}
 
-				var szCurrentFeatureData = JSON.stringify($scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType]);
+				var szCurrentFeatureData = JSON.stringify(objAuthorityBox['AUTHORITY'][szMode][szType]);
 				var szData = objAuthority.DATA;
 
 				if( szCurrentFeatureData.indexOf(szData) != -1 ){
@@ -160,7 +209,6 @@ define( [
 			}
 			fnGetDefaultChildNum = function( objAuthority )
 			{
-				var nChild = 0;
 				var szType = objAuthority.TYPE;
 				if( szType == "PAGE" ){
 					return -1;
@@ -172,6 +220,7 @@ define( [
 
 				//level one
 				if( szParent == null ){
+					var nChild = 0;
 					for( var key in $scope.objAuthorityList[szMode][szType][szData] ){
 						nChild += Object.keys($scope.objAuthorityList[szMode][szType][szData][key]).length;
 						nChild++;
@@ -181,17 +230,17 @@ define( [
 				}
 
 				//level two
-				if( typeof $scope.objAuthorityList[szMode][szType][szParent] != "undefined" ){
+				/*if( typeof $scope.objAuthorityList[szMode][szType][szParent] != "undefined" ){
 					for( var key in $scope.objAuthorityList[szMode][szType][szParent][szData] ){
 						nChild += Object.keys($scope.objAuthorityList[szMode][szParent][szData]).length;
 					}
 
 					return nChild;
-				}
+				}*/
 
-				return nChild;
+				return 0;
 			}
-			fnGetCurrentChildNum = function( objAuthority )
+			fnGetCurrentChildNum = function( objAuthority, objAuthorityBox )
 			{
 				var szType = objAuthority.TYPE;
 				if( szType == "PAGE" ){
@@ -204,25 +253,25 @@ define( [
 
 				//level one
 				if( szParent == null ){
-					return $scope.objNewAuthorityTemp[szMode][szType][szData].length;
+					return objAuthorityBox['AUTHORITY'][szMode][szType][szData].length;
 				}
 
 				//level two
-				if( typeof $scope.objAuthorityList[szMode][szType][szParent] != "undefined" ){
+				/*if( typeof $scope.objAuthorityList[szMode][szType][szParent] != "undefined" ){
 					var nChild = 0;
 					for( var key in $scope.objAuthorityList[szMode][szType][szParent][szData] ){
-						if( $scope.objNewAuthorityTemp[szMode][szType][szData].indexOf(key) != -1 ){
+						if( $scope.objNewAuthorityTemp['AUTHORITY'][szMode][szType][szData].indexOf(key) != -1 ){
 							nChild++;
 						}
 					}
 					return nChild;
-				}
+				}*/
 
 				return 0;
 			}
-			$scope.fnCheckAuthorityStyle = function( objAuthority )
+			$scope.fnCheckAuthorityStyle = function( objAuthority, objAuthorityBox )
 			{
-				if( fnIsCheckAuthority(objAuthority) == false ){
+				if( fnIsCheckAuthority(objAuthority,objAuthorityBox) == false ){
 					return {};
 				}
 
@@ -237,7 +286,7 @@ define( [
 
 				//level one
 				var nDefaultChild = fnGetDefaultChildNum(objAuthority);
-				var nCurrentChild = fnGetCurrentChildNum(objAuthority);
+				var nCurrentChild = fnGetCurrentChildNum(objAuthority,objAuthorityBox);
 
 				if( nCurrentChild < nDefaultChild ){
 					//half
@@ -246,16 +295,83 @@ define( [
 
 				return {"height":"9px","top":"1px","background":"#000"};
 			}
-
-			//save
-			$scope.fnSaveAuthority = function()
+			$scope.fnIsShowCncFeatureList = function( objAuthority, objAuthorityBox )
 			{
-				if( $scope.objNewAuthorityTemp['TEMPLATE_NAME'] == "" ){
-					$scope.szLogOfAuthority = "請輸入樣版名稱";
+				var szMode = objAuthority.MODE;
+				
+				if( $scope.objAuthorityList[szMode]['CNCFEATURE'] == null ){
+					return false;
+				}
+				
+				if( objAuthorityBox['AUTHORITY'][szMode]['PAGE'].indexOf('CNC') != -1 ){
+					return true;
 				}
 
-				//TODO:check authority template is not empty
-				console.log( $scope.objNewAuthorityTemp );
+				return false;
+			}
+			$scope.fnChangeDetailStatus = function( authority )
+			{
+				if( authority.szDetailHint == "展開細項" ){
+					authority.szDetailHint = "縮小";
+					authority.style = {'min-height':'200px', 'max-height':''};
+					return;
+				}
+
+				authority.szDetailHint = "展開細項";
+				authority.style = {'height':'0px','overflow':'hidden'};
+			}
+
+			//edit
+			$scope.fnEditAuthority = function( objAuthorityBox )
+			{
+				objAuthorityBox.isEdit = true;
+			}
+			//delete
+			$scope.fnDelAuthority = function( objAuthorityBox )
+			{
+				authorityMgr.fnDeleteAuthority(objAuthorityBox);
+			}
+
+			//save
+			$scope.fnSaveAuthority = function( objAuthorityBox )
+			{
+				if( objAuthorityBox['TEMPLATE_NAME'] == "" ){
+					$scope.szLogOfAuthority = "請輸入樣版名稱";
+					return;
+				}
+
+				for( var i=0; i<$scope.myAuthorityList.length; i++ ){
+					if( ($scope.myAuthorityList[i]['TEMPLATE_NAME'] == objAuthorityBox['TEMPLATE_NAME']) && ($scope.myAuthorityList[i]['AUTHORITY_TEMPLATE_ID'] != objAuthorityBox['AUTHORITY_TEMPLATE_ID']) ){
+						$scope.szLogOfAuthority = "樣版名稱不能重複";
+						return;		
+					}
+				}
+
+				var isEmptyPage = true;
+				for( var szMode in objAuthorityBox['AUTHORITY'] ){
+					if( objAuthorityBox['AUTHORITY'][szMode]['PAGE'].length != 0 ){
+						isEmptyPage = false;
+						break;
+					}
+				}
+
+				if( isEmptyPage == true ){
+					$scope.szLogOfAuthority = "請設定頁面權限";
+					return;
+				}
+
+				//save
+				$scope.szLogOfAuthority = "";
+				authorityMgr.fnSaveAuthority( objAuthorityBox );
+
+				//flag
+				$scope.isAddNewAuthority = false;
+
+				if( typeof objAuthorityBox['isEdit'] == "undefined" ){
+					return;
+				}
+
+				objAuthorityBox['isEdit'] = false;
 			}
 	});
 } );

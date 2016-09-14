@@ -122,6 +122,7 @@
 		width: 31%;
 		margin: 15px 0px 30px 10px;
 		float:left;
+		padding-bottom: 60px;
 	}
 	.authorityListTable .deviceAuthorityDiv h3{
 		border-bottom: 1px solid #888888;
@@ -192,5 +193,41 @@
 		background:url("../../images/red_add_icon.png");
 		background-size: 30px auto;
 	}
-	.authorityListTable #logOfSaving{}
-	.authorityListTable #btnSaveAuthority{}
+	.authorityListTable #logOfSaving{
+		position: absolute;
+		bottom: 55px;
+		right: 16px;
+		color: red;
+	}
+	.authorityListTable #btnSaveAuthority{
+		position: absolute;
+		bottom: 16px;
+		right: 16px;
+		padding: 7px 10px;
+		background:#205081;
+		color: #fff;
+	}
+	#btnExpendDetail{
+		position: absolute;
+		bottom: 16px;
+		right: 16px;
+		padding: 7px 10px;
+		color:#205081;
+	}
+	#btnExpendDetail:hover{
+		text-decoration: underline;
+	}
+	.authority_button{
+		display: inline-block;
+		padding: 5px 7px;
+		font-size: 15px;
+		margin-top: 10px;
+		color: #fff;
+		border-radius: 3px;
+	}
+	#btnEditAuthority{
+		background: #22B14C;
+	}
+	#btnDelAuthority{
+		background: #F76F75;
+	}

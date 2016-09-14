@@ -128,7 +128,7 @@ define([
 				DIAGNOSIS_PARAM : '參數值',
 			//FILE
 				FILE : "檔案上下傳類",
-				FILE_NCFILE : '加工檔',
+				FILE_NCFILE : '觀看加工檔',
 				FILE_NCFILE_UPLOAD : "上傳加工檔",
 				FILE_NCFILE_DOWNLOAD : "下載加工檔",
 				FILE_LADDER : 'Ladder檔',

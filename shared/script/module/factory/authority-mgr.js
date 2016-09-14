@@ -4,18 +4,18 @@ define([
 	return function authorityMgr(featureMgr,frontendAdaptor){
 		var authorityMgr = [];
 
-		var aryAuthorityList = [
+		var m_aryAuthorityList = [
 			{AUTHORITY_TEMPLATE_ID:0, TEMPLATE_NAME:"預設權限", AUTHORITY:{
-				DISPLAYBOARD:{
-					PAGE:["DISPLAY","SLIDERSETTING","LAYOUTSETTING","LOGOSETTING"],
-				},
 				WEB:{
 					PAGE:["CNC","SHIFTSETTING","LAYOUTSETTING","LOGOSETTING","IPCAMREGISTER","IPCAMSTEAM"],
 					CNCFEATURE:{
-						OOE:["DAY","MONTH","YEAR","AVG"],
-						RECORD:["CURRENTRECORD","HISTORYRECORD"],
-						ALARM:["CURRENTALM","HISTORYALM","ANALYALARM"],
+						OOE:["OOE_DAY","OOE_MONTH","OOE_YEAR","OOE_AVG"],
+						RECORD:["RECORD_CURRENT","RECORD_HISTORY"],
+						ALARM:["ALM_CURRENT","ALM_HISTORY","ALM_ANALY"],
 					},
+				},
+				DISPLAYBOARD:{
+					PAGE:["DISPLAY","SLIDERSETTING","LAYOUTSETTING","LOGOSETTING"],
 				},
 				MOBILE:{
 					PAGE:[],
@@ -27,29 +27,26 @@ define([
 				},
 			}},
 			{AUTHORITY_TEMPLATE_ID:1, TEMPLATE_NAME:"基層員工", AUTHORITY:{
-				DISPLAYBOARD:{
-					PAGE:["DISPLAY","SLIDERSETTING"],
-				},
 				WEB:{
 					PAGE:["CNC","IPCAMSTEAM","LOGOSETTING"],
 					CNCFEATURE:{
-						OOE:["DAY"],
-						ALARM:["CURRENTALM"],
+						OOE:["OOE_DAY"],
+						ALARM:["ALM_CURRENT"],
 					},
+				},
+				DISPLAYBOARD:{
+					PAGE:["DISPLAY","SLIDERSETTING"],
 				},
 			}},
 		];
 
-		var m_objMyAuthority = {
-
-		};
+		var m_objMyAuthority = {};
 
 		authorityMgr.fnInitAuthority = function( szMode )
 		{
 			//mode : "EDIT", "USE"
 			if( szMode == "EDIT" ){
-				m_fnReadAllAuthority();
-				return;
+				return m_fnReadAllAuthority();
 			}
 
 			if( szMode == "USE" ){
@@ -94,13 +91,46 @@ define([
 			}
 
 			//Read authority template
-			m_fnReadAllAuthority = function(){}
+			m_fnReadAllAuthority = function()
+			{
+				//TODO: init db authority
+				return m_aryAuthorityList;
+			}
 
 			//Save authoority template
-			authorityMgr.fnSaveAuthority = function(){}
+			authorityMgr.fnSaveAuthority = function( objAuthorityBox )
+			{
+				//TODO:save into db
+				var isFindAuthority = false;
+				for( var i=0; i<m_aryAuthorityList.length; i++ ){
+					if( m_aryAuthorityList[i]['AUTHORITY_TEMPLATE_ID'] == objAuthorityBox['AUTHORITY_TEMPLATE_ID'] ){
+						m_aryAuthorityList[i]['TEMPLATE_NAME'] = objAuthorityBox['TEMPLATE_NAME'];
+						m_aryAuthorityList[i]['AUTHORITY'] = objAuthorityBox['AUTHORITY'];
+						isFindAuthority = true;
+						break;
+					}
+				}
+
+				if( isFindAuthority == true ){
+					return;
+				}
+
+				m_aryAuthorityList.push(objAuthorityBox);
+			}
 
 			//Delete authority template
-			authorityMgr.fnDeleteAuthority = function(){}
+			authorityMgr.fnDeleteAuthority = function( objAuthorityBox )
+			{
+				var isFindAuthority = false;
+				for( var i=0; i<m_aryAuthorityList.length; i++ ){
+					if( m_aryAuthorityList[i]['AUTHORITY_TEMPLATE_ID'] == objAuthorityBox['AUTHORITY_TEMPLATE_ID'] ){
+						m_aryAuthorityList[i]['TEMPLATE_NAME'] = objAuthorityBox['TEMPLATE_NAME'];
+						m_aryAuthorityList[i]['AUTHORITY'] = objAuthorityBox['AUTHORITY'];
+						isFindAuthority = true;
+						break;
+					}
+				}
+			}
 
 			//Get all authority feature
 			authorityMgr.fnGetAuthorityList = function( szViewMode )
